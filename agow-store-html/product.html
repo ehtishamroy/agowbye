@@ -1,0 +1,1085 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <title>The AGOW Stroller | AGOW</title>
+  <meta name="description" content="One-hand fold, all-season wheels, reversible seat, birth to 4 years. Free shipping across Canada, 100-night trial, 2-year warranty.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFFFFF">
+  <script>document.documentElement.classList.add('js')</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+/** AGOW theme tokens — mirror these in Shopify settings_schema.json later */
+tailwind.config = {
+  content: ['./src/**/*.html', './src/**/*.js'],
+  theme: {
+    extend: {
+      colors: {
+        ink: '#1D2320',      // text, buttons, logo (deep green-black)
+        paper: '#FFFFFF',    // page background
+        stone: '#EEECE7',    // soft greige panels (redsbaby-style cards)
+        mist: '#F6F5F2',     // lighter panel
+        line: '#DEDBD3',     // hairlines, borders
+        muted: '#6A706C',    // secondary text
+        moss: '#46604F',     // trust / savings accent
+        mossl: '#E4EBE5',    // moss tint
+      },
+      fontFamily: {
+        sans: ['"Instrument Sans"', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+      },
+      fontSize: {
+        'display': ['clamp(2.5rem, 7vw, 5.25rem)', { lineHeight: '0.98', letterSpacing: '-0.035em' }],
+        'h1': ['clamp(2rem, 4.6vw, 3.5rem)', { lineHeight: '1.02', letterSpacing: '-0.03em' }],
+        'h2': ['clamp(1.625rem, 3.4vw, 2.625rem)', { lineHeight: '1.08', letterSpacing: '-0.025em' }],
+        'h3': ['1.25rem', { lineHeight: '1.3', letterSpacing: '-0.01em' }],
+      },
+      maxWidth: { site: '1320px' },
+      borderRadius: { pill: '999px' },
+      transitionTimingFunction: { out: 'cubic-bezier(.22,1,.36,1)' },
+    },
+  },
+  plugins: [],
+};
+
+  </script>
+  <style type="text/tailwindcss">
+
+@layer base {
+  html { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
+  body { @apply bg-paper text-ink font-sans antialiased; font-size: 16px; line-height: 1.55; }
+  h1, h2, h3 { text-wrap: balance; }
+  :focus-visible { outline: 2px solid theme('colors.ink'); outline-offset: 3px; border-radius: 6px; }
+  .tnum { font-variant-numeric: tabular-nums; }
+  summary::-webkit-details-marker { display: none; }
+  summary { list-style: none; cursor: pointer; }
+  img { background: theme('colors.stone'); }
+}
+
+@layer components {
+  .wrap { @apply mx-auto w-full max-w-site px-4 sm:px-6 lg:px-10; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-pill px-7 h-14 text-[15px] font-medium transition duration-300 ease-out select-none; }
+  .btn-ink { @apply btn bg-ink text-paper hover:bg-black active:scale-[.98]; }
+  .btn-line { @apply btn border border-ink text-ink hover:bg-ink hover:text-paper; }
+  .btn-paper { @apply btn bg-paper text-ink hover:bg-stone; }
+  .kicker { @apply text-sm text-muted; }
+  .link-u { @apply underline underline-offset-4 decoration-1 hover:decoration-2; }
+  .chip { @apply inline-flex items-center gap-1.5 rounded-pill bg-mossl text-moss text-xs font-medium px-2.5 py-1; }
+  .sample { @apply inline-flex items-center rounded-pill border border-dashed border-muted/60 text-muted text-[11px] px-2 py-0.5; }
+  .noscroll { scrollbar-width: none; }
+  .noscroll::-webkit-scrollbar { display: none; }
+}
+
+/* ---------- Motion (progressive: page is complete without JS) ---------- */
+.js [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
+.js [data-reveal].in { opacity: 1; transform: none; }
+.js [data-reveal][data-delay="1"] { transition-delay: .08s; }
+.js [data-reveal][data-delay="2"] { transition-delay: .16s; }
+.js [data-reveal][data-delay="3"] { transition-delay: .24s; }
+
+/* Hero load sequence */
+.hero-img { transform: scale(1.08); transition: transform 2.4s cubic-bezier(.22,1,.36,1); }
+.loaded .hero-img { transform: scale(1); }
+.hero-line { display: block; overflow: hidden; }
+.hero-line > span { display: block; transform: translateY(105%); transition: transform 1s cubic-bezier(.22,1,.36,1); }
+.loaded .hero-line > span { transform: none; }
+.loaded .hero-line:nth-child(2) > span { transition-delay: .09s; }
+.hero-fade { opacity: 0; transition: opacity 1s .45s ease; }
+.loaded .hero-fade { opacity: 1; }
+html:not(.js) .hero-line > span, html:not(.js) .hero-fade { transform: none; opacity: 1; }
+
+/* Trust marquee (mobile) */
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee { animation: marquee 28s linear infinite; }
+
+/* Story image crossfade */
+.story-img { opacity: 0; transform: scale(1.04); transition: opacity .9s ease, transform 1.4s cubic-bezier(.22,1,.36,1); }
+.story-img.on { opacity: 1; transform: scale(1); }
+
+/* Hotspot pulse */
+@keyframes ping2 { 0% { transform: scale(1); opacity: .55; } 80%,100% { transform: scale(2.3); opacity: 0; } }
+.hs-ring { animation: ping2 2.2s cubic-bezier(0,0,.2,1) infinite; }
+
+/* Cart drawer / overlay */
+.drawer { transform: translateX(100%); transition: transform .5s cubic-bezier(.22,1,.36,1); }
+.drawer.open { transform: none; }
+.overlay { opacity: 0; pointer-events: none; transition: opacity .4s ease; }
+.overlay.open { opacity: 1; pointer-events: auto; }
+.menu { transform: translateX(-100%); transition: transform .5s cubic-bezier(.22,1,.36,1); }
+.menu.open { transform: none; }
+
+/* Sticky add-to-cart bar */
+.satc { transform: translateY(110%); transition: transform .45s cubic-bezier(.22,1,.36,1); }
+.satc.show { transform: none; }
+
+/* Header hide-on-scroll */
+.hdr { transition: transform .4s cubic-bezier(.22,1,.36,1), background-color .3s; }
+.hdr.up { transform: translateY(-100%); }
+
+/* Add-to-cart button states */
+.atc .atc-ok, .atc .atc-load { display: none; }
+.atc.loading .atc-label { display: none; } .atc.loading .atc-load { display: inline-flex; }
+.atc.done .atc-label { display: none; } .atc.done .atc-ok { display: inline-flex; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin { animation: spin .8s linear infinite; }
+@keyframes bump { 0%,100% { transform: scale(1); } 40% { transform: scale(1.35); } }
+.bump { animation: bump .5s ease; }
+
+/* Accordion chevron */
+details[open] > summary .chev { transform: rotate(45deg); }
+.chev { transition: transform .3s ease; }
+
+/* Bundle radio card */
+.bundle input:checked + .bundle-card { border-color: theme('colors.ink'); box-shadow: inset 0 0 0 1px theme('colors.ink'); background: #fff; }
+.bundle input:checked + .bundle-card .dot { background: theme('colors.ink'); box-shadow: inset 0 0 0 3px #fff; }
+.bundle input:focus-visible + .bundle-card { outline: 2px solid theme('colors.ink'); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .js [data-reveal] { opacity: 1; transform: none; }
+  .hero-img, .hero-line > span { transform: none; } .hero-fade { opacity: 1; }
+}
+
+  </style>
+
+</head>
+<body>
+<!-- ============ SECTION: announcement-bar (sections/announcement-bar.liquid) ============ -->
+<div class="bg-ink text-paper text-[13px]">
+  <div class="wrap h-9 flex items-center justify-center relative overflow-hidden" data-rotator>
+    <p class="absolute inset-x-4 text-center transition-all duration-500" data-rotate-item>Free shipping across Canada</p>
+    <p class="absolute inset-x-4 text-center transition-all duration-500 opacity-0 translate-y-3" data-rotate-item>100-night trial. Return it free if it's not right.</p>
+    <p class="absolute inset-x-4 text-center transition-all duration-500 opacity-0 translate-y-3" data-rotate-item>2-year warranty on frame and wheels</p>
+  </div>
+</div>
+
+<!-- ============ SECTION: header (sections/header.liquid) ============ -->
+<header class="hdr sticky top-0 z-40 bg-paper/90 backdrop-blur-md border-b border-line/70" data-header>
+  <div class="wrap h-16 grid grid-cols-[1fr_auto_1fr] items-center">
+    <div class="flex items-center gap-7">
+      <button class="lg:hidden -ml-2 p-2" aria-label="Open menu" data-menu-open>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 8h16M4 16h16"/></svg>
+      </button>
+      <nav class="hidden lg:flex items-center gap-7 text-[14px]" aria-label="Main">
+        <a href="product.html" class="hover:text-muted transition">Shop the stroller</a>
+        <a href="index.html#day" class="hover:text-muted transition">Why AGOW</a>
+        <a href="index.html#reviews" class="hover:text-muted transition">Reviews</a>
+        <a href="index.html#faq" class="hover:text-muted transition">FAQ</a>
+      </nav>
+    </div>
+    <!-- LOGO: swap this wordmark for the AGOW logo file (black version) -->
+    <a href="index.html" class="justify-self-center" aria-label="AGOW home">
+      <span class="text-[26px] leading-none font-semibold tracking-[-0.06em] text-ink">agow</span>
+    </a>
+    <div class="flex items-center justify-end gap-5 text-[14px]">
+      <a href="#contact" class="hidden lg:inline hover:text-muted transition">Help</a>
+      <button class="relative -mr-2 p-2 flex items-center gap-2" aria-label="Open cart" data-cart-open>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8Z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg>
+        <span class="absolute top-0.5 right-0 min-w-[18px] h-[18px] rounded-full bg-ink text-paper text-[11px] grid place-items-center px-1 tnum" data-cart-count hidden>0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="overlay fixed inset-0 z-50 bg-ink/40" data-menu-overlay></div>
+<aside class="menu fixed inset-y-0 left-0 z-50 w-[86%] max-w-sm bg-paper flex flex-col" data-menu aria-label="Menu">
+  <div class="h-16 px-4 flex items-center justify-between border-b border-line">
+    <span class="text-[24px] font-semibold tracking-[-0.06em]">agow</span>
+    <button class="p-2 -mr-2" aria-label="Close menu" data-menu-close>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <nav class="flex flex-col px-4 py-4 text-[22px] tracking-tight" aria-label="Mobile">
+    <a href="product.html" class="py-3 border-b border-line" data-menu-close>Shop the stroller</a>
+    <a href="index.html#day" class="py-3 border-b border-line" data-menu-close>Why AGOW</a>
+    <a href="index.html#features" class="py-3 border-b border-line" data-menu-close>Features</a>
+    <a href="index.html#reviews" class="py-3 border-b border-line" data-menu-close>Reviews</a>
+    <a href="index.html#faq" class="py-3 border-b border-line" data-menu-close>FAQ</a>
+  </nav>
+  <div class="mt-auto p-4 grid gap-3">
+    <a href="product.html" class="btn-ink w-full">Shop now <span class="tnum" data-price-from></span></a>
+    <p class="text-sm text-muted text-center">Questions? hello@agow.ca</p>
+  </div>
+</aside>
+
+
+<main>
+  <!-- ============ SECTION: main-product ============ -->
+  <section id="shop" class="pt-4 pb-14 lg:pt-8 lg:pb-24 scroll-mt-16">
+    <div class="wrap">
+      <nav class="text-sm text-muted mb-4 lg:mb-6 hidden sm:block" aria-label="Breadcrumb"><a href="index.html" class="hover:text-ink">Home</a> <span class="mx-1.5">/</span> <span class="text-ink">The AGOW Stroller</span></nav>
+<!-- ============ SECTION: main-product (sections/main-product.liquid) — also used as "featured-product" on the homepage ============ -->
+<div class="grid lg:grid-cols-12 gap-8 lg:gap-14 items-start" data-buybox>
+
+  <!-- Gallery -->
+  <div class="lg:col-span-7 -mx-4 sm:mx-0 lg:sticky lg:top-24">
+    <div class="relative sm:rounded-2xl overflow-hidden bg-stone">
+      <div class="flex overflow-x-auto snap-x snap-mandatory noscroll" data-gallery>
+        <figure class="snap-center shrink-0 w-full aspect-[4/5] sm:aspect-[5/4]"><img src="https://images.unsplash.com/photo-1611223355350-5be15e624fdf?auto=format&fit=crop&q=75&w=1200" srcset="https://images.unsplash.com/photo-1611223355350-5be15e624fdf?auto=format&fit=crop&q=75&w=640 640w, https://images.unsplash.com/photo-1611223355350-5be15e624fdf?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1611223355350-5be15e624fdf?auto=format&fit=crop&q=75&w=1600 1600w, https://images.unsplash.com/photo-1611223355350-5be15e624fdf?auto=format&fit=crop&q=75&w=2200 2200w" sizes="(min-width:1024px) 55vw, 100vw" alt="AGOW Stroller in Graphite, side view" class="w-full h-full object-cover" fetchpriority="high"></figure>
+        <figure class="snap-center shrink-0 w-full aspect-[4/5] sm:aspect-[5/4]"><img src="https://images.unsplash.com/photo-1714392512700-4cab9e51710b?auto=format&fit=crop&q=75&w=1200" srcset="https://images.unsplash.com/photo-1714392512700-4cab9e51710b?auto=format&fit=crop&q=75&w=640 640w, https://images.unsplash.com/photo-1714392512700-4cab9e51710b?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1714392512700-4cab9e51710b?auto=format&fit=crop&q=75&w=1600 1600w, https://images.unsplash.com/photo-1714392512700-4cab9e51710b?auto=format&fit=crop&q=75&w=2200 2200w" sizes="(min-width:1024px) 55vw, 100vw" alt="Stroller parked on a quiet street" class="w-full h-full object-cover" loading="lazy"></figure>
+        <figure class="snap-center shrink-0 w-full aspect-[4/5] sm:aspect-[5/4]"><img src="https://images.unsplash.com/photo-1636384919179-d936e55c5cca?auto=format&fit=crop&q=75&w=1200" srcset="https://images.unsplash.com/photo-1636384919179-d936e55c5cca?auto=format&fit=crop&q=75&w=640 640w, https://images.unsplash.com/photo-1636384919179-d936e55c5cca?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1636384919179-d936e55c5cca?auto=format&fit=crop&q=75&w=1600 1600w, https://images.unsplash.com/photo-1636384919179-d936e55c5cca?auto=format&fit=crop&q=75&w=2200 2200w" sizes="(min-width:1024px) 55vw, 100vw" alt="Baby asleep in the fully reclined seat" class="w-full h-full object-cover" loading="lazy"></figure>
+        <figure class="snap-center shrink-0 w-full aspect-[4/5] sm:aspect-[5/4]"><img src="https://images.unsplash.com/photo-1663579168345-8e955020f8ef?auto=format&fit=crop&q=75&w=1200" srcset="https://images.unsplash.com/photo-1663579168345-8e955020f8ef?auto=format&fit=crop&q=75&w=640 640w, https://images.unsplash.com/photo-1663579168345-8e955020f8ef?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1663579168345-8e955020f8ef?auto=format&fit=crop&q=75&w=1600 1600w, https://images.unsplash.com/photo-1663579168345-8e955020f8ef?auto=format&fit=crop&q=75&w=2200 2200w" sizes="(min-width:1024px) 55vw, 100vw" alt="Parent pushing the stroller with one hand" class="w-full h-full object-cover" loading="lazy"></figure>
+        <figure class="snap-center shrink-0 w-full aspect-[4/5] sm:aspect-[5/4]"><img src="https://images.unsplash.com/photo-1691420762495-2f1c61d70ec6?auto=format&fit=crop&q=75&w=1200" srcset="https://images.unsplash.com/photo-1691420762495-2f1c61d70ec6?auto=format&fit=crop&q=75&w=640 640w, https://images.unsplash.com/photo-1691420762495-2f1c61d70ec6?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1691420762495-2f1c61d70ec6?auto=format&fit=crop&q=75&w=1600 1600w, https://images.unsplash.com/photo-1691420762495-2f1c61d70ec6?auto=format&fit=crop&q=75&w=2200 2200w" sizes="(min-width:1024px) 55vw, 100vw" alt="Stroller rolling over grass" class="w-full h-full object-cover" loading="lazy"></figure>
+      </div>
+      <span class="absolute left-4 top-4 chip bg-paper/90 text-ink backdrop-blur">Free shipping + 100-night trial</span>
+      <span class="absolute right-4 bottom-4 rounded-pill bg-paper/90 backdrop-blur text-xs px-3 py-1.5 tnum" data-gallery-count>1 / 5</span>
+      <button class="hidden sm:grid absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 place-items-center rounded-full bg-paper/90 hover:bg-paper transition" aria-label="Previous image" data-gallery-prev>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg>
+      </button>
+      <button class="hidden sm:grid absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 place-items-center rounded-full bg-paper/90 hover:bg-paper transition" aria-label="Next image" data-gallery-next>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg>
+      </button>
+    </div>
+    <div class="flex gap-2 mt-3 px-4 sm:px-0 overflow-x-auto noscroll" data-gallery-thumbs>
+      <button class="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden ring-1 ring-ink" aria-label="Image 1"><img src="https://images.unsplash.com/photo-1611223355350-5be15e624fdf?auto=format&fit=crop&w=200&q=60" alt="" class="w-full h-full object-cover"></button>
+      <button class="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden ring-1 ring-transparent opacity-70" aria-label="Image 2"><img src="https://images.unsplash.com/photo-1714392512700-4cab9e51710b?auto=format&fit=crop&w=200&q=60" alt="" class="w-full h-full object-cover" loading="lazy"></button>
+      <button class="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden ring-1 ring-transparent opacity-70" aria-label="Image 3"><img src="https://images.unsplash.com/photo-1636384919179-d936e55c5cca?auto=format&fit=crop&w=200&q=60" alt="" class="w-full h-full object-cover" loading="lazy"></button>
+      <button class="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden ring-1 ring-transparent opacity-70" aria-label="Image 4"><img src="https://images.unsplash.com/photo-1663579168345-8e955020f8ef?auto=format&fit=crop&w=200&q=60" alt="" class="w-full h-full object-cover" loading="lazy"></button>
+      <button class="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden ring-1 ring-transparent opacity-70" aria-label="Image 5"><img src="https://images.unsplash.com/photo-1691420762495-2f1c61d70ec6?auto=format&fit=crop&w=200&q=60" alt="" class="w-full h-full object-cover" loading="lazy"></button>
+    </div>
+  </div>
+
+  <!-- Buy info -->
+  <div class="lg:col-span-5 flex flex-col gap-6">
+    <div class="flex flex-col gap-3">
+      <a href="#reviews" class="flex items-center gap-2 text-sm w-fit group">
+        <span class="flex text-ink" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2.8 2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2.8 2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2.8 2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2.8 2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2.8 2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg>
+        </span>
+        <span class="tnum group-hover:underline underline-offset-4">4.9 from 128 reviews</span>
+        <span class="sample">sample</span>
+      </a>
+      <h1 class="text-h1 font-medium">The AGOW Stroller</h1>
+      <p class="text-muted max-w-[42ch]">One-hand fold, all-season wheels and a seat that grows with your child from birth to 4 years.</p>
+    </div>
+
+    <!-- Price -->
+    <div class="flex flex-col gap-1.5">
+      <div class="flex items-baseline gap-3 flex-wrap">
+        <span class="text-[28px] font-medium tnum" data-price>$649</span>
+        <s class="text-muted tnum" data-compare>$799</s>
+        <span class="chip tnum" data-save>Save $150</span>
+      </div>
+      <p class="text-sm text-muted">or 4 interest-free payments of <span class="text-ink font-medium tnum" data-installment>$162.25</span> with Shop Pay</p>
+    </div>
+
+    <!-- Colour -->
+    <fieldset class="flex flex-col gap-3">
+      <legend class="text-sm mb-3">Colour: <span class="font-medium" data-colour-name>Graphite</span></legend>
+      <div class="flex gap-3" data-colours>
+        <button type="button" class="w-10 h-10 rounded-full ring-2 ring-offset-2 ring-ink" style="background:#3B3E3D" aria-label="Graphite" aria-pressed="true" data-colour="Graphite"></button>
+        <!-- Future colours: add another button here (e.g. Sand, Olive) -->
+      </div>
+    </fieldset>
+
+    <!-- Bundles (AOV) -->
+    <fieldset class="flex flex-col gap-2.5">
+      <legend class="text-sm mb-3">Choose your set</legend>
+      <label class="bundle block cursor-pointer">
+        <input type="radio" name="bundle" value="solo" class="sr-only" id="bundle-solo">
+        <div class="bundle-card flex items-center gap-4 rounded-xl border border-line bg-mist p-4 transition">
+          <span class="dot w-5 h-5 rounded-full border border-ink shrink-0 transition"></span>
+          <div class="flex-1 min-w-0"><p class="font-medium">Stroller only</p><p class="text-sm text-muted">Seat, canopy, basket, bumper bar</p></div>
+          <p class="text-right tnum"><span class="font-medium">$649</span><br><s class="text-xs text-muted">$799</s></p>
+        </div>
+      </label>
+      <label class="bundle block cursor-pointer relative">
+        <input type="radio" name="bundle" value="travel" class="sr-only" id="bundle-travel" checked>
+        <div class="bundle-card flex items-center gap-4 rounded-xl border border-line bg-mist p-4 transition">
+          <span class="dot w-5 h-5 rounded-full border border-ink shrink-0 transition"></span>
+          <div class="flex-1 min-w-0"><p class="font-medium">Stroller + Travel Kit</p><p class="text-sm text-muted">Adds rain cover, cup holder and travel bag</p></div>
+          <p class="text-right tnum"><span class="font-medium">$729</span><br><s class="text-xs text-muted">$927</s></p>
+        </div>
+        <span class="absolute -top-2.5 right-4 rounded-pill bg-ink text-paper text-[11px] px-2.5 py-0.5">Most chosen</span>
+      </label>
+      <label class="bundle block cursor-pointer">
+        <input type="radio" name="bundle" value="newborn" class="sr-only" id="bundle-newborn">
+        <div class="bundle-card flex items-center gap-4 rounded-xl border border-line bg-mist p-4 transition">
+          <span class="dot w-5 h-5 rounded-full border border-ink shrink-0 transition"></span>
+          <div class="flex-1 min-w-0"><p class="font-medium">Newborn Set</p><p class="text-sm text-muted">Travel Kit plus bassinet and winter footmuff</p></div>
+          <p class="text-right tnum"><span class="font-medium">$899</span><br><s class="text-xs text-muted">$1,156</s></p>
+        </div>
+      </label>
+    </fieldset>
+
+    <!-- Qty + CTA -->
+    <div class="flex flex-col gap-3">
+      <div class="flex gap-3">
+        <div class="flex items-center h-14 rounded-pill border border-line" data-qty>
+          <button type="button" class="w-11 h-full grid place-items-center text-lg" aria-label="Decrease quantity" data-qty-minus>−</button>
+          <input type="number" id="qty" value="1" min="1" max="5" class="w-8 text-center bg-transparent tnum [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none" aria-label="Quantity" data-qty-input>
+          <button type="button" class="w-11 h-full grid place-items-center text-lg" aria-label="Increase quantity" data-qty-plus>+</button>
+        </div>
+        <button type="button" class="atc btn-ink flex-1" data-atc>
+          <span class="atc-label">Add to cart · <span class="tnum" data-atc-price>$729</span></span>
+          <span class="atc-load items-center gap-2"><svg class="spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.2-8.6" stroke-linecap="round"/></svg>Adding</span>
+          <span class="atc-ok items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Added</span>
+        </button>
+      </div>
+      <button type="button" class="btn w-full bg-[#5A31F4] text-white hover:brightness-110" data-buy-now>Buy with <span class="font-semibold tracking-tight">Shop Pay</span></button>
+    </div>
+
+    <!-- Delivery estimate -->
+    <div class="flex gap-3 items-start rounded-xl bg-mossl/70 p-4 text-sm">
+      <svg class="shrink-0 mt-0.5 text-moss" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8" fill="#fff"/><circle cx="17.5" cy="17.5" r="1.8" fill="#fff"/></svg>
+      <p><span class="font-medium">In stock.</span> <span data-cutoff>Order today</span> and it arrives <span class="font-medium" data-eta>in 3–6 business days</span>.</p>
+    </div>
+
+    <!-- Mini trust -->
+    <ul class="grid grid-cols-3 gap-2 text-center text-[13px] leading-tight">
+      <li class="flex flex-col items-center gap-2 rounded-xl border border-line p-3">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>100-night trial
+      </li>
+      <li class="flex flex-col items-center gap-2 rounded-xl border border-line p-3">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.5 3.2 8.3 7.5 9.5 4.3-1.2 7.5-5 7.5-9.5V6L12 3Z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg>2-year warranty
+      </li>
+      <li class="flex flex-col items-center gap-2 rounded-xl border border-line p-3">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg>Free returns
+      </li>
+    </ul>
+
+    <!-- Payment icons -->
+    <div class="flex flex-wrap items-center gap-1.5" aria-label="Accepted payments">
+      <span class="h-6 px-2 rounded border border-line text-[10px] font-semibold grid place-items-center tracking-wide">VISA</span>
+      <span class="h-6 px-2 rounded border border-line text-[10px] font-semibold grid place-items-center">Mastercard</span>
+      <span class="h-6 px-2 rounded border border-line text-[10px] font-semibold grid place-items-center">AMEX</span>
+      <span class="h-6 px-2 rounded border border-line text-[10px] font-semibold grid place-items-center">Apple Pay</span>
+      <span class="h-6 px-2 rounded border border-line text-[10px] font-semibold grid place-items-center">G Pay</span>
+      <span class="h-6 px-2 rounded border border-line text-[10px] font-semibold grid place-items-center text-[#5A31F4]">Shop Pay</span>
+      <span class="text-xs text-muted ml-1 flex items-center gap-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Secure checkout</span>
+    </div>
+
+    <!-- Details accordions -->
+    <div class="border-t border-line">
+      <details class="border-b border-line group" open>
+        <summary class="flex items-center justify-between py-4 font-medium">What's in the box<span class="chev text-xl leading-none">+</span></summary>
+        <ul class="pb-5 text-[15px] text-muted grid grid-cols-2 gap-x-4 gap-y-1.5">
+          <li>Frame with wheels</li><li>Reversible seat</li><li>UPF 50+ canopy</li><li>Bumper bar</li><li>Under-seat basket</li><li>5-point harness</li>
+        </ul>
+      </details>
+      <details class="border-b border-line">
+        <summary class="flex items-center justify-between py-4 font-medium">Specifications<span class="chev text-xl leading-none">+</span></summary>
+        <dl class="pb-5 text-[15px] grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 tnum">
+          <dt class="text-muted">Weight</dt><dd>9.8 kg (21.6 lb)</dd>
+          <dt class="text-muted">Folded</dt><dd>58 × 50 × 28 cm</dd>
+          <dt class="text-muted">Open</dt><dd>84 × 56 × 104 cm</dd>
+          <dt class="text-muted">Seat limit</dt><dd>22 kg (48.5 lb)</dd>
+          <dt class="text-muted">Age</dt><dd>Birth (with bassinet) to 4 years</dd>
+          <dt class="text-muted">Basket</dt><dd>Holds up to 5 kg</dd>
+          <dt class="text-muted">Handlebar</dt><dd>Adjusts 92–108 cm</dd>
+        </dl>
+      </details>
+      <details class="border-b border-line">
+        <summary class="flex items-center justify-between py-4 font-medium">Shipping and returns<span class="chev text-xl leading-none">+</span></summary>
+        <div class="pb-5 text-[15px] text-muted flex flex-col gap-2 max-w-[60ch]">
+          <p>Free shipping anywhere in Canada. Most orders arrive in 3–6 business days with tracking.</p>
+          <p>Use it for 100 nights. If it isn't right for your family, we'll pick it up and refund you in full.</p>
+        </div>
+      </details>
+      <details class="border-b border-line">
+        <summary class="flex items-center justify-between py-4 font-medium">Safety<span class="chev text-xl leading-none">+</span></summary>
+        <div class="pb-5 text-[15px] text-muted flex flex-col gap-2 max-w-[60ch]">
+          <p>Built to Canada's Carriages and Strollers Regulations (SOR/2016-167) and ASTM F833. Five-point harness, linked rear brake and a wrist strap come standard.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
+
+    </div>
+  </section>
+
+<!-- ============ SECTION: trust-bar (sections/trust-bar.liquid) ============ -->
+<section class="border-y border-line bg-mist overflow-hidden" aria-label="Why shop with AGOW">
+  <div class="lg:hidden flex w-max marquee py-4 text-[14px]">
+    <!-- duplicated once for seamless loop -->
+    <div class="flex gap-10 pr-10 items-center">
+      <span class="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/></svg>Free shipping in Canada</span>
+      <span class="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>100-night trial</span>
+      <span class="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.5 3.2 8.3 7.5 9.5 4.3-1.2 7.5-5 7.5-9.5V6L12 3Z"/></svg>2-year warranty</span>
+      <span class="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Secure checkout</span>
+      <span class="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16M12 4v16"/></svg>Pay in 4 with Shop Pay</span>
+    </div>
+    <div class="flex gap-10 pr-10 items-center" aria-hidden="true">
+      <span class="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/></svg>Free shipping in Canada</span>
+      <span class="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>100-night trial</span>
+      <span class="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.5 3.2 8.3 7.5 9.5 4.3-1.2 7.5-5 7.5-9.5V6L12 3Z"/></svg>2-year warranty</span>
+      <span class="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Secure checkout</span>
+      <span class="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16M12 4v16"/></svg>Pay in 4 with Shop Pay</span>
+    </div>
+  </div>
+  <ul class="hidden lg:grid wrap grid-cols-4 py-7 text-[15px]">
+    <li class="flex items-center gap-3"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg><span><b class="font-medium block">Free shipping</b><span class="text-muted text-sm">Anywhere in Canada, tracked</span></span></li>
+    <li class="flex items-center gap-3"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg><span><b class="font-medium block">100-night trial</b><span class="text-muted text-sm">Free pickup if it's not right</span></span></li>
+    <li class="flex items-center gap-3"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.5 3.2 8.3 7.5 9.5 4.3-1.2 7.5-5 7.5-9.5V6L12 3Z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg><span><b class="font-medium block">2-year warranty</b><span class="text-muted text-sm">Frame, wheels and fold</span></span></li>
+    <li class="flex items-center gap-3"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span><b class="font-medium block">Pay in 4</b><span class="text-muted text-sm">Interest-free with Shop Pay</span></span></li>
+  </ul>
+</section>
+
+
+  <!-- ============ SECTION: key-numbers (sections/key-numbers.liquid) — fast scan for mobile shoppers ============ -->
+  <section class="py-16 lg:py-24">
+    <div class="wrap">
+      <h2 class="text-h2 font-medium max-w-[22ch] mb-10" data-reveal>Light enough to carry. Strong enough for winter.</h2>
+      <dl class="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10 tnum">
+        <div class="border-t border-ink pt-4" data-reveal><dt class="text-sm text-muted">Total weight</dt><dd class="text-[40px] sm:text-[52px] leading-none font-medium tracking-tight mt-2">9.8<span class="text-xl ml-1">kg</span></dd><dd class="text-sm text-muted mt-2">21.6 lb, frame and seat</dd></div>
+        <div class="border-t border-ink pt-4" data-reveal data-delay="1"><dt class="text-sm text-muted">Fold time</dt><dd class="text-[40px] sm:text-[52px] leading-none font-medium tracking-tight mt-2">1<span class="text-xl ml-1">sec</span></dd><dd class="text-sm text-muted mt-2">One hand, stands on its own</dd></div>
+        <div class="border-t border-ink pt-4" data-reveal data-delay="2"><dt class="text-sm text-muted">Age range</dt><dd class="text-[40px] sm:text-[52px] leading-none font-medium tracking-tight mt-2">0–4<span class="text-xl ml-1">yrs</span></dd><dd class="text-sm text-muted mt-2">Seat holds up to 22 kg</dd></div>
+        <div class="border-t border-ink pt-4" data-reveal data-delay="3"><dt class="text-sm text-muted">Sun protection</dt><dd class="text-[40px] sm:text-[52px] leading-none font-medium tracking-tight mt-2">UPF<span class="text-xl ml-1">50+</span></dd><dd class="text-sm text-muted mt-2">Extendable canopy</dd></div>
+      </dl>
+    </div>
+  </section>
+
+<!-- ============ SECTION: feature-hotspots (sections/feature-hotspots.liquid) ============ -->
+<!-- Hotspot positions (left/top %) must be re-set once the real product photo is in. -->
+<section id="features" class="py-20 lg:py-28 bg-stone scroll-mt-16" data-hotspots>
+  <div class="wrap">
+    <div class="max-w-2xl mb-10 lg:mb-14" data-reveal>
+      <p class="kicker mb-3">Tap to explore</p>
+      <h2 class="text-h2 font-medium">Every part earns its place.</h2>
+    </div>
+    <div class="grid lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+      <div class="lg:col-span-7 relative rounded-2xl overflow-hidden bg-mist aspect-[4/5] sm:aspect-[4/3]" data-reveal>
+        <img src="https://images.unsplash.com/photo-1714392512700-4cab9e51710b?auto=format&fit=crop&q=75&w=1200" srcset="https://images.unsplash.com/photo-1714392512700-4cab9e51710b?auto=format&fit=crop&q=75&w=640 640w, https://images.unsplash.com/photo-1714392512700-4cab9e51710b?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1714392512700-4cab9e51710b?auto=format&fit=crop&q=75&w=1600 1600w, https://images.unsplash.com/photo-1714392512700-4cab9e51710b?auto=format&fit=crop&q=75&w=2200 2200w" sizes="(min-width:1024px) 55vw, 100vw" alt="The AGOW Stroller with feature points marked" class="absolute inset-0 w-full h-full object-cover" loading="lazy">
+        <button class="hs absolute -translate-x-1/2 -translate-y-1/2" style="left:52%;top:26%" data-hs="0" aria-label="Canopy"><span class="hs-ring absolute inset-0 rounded-full bg-paper"></span><span class="relative grid place-items-center w-9 h-9 rounded-full bg-paper text-ink shadow-md text-sm font-medium transition">1</span></button>
+        <button class="hs absolute -translate-x-1/2 -translate-y-1/2" style="left:38%;top:14%" data-hs="1" aria-label="Handlebar"><span class="hs-ring absolute inset-0 rounded-full bg-paper"></span><span class="relative grid place-items-center w-9 h-9 rounded-full bg-paper text-ink shadow-md text-sm font-medium transition">2</span></button>
+        <button class="hs absolute -translate-x-1/2 -translate-y-1/2" style="left:56%;top:50%" data-hs="2" aria-label="Seat"><span class="hs-ring absolute inset-0 rounded-full bg-paper"></span><span class="relative grid place-items-center w-9 h-9 rounded-full bg-paper text-ink shadow-md text-sm font-medium transition">3</span></button>
+        <button class="hs absolute -translate-x-1/2 -translate-y-1/2" style="left:50%;top:70%" data-hs="3" aria-label="Basket"><span class="hs-ring absolute inset-0 rounded-full bg-paper"></span><span class="relative grid place-items-center w-9 h-9 rounded-full bg-paper text-ink shadow-md text-sm font-medium transition">4</span></button>
+        <button class="hs absolute -translate-x-1/2 -translate-y-1/2" style="left:30%;top:82%" data-hs="4" aria-label="Wheels"><span class="hs-ring absolute inset-0 rounded-full bg-paper"></span><span class="relative grid place-items-center w-9 h-9 rounded-full bg-paper text-ink shadow-md text-sm font-medium transition">5</span></button>
+      </div>
+
+      <ul class="lg:col-span-5 flex flex-col" data-hs-list>
+        <li class="border-b border-line">
+          <button class="w-full flex items-center gap-4 py-4 text-left" data-hs-item="0"><span class="w-7 h-7 rounded-full border border-ink grid place-items-center text-xs shrink-0">1</span><span class="text-lg font-medium">UPF 50+ canopy</span></button>
+          <p class="hs-body pl-11 pb-5 text-muted hidden">Extends to the bumper bar with a mesh window and a magnetic peek-a-boo flap. Blocks wind, sun and light snow.</p>
+        </li>
+        <li class="border-b border-line">
+          <button class="w-full flex items-center gap-4 py-4 text-left" data-hs-item="1"><span class="w-7 h-7 rounded-full border border-ink grid place-items-center text-xs shrink-0">2</span><span class="text-lg font-medium">Height-adjust handlebar</span></button>
+          <p class="hs-body pl-11 pb-5 text-muted hidden">Adjusts from 92 to 108 cm in one click, so both parents push comfortably. Soft vegan leather grip.</p>
+        </li>
+        <li class="border-b border-line">
+          <button class="w-full flex items-center gap-4 py-4 text-left" data-hs-item="2"><span class="w-7 h-7 rounded-full border border-ink grid place-items-center text-xs shrink-0">3</span><span class="text-lg font-medium">Reversible seat</span></button>
+          <p class="hs-body pl-11 pb-5 text-muted hidden">Face you for the early months, face the world when they're curious. Four recline positions, down to nearly flat.</p>
+        </li>
+        <li class="border-b border-line">
+          <button class="w-full flex items-center gap-4 py-4 text-left" data-hs-item="3"><span class="w-7 h-7 rounded-full border border-ink grid place-items-center text-xs shrink-0">4</span><span class="text-lg font-medium">Big basket</span></button>
+          <p class="hs-body pl-11 pb-5 text-muted hidden">Holds up to 5 kg with a wide opening you can reach even when the seat is fully reclined.</p>
+        </li>
+        <li class="border-b border-line">
+          <button class="w-full flex items-center gap-4 py-4 text-left" data-hs-item="4"><span class="w-7 h-7 rounded-full border border-ink grid place-items-center text-xs shrink-0">5</span><span class="text-lg font-medium">All-season wheels</span></button>
+          <p class="hs-body pl-11 pb-5 text-muted hidden">Puncture-free rubber with sealed bearings and four-wheel suspension. Made for gravel, grass and snow.</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION: day-story (sections/day-story.liquid) — scroll storytelling ============ -->
+<section id="day" class="py-20 lg:py-32 scroll-mt-16">
+  <div class="wrap">
+    <div class="max-w-2xl mb-12 lg:mb-20" data-reveal>
+      <p class="kicker mb-3">A day with AGOW</p>
+      <h2 class="text-h2 font-medium">We made one stroller, and tested it against a real day.</h2>
+      <p class="text-muted mt-4 max-w-[56ch]">Most parents use a stroller the same way: a rushed morning, a nap on the go, a long walk home. So we designed for those hours instead of a showroom floor.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-20">
+      <!-- Sticky image (desktop) -->
+      <div class="hidden lg:block">
+        <div class="sticky top-24 aspect-[4/5] rounded-2xl overflow-hidden bg-stone" data-story-media>
+          <img src="https://images.unsplash.com/photo-1539893147390-a9c1d69f00be?auto=format&fit=crop&q=75&w=1200" srcset="https://images.unsplash.com/photo-1539893147390-a9c1d69f00be?auto=format&fit=crop&q=75&w=640 640w, https://images.unsplash.com/photo-1539893147390-a9c1d69f00be?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1539893147390-a9c1d69f00be?auto=format&fit=crop&q=75&w=1600 1600w, https://images.unsplash.com/photo-1539893147390-a9c1d69f00be?auto=format&fit=crop&q=75&w=2200 2200w" sizes="45vw" alt="Parent pushing the stroller across a parking lot in the morning" class="story-img on absolute inset-0 w-full h-full object-cover" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1636384919179-d936e55c5cca?auto=format&fit=crop&q=75&w=1200" srcset="https://images.unsplash.com/photo-1636384919179-d936e55c5cca?auto=format&fit=crop&q=75&w=640 640w, https://images.unsplash.com/photo-1636384919179-d936e55c5cca?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1636384919179-d936e55c5cca?auto=format&fit=crop&q=75&w=1600 1600w, https://images.unsplash.com/photo-1636384919179-d936e55c5cca?auto=format&fit=crop&q=75&w=2200 2200w" sizes="45vw" alt="Baby napping in the reclined seat" class="story-img absolute inset-0 w-full h-full object-cover" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1741990811736-81fd08f449e5?auto=format&fit=crop&q=75&w=1200" srcset="https://images.unsplash.com/photo-1741990811736-81fd08f449e5?auto=format&fit=crop&q=75&w=640 640w, https://images.unsplash.com/photo-1741990811736-81fd08f449e5?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1741990811736-81fd08f449e5?auto=format&fit=crop&q=75&w=1600 1600w, https://images.unsplash.com/photo-1741990811736-81fd08f449e5?auto=format&fit=crop&q=75&w=2200 2200w" sizes="45vw" alt="Parents walking strollers along the water" class="story-img absolute inset-0 w-full h-full object-cover" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1694801463029-f89884a6f088?auto=format&fit=crop&q=75&w=1200" srcset="https://images.unsplash.com/photo-1694801463029-f89884a6f088?auto=format&fit=crop&q=75&w=640 640w, https://images.unsplash.com/photo-1694801463029-f89884a6f088?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1694801463029-f89884a6f088?auto=format&fit=crop&q=75&w=1600 1600w, https://images.unsplash.com/photo-1694801463029-f89884a6f088?auto=format&fit=crop&q=75&w=2200 2200w" sizes="45vw" alt="Parent resting on a bench beside the stroller" class="story-img absolute inset-0 w-full h-full object-cover" loading="lazy">
+          <div class="absolute left-5 bottom-5 rounded-pill bg-paper/90 backdrop-blur px-4 py-2 text-sm tnum" data-story-clock>7:40 am</div>
+        </div>
+      </div>
+
+      <!-- Chapters: a real sequence through one day -->
+      <ol class="flex flex-col gap-14 lg:gap-0">
+        <li class="lg:min-h-[78vh] flex flex-col justify-center gap-4" data-chapter="0" data-time="7:40 am">
+          <img src="https://images.unsplash.com/photo-1539893147390-a9c1d69f00be?auto=format&fit=crop&q=75&w=1200" srcset="https://images.unsplash.com/photo-1539893147390-a9c1d69f00be?auto=format&fit=crop&q=75&w=640 640w, https://images.unsplash.com/photo-1539893147390-a9c1d69f00be?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1539893147390-a9c1d69f00be?auto=format&fit=crop&q=75&w=1600 1600w, https://images.unsplash.com/photo-1539893147390-a9c1d69f00be?auto=format&fit=crop&q=75&w=2200 2200w" sizes="100vw" alt="" class="lg:hidden w-full aspect-[4/3] object-cover rounded-2xl" loading="lazy">
+          <p class="text-sm tnum text-muted">7:40 am</p>
+          <h3 class="text-[28px] lg:text-[34px] leading-tight tracking-tight font-medium">Coffee in one hand. Fold with the other.</h3>
+          <p class="text-muted text-[17px] max-w-[46ch]">Squeeze the handle and it folds in about a second, then stands on its own at the bus stop. No bending, no second hand needed.</p>
+          <p class="chip w-fit">One-hand fold</p>
+        </li>
+        <li class="lg:min-h-[78vh] flex flex-col justify-center gap-4" data-chapter="1" data-time="12:15 pm">
+          <img src="https://images.unsplash.com/photo-1636384919179-d936e55c5cca?auto=format&fit=crop&q=75&w=1200" srcset="https://images.unsplash.com/photo-1636384919179-d936e55c5cca?auto=format&fit=crop&q=75&w=640 640w, https://images.unsplash.com/photo-1636384919179-d936e55c5cca?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1636384919179-d936e55c5cca?auto=format&fit=crop&q=75&w=1600 1600w, https://images.unsplash.com/photo-1636384919179-d936e55c5cca?auto=format&fit=crop&q=75&w=2200 2200w" sizes="100vw" alt="" class="lg:hidden w-full aspect-[4/3] object-cover rounded-2xl" loading="lazy">
+          <p class="text-sm tnum text-muted">12:15 pm</p>
+          <h3 class="text-[28px] lg:text-[34px] leading-tight tracking-tight font-medium">The nap keeps going when you do.</h3>
+          <p class="text-muted text-[17px] max-w-[46ch]">The seat reclines nearly flat and the UPF 50+ canopy pulls down low with a peek-a-boo window, so you can check on them without waking them.</p>
+          <p class="chip w-fit">Near-flat recline</p>
+        </li>
+        <li class="lg:min-h-[78vh] flex flex-col justify-center gap-4" data-chapter="2" data-time="4:30 pm">
+          <img src="https://images.unsplash.com/photo-1741990811736-81fd08f449e5?auto=format&fit=crop&q=75&w=1200" srcset="https://images.unsplash.com/photo-1741990811736-81fd08f449e5?auto=format&fit=crop&q=75&w=640 640w, https://images.unsplash.com/photo-1741990811736-81fd08f449e5?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1741990811736-81fd08f449e5?auto=format&fit=crop&q=75&w=1600 1600w, https://images.unsplash.com/photo-1741990811736-81fd08f449e5?auto=format&fit=crop&q=75&w=2200 2200w" sizes="100vw" alt="" class="lg:hidden w-full aspect-[4/3] object-cover rounded-2xl" loading="lazy">
+          <p class="text-sm tnum text-muted">4:30 pm</p>
+          <h3 class="text-[28px] lg:text-[34px] leading-tight tracking-tight font-medium">Take the long way home.</h3>
+          <p class="text-muted text-[17px] max-w-[46ch]">Puncture-free rubber wheels and suspension on all four corners handle gravel paths, grass and salted February sidewalks.</p>
+          <p class="chip w-fit">All-season wheels</p>
+        </li>
+        <li class="lg:min-h-[78vh] flex flex-col justify-center gap-4" data-chapter="3" data-time="7:00 pm">
+          <img src="https://images.unsplash.com/photo-1694801463029-f89884a6f088?auto=format&fit=crop&q=75&w=1200" srcset="https://images.unsplash.com/photo-1694801463029-f89884a6f088?auto=format&fit=crop&q=75&w=640 640w, https://images.unsplash.com/photo-1694801463029-f89884a6f088?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1694801463029-f89884a6f088?auto=format&fit=crop&q=75&w=1600 1600w, https://images.unsplash.com/photo-1694801463029-f89884a6f088?auto=format&fit=crop&q=75&w=2200 2200w" sizes="100vw" alt="" class="lg:hidden w-full aspect-[4/3] object-cover rounded-2xl" loading="lazy">
+          <p class="text-sm tnum text-muted">7:00 pm</p>
+          <h3 class="text-[28px] lg:text-[34px] leading-tight tracking-tight font-medium">Folded, and out of the way.</h3>
+          <p class="text-muted text-[17px] max-w-[46ch]">At 58 × 50 × 28 cm folded, it fits a compact car trunk with room left for groceries, or the corner of a condo hallway.</p>
+          <a href="#shop" class="btn-ink w-fit mt-2">Shop the stroller</a>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION: reviews (sections/reviews.liquid → replace cards with Judge.me / Okendo app block) ============ -->
+<!-- SAMPLE CONTENT: every review, name and rating below is a placeholder. Replace with real customer reviews before launch. -->
+<section id="reviews" class="py-20 lg:py-28 bg-mist scroll-mt-16" data-carousel>
+  <div class="wrap">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10" data-reveal>
+      <div>
+        <p class="kicker mb-3 flex items-center gap-2">What parents say <span class="sample">sample reviews</span></p>
+        <h2 class="text-h2 font-medium max-w-[20ch]">Rated 4.9 by families across Canada.</h2>
+      </div>
+      <div class="flex items-center gap-6">
+        <div class="flex items-center gap-3">
+          <span class="text-[44px] leading-none font-medium tnum">4.9</span>
+          <span class="text-sm text-muted leading-tight">out of 5<br><span class="tnum">128 reviews</span></span>
+        </div>
+        <div class="hidden sm:flex gap-2">
+          <button class="w-12 h-12 rounded-full border border-ink grid place-items-center hover:bg-ink hover:text-paper transition" aria-label="Previous reviews" data-car-prev><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></button>
+          <button class="w-12 h-12 rounded-full border border-ink grid place-items-center hover:bg-ink hover:text-paper transition" aria-label="Next reviews" data-car-next><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex gap-4 overflow-x-auto snap-x snap-mandatory noscroll px-4 sm:px-6 lg:px-[max(2.5rem,calc((100vw-1320px)/2+2.5rem))] scroll-px-4 sm:scroll-px-6 lg:scroll-px-[max(2.5rem,calc((100vw-1320px)/2+2.5rem))]" data-car-track>
+    <article class="snap-start shrink-0 w-[84%] sm:w-[46%] lg:w-[31%] xl:w-[24%] bg-paper rounded-2xl p-6 flex flex-col gap-4 min-h-[300px]">
+      <p class="tracking-[3px]" aria-label="5 out of 5 stars">★★★★★</p>
+      <p class="text-[17px] leading-snug">The one-hand fold sold me in the demo video and it's even easier in real life. I fold it at daycare drop-off holding my son in the other arm.</p>
+      <p class="mt-auto text-sm"><span class="font-medium">Priya S.</span> <span class="text-muted">Toronto, ON</span></p>
+      <p class="text-xs text-moss flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 5 5L20 7"/></svg>Verified buyer</p>
+    </article>
+    <article class="snap-start shrink-0 w-[84%] sm:w-[46%] lg:w-[31%] xl:w-[24%] bg-paper rounded-2xl p-6 flex flex-col gap-4 min-h-[300px]">
+      <p class="tracking-[3px]" aria-label="5 out of 5 stars">★★★★★</p>
+      <p class="text-[17px] leading-snug">We walked it through a full Calgary winter. Wheels never clogged with snow and the canopy blocked the wind completely.</p>
+      <p class="mt-auto text-sm"><span class="font-medium">Mark T.</span> <span class="text-muted">Calgary, AB</span></p>
+      <p class="text-xs text-moss flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 5 5L20 7"/></svg>Verified buyer</p>
+    </article>
+    <article class="snap-start shrink-0 w-[84%] sm:w-[46%] lg:w-[31%] xl:w-[24%] bg-paper rounded-2xl p-6 flex flex-col gap-4 min-h-[300px]">
+      <p class="tracking-[3px]" aria-label="5 out of 5 stars">★★★★★</p>
+      <p class="text-[17px] leading-snug">Naps used to end the second we stopped. The near-flat recline and the low canopy changed that. She sleeps through the whole walk.</p>
+      <p class="mt-auto text-sm"><span class="font-medium">Élodie R.</span> <span class="text-muted">Montréal, QC</span></p>
+      <p class="text-xs text-moss flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 5 5L20 7"/></svg>Verified buyer</p>
+    </article>
+    <article class="snap-start shrink-0 w-[84%] sm:w-[46%] lg:w-[31%] xl:w-[24%] bg-paper rounded-2xl p-6 flex flex-col gap-4 min-h-[300px]">
+      <p class="tracking-[3px]" aria-label="4 out of 5 stars">★★★★<span class="text-line">★</span></p>
+      <p class="text-[17px] leading-snug">Fits in the trunk of our Civic with space for groceries. Only wish the basket had a zip cover, otherwise perfect.</p>
+      <p class="mt-auto text-sm"><span class="font-medium">Daniel K.</span> <span class="text-muted">Vancouver, BC</span></p>
+      <p class="text-xs text-moss flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 5 5L20 7"/></svg>Verified buyer</p>
+    </article>
+    <article class="snap-start shrink-0 w-[84%] sm:w-[46%] lg:w-[31%] xl:w-[24%] bg-paper rounded-2xl p-6 flex flex-col gap-4 min-h-[300px]">
+      <p class="tracking-[3px]" aria-label="5 out of 5 stars">★★★★★</p>
+      <p class="text-[17px] leading-snug">I compared it with strollers twice the price at a baby expo. Same feel, same features, and the 100-night trial made it an easy decision.</p>
+      <p class="mt-auto text-sm"><span class="font-medium">Sarah M.</span> <span class="text-muted">Halifax, NS</span></p>
+      <p class="text-xs text-moss flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 5 5L20 7"/></svg>Verified buyer</p>
+    </article>
+    <div class="shrink-0 w-1" aria-hidden="true"></div>
+  </div>
+
+  <!-- Progress indicator -->
+  <div class="wrap mt-8"><div class="h-[2px] bg-line rounded-full overflow-hidden"><div class="h-full bg-ink rounded-full transition-all duration-300" style="width:25%" data-car-bar></div></div></div>
+</section>
+
+<!-- ============ SECTION: compare-table (sections/compare-table.liquid) ============ -->
+<section class="py-20 lg:py-28">
+  <div class="wrap grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+    <div class="lg:col-span-4 lg:sticky lg:top-28" data-reveal>
+      <p class="kicker mb-3">Side by side</p>
+      <h2 class="text-h2 font-medium">Premium features without the premium markup.</h2>
+      <p class="text-muted mt-4 max-w-[44ch]">We sell one stroller, direct to you. No retail middleman, so more of the price goes into the stroller itself.</p>
+    </div>
+    <div class="lg:col-span-8 overflow-x-auto" data-reveal data-delay="1">
+      <table class="w-full text-[15px] tnum">
+        <thead>
+          <tr class="text-left">
+            <th class="py-4 pr-3 font-normal text-muted w-[40%]"><span class="sr-only">Feature</span></th>
+            <th class="py-4 px-3 font-medium bg-ink text-paper rounded-t-xl text-center">AGOW</th>
+            <th class="py-4 pl-3 font-normal text-muted text-center">Typical premium stroller</th>
+          </tr>
+        </thead>
+        <tbody class="[&>tr]:border-b [&>tr]:border-line">
+          <tr><td class="py-4 pr-3">Price</td><td class="py-4 px-3 text-center bg-mist font-medium">$649</td><td class="py-4 pl-3 text-center text-muted">$900–1,400</td></tr>
+          <tr><td class="py-4 pr-3">One-hand fold</td><td class="py-4 px-3 text-center bg-mist"><svg class="inline" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Yes"><path d="m5 12 5 5L20 7"/></svg></td><td class="py-4 pl-3 text-center text-muted">Some models</td></tr>
+          <tr><td class="py-4 pr-3">Birth to 4 years</td><td class="py-4 px-3 text-center bg-mist"><svg class="inline" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Yes"><path d="m5 12 5 5L20 7"/></svg></td><td class="py-4 pl-3 text-center text-muted"><svg class="inline" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Yes"><path d="m5 12 5 5L20 7"/></svg></td></tr>
+          <tr><td class="py-4 pr-3">Snow-ready wheels</td><td class="py-4 px-3 text-center bg-mist"><svg class="inline" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Yes"><path d="m5 12 5 5L20 7"/></svg></td><td class="py-4 pl-3 text-center text-muted">Add-on</td></tr>
+          <tr><td class="py-4 pr-3">Try at home</td><td class="py-4 px-3 text-center bg-mist font-medium">100 nights</td><td class="py-4 pl-3 text-center text-muted">30 days, unused</td></tr>
+          <tr><td class="py-4 pr-3">Warranty</td><td class="py-4 px-3 text-center bg-mist font-medium">2 years</td><td class="py-4 pl-3 text-center text-muted">1 year</td></tr>
+          <tr class="!border-0"><td class="py-4 pr-3">Shipping</td><td class="py-4 px-3 text-center bg-mist font-medium rounded-b-xl">Free</td><td class="py-4 pl-3 text-center text-muted">Varies</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+  <!-- ============ SECTION: cross-sell (sections/complementary-products.liquid) ============ -->
+  <section class="py-20 lg:py-28 border-t border-line">
+    <div class="wrap">
+      <div class="flex items-end justify-between gap-6 mb-10" data-reveal>
+        <div><p class="kicker mb-3">Complete the setup</p><h2 class="text-h2 font-medium">Made to fit, nothing to adapt.</h2></div>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5" data-accessories></div>
+    </div>
+  </section>
+
+<!-- ============ SECTION: guarantee (sections/guarantee.liquid) — risk reversal ============ -->
+<section class="py-20 lg:py-28">
+  <div class="wrap">
+    <div class="rounded-3xl bg-ink text-paper overflow-hidden grid lg:grid-cols-2">
+      <div class="p-8 sm:p-12 lg:p-16 flex flex-col gap-6 justify-center" data-reveal>
+        <p class="text-[72px] sm:text-[96px] leading-none font-medium tracking-[-0.05em] tnum">100</p>
+        <h2 class="text-h2 font-medium -mt-2">nights to decide.</h2>
+        <p class="text-paper/75 text-[17px] max-w-[46ch]">Use it for school runs, snow, naps and road trips. If it isn't right for your family within 100 nights, we'll collect it from your door and refund you in full.</p>
+        <ol class="grid sm:grid-cols-3 gap-4 text-sm text-paper/80">
+          <li class="border-t border-paper/20 pt-3"><span class="block text-paper font-medium mb-1">1. Use it</span>Real life, real weather.</li>
+          <li class="border-t border-paper/20 pt-3"><span class="block text-paper font-medium mb-1">2. Tell us</span>One email, no forms.</li>
+          <li class="border-t border-paper/20 pt-3"><span class="block text-paper font-medium mb-1">3. We collect</span>Refund in 5 days.</li>
+        </ol>
+        <a href="#shop" class="btn-paper w-fit">Start your 100 nights</a>
+      </div>
+      <div class="relative min-h-[320px] lg:min-h-0">
+        <img src="https://images.unsplash.com/photo-1663579168345-8e955020f8ef?auto=format&fit=crop&q=75&w=1200" srcset="https://images.unsplash.com/photo-1663579168345-8e955020f8ef?auto=format&fit=crop&q=75&w=640 640w, https://images.unsplash.com/photo-1663579168345-8e955020f8ef?auto=format&fit=crop&q=75&w=1000 1000w, https://images.unsplash.com/photo-1663579168345-8e955020f8ef?auto=format&fit=crop&q=75&w=1600 1600w, https://images.unsplash.com/photo-1663579168345-8e955020f8ef?auto=format&fit=crop&q=75&w=2200 2200w" sizes="(min-width:1024px) 50vw, 100vw" alt="Parent walking with the stroller on a sunny path" class="absolute inset-0 w-full h-full object-cover" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION: faq (sections/faq.liquid) — also output FAQPage JSON-LD in Shopify ============ -->
+<section id="faq" class="py-20 lg:py-28 border-t border-line scroll-mt-16">
+  <div class="wrap grid lg:grid-cols-12 gap-10">
+    <div class="lg:col-span-4" data-reveal>
+      <p class="kicker mb-3">Before you buy</p>
+      <h2 class="text-h2 font-medium">Questions parents ask us.</h2>
+      <p class="text-muted mt-4">Still unsure? Email <span class="text-ink select-all">hello@agow.ca</span> and a real person replies within one business day.</p>
+    </div>
+    <div class="lg:col-span-8 border-t border-line">
+      <details class="border-b border-line" open>
+        <summary class="flex items-center justify-between gap-6 py-5 text-lg font-medium">Can I use it from birth?<span class="chev text-2xl leading-none font-normal">+</span></summary>
+        <p class="pb-6 text-muted max-w-[62ch]">Yes. The seat reclines nearly flat for newborns, or add the bassinet (included in the Newborn Set) for the first six months. It then works as a toddler seat up to 22 kg, around 4 years.</p>
+      </details>
+      <details class="border-b border-line">
+        <summary class="flex items-center justify-between gap-6 py-5 text-lg font-medium">Does it work with my car seat?<span class="chev text-2xl leading-none font-normal">+</span></summary>
+        <p class="pb-6 text-muted max-w-[62ch]">Included adapters fit most infant car seats sold in Canada, including Maxi-Cosi, Cybex, Nuna and Clek. Not sure about yours? Send us the model and we'll confirm.</p>
+      </details>
+      <details class="border-b border-line">
+        <summary class="flex items-center justify-between gap-6 py-5 text-lg font-medium">Is it good in snow?<span class="chev text-2xl leading-none font-normal">+</span></summary>
+        <p class="pb-6 text-muted max-w-[62ch]">The wide rubber wheels and four-wheel suspension handle packed snow and salted sidewalks. For deep snow, lock the front wheels straight with one click.</p>
+      </details>
+      <details class="border-b border-line">
+        <summary class="flex items-center justify-between gap-6 py-5 text-lg font-medium">How fast is shipping?<span class="chev text-2xl leading-none font-normal">+</span></summary>
+        <p class="pb-6 text-muted max-w-[62ch]">Free, tracked shipping anywhere in Canada. Most orders arrive in 3–6 business days. You'll get tracking by email the day it ships.</p>
+      </details>
+      <details class="border-b border-line">
+        <summary class="flex items-center justify-between gap-6 py-5 text-lg font-medium">What if it's not right for us?<span class="chev text-2xl leading-none font-normal">+</span></summary>
+        <p class="pb-6 text-muted max-w-[62ch]">You have 100 nights. Email us, we arrange a free pickup and refund you in full within 5 business days of receiving it.</p>
+      </details>
+      <details class="border-b border-line">
+        <summary class="flex items-center justify-between gap-6 py-5 text-lg font-medium">Can I pay in instalments?<span class="chev text-2xl leading-none font-normal">+</span></summary>
+        <p class="pb-6 text-muted max-w-[62ch]">Yes. Choose Shop Pay at checkout to split the price into 4 interest-free payments.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ SECTION: footer (sections/footer.liquid) ============ -->
+<footer id="contact" class="bg-stone pt-16 pb-28 lg:pb-12">
+  <div class="wrap grid gap-12 lg:grid-cols-12">
+    <div class="lg:col-span-5 flex flex-col gap-4">
+      <span class="text-[34px] leading-none font-semibold tracking-[-0.06em]">agow</span>
+      <p class="text-muted max-w-[40ch]">One well-made stroller for Canadian families. Designed for real days, tested in real weather.</p>
+      <form class="mt-2 flex flex-col gap-2 max-w-md" data-newsletter>
+        <label for="nl-email" class="text-sm font-medium">Get stroller tips and early access to new colours</label>
+        <div class="flex gap-2">
+          <input id="nl-email" type="email" required placeholder="Email address" class="flex-1 min-w-0 h-12 rounded-pill border border-line bg-paper px-5 text-[15px] focus:outline-none focus:border-ink">
+          <button class="btn-ink h-12 px-5">Sign up</button>
+        </div>
+        <p class="text-sm text-moss hidden" data-nl-ok>Thanks. You're on the list.</p>
+      </form>
+    </div>
+    <div class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 text-[15px]">
+      <div class="flex flex-col gap-2.5"><p class="font-medium mb-1">Shop</p><a href="product.html" class="text-muted hover:text-ink">The AGOW Stroller</a><a href="product.html" class="text-muted hover:text-ink">Accessories</a><a href="#" class="text-muted hover:text-ink">Gift cards</a></div>
+      <div class="flex flex-col gap-2.5"><p class="font-medium mb-1">Help</p><a href="#faq" class="text-muted hover:text-ink">FAQ</a><a href="#" class="text-muted hover:text-ink">Shipping</a><a href="#" class="text-muted hover:text-ink">100-night trial</a><a href="#" class="text-muted hover:text-ink">Warranty</a></div>
+      <div class="flex flex-col gap-2.5"><p class="font-medium mb-1">AGOW</p><a href="#day" class="text-muted hover:text-ink">Our story</a><a href="#" class="text-muted hover:text-ink">Instagram</a><a href="#" class="text-muted hover:text-ink">Facebook</a><span class="text-muted select-all">hello@agow.ca</span></div>
+    </div>
+  </div>
+  <div class="wrap mt-14 pt-6 border-t border-line flex flex-col sm:flex-row gap-3 justify-between text-sm text-muted">
+    <p>© <span data-year>2026</span> AGOW. Canada.</p>
+    <div class="flex gap-5"><a href="#" class="hover:text-ink">Privacy</a><a href="#" class="hover:text-ink">Terms</a><a href="#" class="hover:text-ink">Refund policy</a></div>
+  </div>
+</footer>
+
+<!-- ============ SNIPPET: sticky-add-to-cart (shows once the main buy button scrolls out of view) ============ -->
+<div class="satc fixed inset-x-0 bottom-0 z-30 bg-paper/95 backdrop-blur-md border-t border-line pb-[env(safe-area-inset-bottom,0px)]" data-satc>
+  <div class="wrap py-3 flex items-center gap-3">
+    <img src="https://images.unsplash.com/photo-1611223355350-5be15e624fdf?auto=format&fit=crop&w=160&q=60" alt="" class="hidden sm:block w-12 h-12 rounded-lg object-cover">
+    <div class="min-w-0 flex-1 leading-tight">
+      <p class="text-sm font-medium truncate" data-satc-title>Stroller + Travel Kit</p>
+      <p class="text-sm tnum"><span data-satc-price>$729</span> <s class="text-muted text-xs" data-satc-compare>$927</s></p>
+    </div>
+    <button type="button" class="btn-ink h-12 px-6 shrink-0" data-satc-btn>Add to cart</button>
+  </div>
+</div>
+
+<!-- ============ SNIPPET: cart-drawer (snippets/cart-drawer.liquid + Ajax Cart API) ============ -->
+<div class="overlay fixed inset-0 z-50 bg-ink/40" data-cart-overlay></div>
+<aside class="drawer fixed inset-y-0 right-0 z-50 w-full sm:max-w-[440px] bg-paper flex flex-col" data-cart aria-label="Your cart" aria-hidden="true">
+  <div class="h-16 px-5 flex items-center justify-between border-b border-line">
+    <p class="text-lg font-medium">Your cart <span class="text-muted tnum" data-cart-count-text></span></p>
+    <button class="p-2 -mr-2" aria-label="Close cart" data-cart-close>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+
+  <!-- Free-shipping progress -->
+  <div class="px-5 py-4 bg-mist border-b border-line">
+    <p class="text-sm" data-ship-msg>Free shipping on every stroller order</p>
+    <div class="mt-2 h-1.5 rounded-full bg-line overflow-hidden"><div class="h-full bg-moss rounded-full transition-all duration-700 ease-out" style="width:0%" data-ship-bar></div></div>
+  </div>
+
+  <div class="flex-1 overflow-y-auto px-5" data-cart-items>
+    <!-- items rendered by app.js -->
+  </div>
+
+  <!-- Empty state -->
+  <div class="flex-1 px-5 hidden flex-col items-center justify-center text-center gap-4" data-cart-empty>
+    <p class="text-h3">Your cart is empty</p>
+    <p class="text-muted text-sm max-w-[26ch]">The AGOW Stroller ships free across Canada, with 100 nights to try it.</p>
+    <a href="product.html" class="btn-ink">Shop the stroller</a>
+  </div>
+
+  <!-- Upsell -->
+  <div class="px-5 py-4 border-t border-line" data-cart-upsell>
+    <p class="text-sm font-medium mb-3">Parents often add</p>
+    <div class="flex gap-3 overflow-x-auto noscroll -mx-5 px-5" data-upsell-list></div>
+  </div>
+
+  <div class="px-5 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] border-t border-line bg-paper" data-cart-footer>
+    <div class="flex justify-between text-[15px]"><span>Subtotal</span><span class="font-medium tnum" data-cart-subtotal>$0.00</span></div>
+    <p class="text-xs text-muted mt-1">Taxes calculated at checkout. Shipping is free.</p>
+    <a href="#checkout" class="btn-ink w-full mt-4" data-checkout>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+      Secure checkout
+    </a>
+    <p class="text-xs text-muted text-center mt-3">or 4 interest-free payments with Shop Pay</p>
+  </div>
+</aside>
+
+<script>
+/* AGOW storefront prototype — vanilla JS, no dependencies.
+   In Shopify: replace the CART object with calls to /cart/add.js, /cart/change.js, /cart.js
+   and read PRODUCT from {{ product | json }}. Every price below is a placeholder to confirm. */
+(() => {
+  'use strict';
+
+  // ---------------------------------------------------------------- config
+  const IMG = id => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=240&q=60`;
+  const PRODUCT = {
+    title: 'The AGOW Stroller',
+    colour: 'Graphite',
+    image: IMG('photo-1611223355350-5be15e624fdf'),
+    bundles: {
+      solo:    { name: 'Stroller only',         price: 649, compare: 799 },
+      travel:  { name: 'Stroller + Travel Kit', price: 729, compare: 927 },
+      newborn: { name: 'Newborn Set',           price: 899, compare: 1156 },
+    },
+  };
+  const ACCESSORIES = [
+    { id: 'rain',    name: 'Rain cover',       note: 'Fits seat and bassinet', price: 39, glyph: 'M6 13a6 6 0 0 1 12 0M12 13v6a2 2 0 0 1-4 0' },
+    { id: 'cup',     name: 'Cup holder',       note: 'Clips to either side',  price: 19, glyph: 'M7 5h10l-1.5 14h-7zM6 9h12' },
+    { id: 'footmuff',name: 'Winter footmuff',  note: 'Rated to −20 °C',       price: 69, glyph: 'M12 3v18M4.5 7.5l15 9M19.5 7.5l-15 9' },
+    { id: 'bag',     name: 'Travel bag',       note: 'Padded, airline-ready', price: 49, glyph: 'M5 8h14v11H5zM9 8V5h6v3' },
+  ];
+  const FREE_SHIP = 99;          // free shipping threshold (CAD). Strollers always qualify.
+  const CUTOFF_HOUR = 14;        // same-day dispatch cutoff, local time (confirm with AGOW)
+  const ETA_DAYS = [3, 6];       // business days
+
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fmt = (n, dec) => new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD',
+    minimumFractionDigits: dec ? 2 : (n % 1 ? 2 : 0), maximumFractionDigits: 2 }).format(n).replace('CA', '');
+
+  // ---------------------------------------------------------------- hero load
+  requestAnimationFrame(() => setTimeout(() => document.documentElement.classList.add('loaded'), 60));
+  $$('[data-year]').forEach(e => e.textContent = new Date().getFullYear());
+  $$('[data-price-from]').forEach(e => e.textContent = 'from ' + fmt(PRODUCT.bundles.solo.price));
+
+  // ---------------------------------------------------------------- announcement
+  const rot = $$('[data-rotate-item]');
+  if (rot.length > 1 && !reduce) {
+    let i = 0;
+    setInterval(() => {
+      rot[i].classList.add('opacity-0', '-translate-y-3');
+      i = (i + 1) % rot.length;
+      rot[i].classList.remove('opacity-0', 'translate-y-3', '-translate-y-3');
+      const prev = rot[(i + rot.length - 1) % rot.length];
+      setTimeout(() => { prev.classList.remove('-translate-y-3'); prev.classList.add('translate-y-3'); }, 500);
+    }, 4200);
+  }
+
+  // ---------------------------------------------------------------- header hide on scroll
+  const hdr = $('[data-header]');
+  let lastY = scrollY;
+  addEventListener('scroll', () => {
+    const y = scrollY;
+    if (hdr) hdr.classList.toggle('up', y > 240 && y > lastY && !document.body.classList.contains('lock'));
+    lastY = y;
+  }, { passive: true });
+
+  // ---------------------------------------------------------------- panels (menu / cart)
+  const lock = on => document.body.classList.toggle('overflow-hidden', on);
+  function panel(name, open) {
+    const p = $(`[data-${name}]`), o = $(`[data-${name}-overlay]`);
+    if (!p) return;
+    p.classList.toggle('open', open); o.classList.toggle('open', open);
+    p.setAttribute('aria-hidden', String(!open)); lock(open);
+    if (open) setTimeout(() => p.querySelector('button, a')?.focus(), 350);
+  }
+  $$('[data-menu-open]').forEach(b => b.addEventListener('click', () => panel('menu', true)));
+  $$('[data-menu-close], [data-menu-overlay]').forEach(b => b.addEventListener('click', () => panel('menu', false)));
+  $$('[data-cart-open]').forEach(b => b.addEventListener('click', () => panel('cart', true)));
+  $$('[data-cart-close], [data-cart-overlay]').forEach(b => b.addEventListener('click', () => panel('cart', false)));
+  addEventListener('keydown', e => { if (e.key === 'Escape') { panel('menu', false); panel('cart', false); } });
+
+  // ---------------------------------------------------------------- gallery
+  const gal = $('[data-gallery]');
+  if (gal) {
+    const slides = [...gal.children], thumbs = $$('[data-gallery-thumbs] button'), count = $('[data-gallery-count]');
+    const go = i => gal.scrollTo({ left: gal.clientWidth * Math.max(0, Math.min(i, slides.length - 1)), behavior: reduce ? 'auto' : 'smooth' });
+    const cur = () => Math.round(gal.scrollLeft / gal.clientWidth);
+    gal.addEventListener('scroll', () => {
+      const i = cur();
+      if (count) count.textContent = `${i + 1} / ${slides.length}`;
+      thumbs.forEach((t, k) => { t.classList.toggle('ring-ink', k === i); t.classList.toggle('ring-transparent', k !== i); t.classList.toggle('opacity-70', k !== i); });
+    }, { passive: true });
+    thumbs.forEach((t, k) => t.addEventListener('click', () => go(k)));
+    $('[data-gallery-prev]')?.addEventListener('click', () => go(cur() - 1));
+    $('[data-gallery-next]')?.addEventListener('click', () => go(cur() + 1));
+  }
+
+  // ---------------------------------------------------------------- variant / bundle / qty
+  const state = { bundle: $('input[name="bundle"]:checked')?.value || 'solo', qty: 1, colour: PRODUCT.colour };
+  const setText = (sel, v) => $$(sel).forEach(e => e.textContent = v);
+  function syncPrice() {
+    const b = PRODUCT.bundles[state.bundle];
+    setText('[data-price]', fmt(b.price));
+    setText('[data-compare]', fmt(b.compare));
+    setText('[data-save]', 'Save ' + fmt(b.compare - b.price));
+    setText('[data-installment]', fmt(b.price / 4, true));
+    setText('[data-atc-price]', fmt(b.price * state.qty));
+    setText('[data-satc-title]', b.name);
+    setText('[data-satc-price]', fmt(b.price));
+    setText('[data-satc-compare]', fmt(b.compare));
+  }
+  $$('input[name="bundle"]').forEach(r => r.addEventListener('change', () => { state.bundle = r.value; syncPrice(); }));
+  $$('[data-colour]').forEach(b => b.addEventListener('click', () => {
+    state.colour = b.dataset.colour; setText('[data-colour-name]', state.colour);
+    $$('[data-colour]').forEach(x => { const on = x === b; x.setAttribute('aria-pressed', on); x.classList.toggle('ring-ink', on); x.classList.toggle('ring-transparent', !on); });
+  }));
+  const qIn = $('[data-qty-input]');
+  const setQty = q => { state.qty = Math.max(1, Math.min(5, q || 1)); if (qIn) qIn.value = state.qty; syncPrice(); };
+  $('[data-qty-minus]')?.addEventListener('click', () => setQty(state.qty - 1));
+  $('[data-qty-plus]')?.addEventListener('click', () => setQty(state.qty + 1));
+  qIn?.addEventListener('change', () => setQty(parseInt(qIn.value, 10)));
+  syncPrice();
+
+  // ---------------------------------------------------------------- cart (swap for Shopify Ajax API)
+  let cart = [];
+  try { cart = JSON.parse(localStorage.getItem('agow-cart') || '[]'); } catch (e) { cart = []; }
+  const save = () => { try { localStorage.setItem('agow-cart', JSON.stringify(cart)); } catch (e) {} };
+  const hasStroller = () => cart.some(i => i.type === 'stroller');
+
+  function addItem(item, qty = 1) {
+    const found = cart.find(i => i.key === item.key);
+    found ? (found.qty += qty) : cart.push({ ...item, qty });
+    save(); renderCart(true);
+  }
+  function addStroller(qty) {
+    const b = PRODUCT.bundles[state.bundle];
+    addItem({ key: `stroller-${state.bundle}-${state.colour}`, type: 'stroller', title: b.name, variant: state.colour,
+              price: b.price, compare: b.compare, img: PRODUCT.image }, qty);
+  }
+
+  function renderCart(bump) {
+    const list = $('[data-cart-items]'); if (!list) return;
+    const n = cart.reduce((s, i) => s + i.qty, 0);
+    const sub = cart.reduce((s, i) => s + i.qty * i.price, 0);
+    $$('[data-cart-count]').forEach(c => { c.textContent = n; c.hidden = !n; if (bump && !reduce) { c.classList.remove('bump'); void c.offsetWidth; c.classList.add('bump'); } });
+    setText('[data-cart-count-text]', n ? `(${n})` : '');
+    setText('[data-cart-subtotal]', fmt(sub, true));
+    $('[data-cart-empty]').classList.toggle('hidden', !!n); $('[data-cart-empty]').classList.toggle('flex', !n);
+    list.classList.toggle('hidden', !n);
+    $('[data-cart-footer]').classList.toggle('hidden', !n);
+
+    // free shipping progress
+    const free = hasStroller() || sub >= FREE_SHIP;
+    const pct = free ? 100 : Math.round((sub / FREE_SHIP) * 100);
+    $('[data-ship-bar]').style.width = pct + '%';
+    $('[data-ship-msg]').innerHTML = free ? '<b class="font-medium">You’ve unlocked free shipping.</b>'
+      : `Add <b class="font-medium tnum">${fmt(FREE_SHIP - sub, true)}</b> more for free shipping`;
+
+    list.innerHTML = cart.map(i => `
+      <div class="flex gap-4 py-5 border-b border-line">
+        ${i.img ? `<img src="${i.img}" alt="" class="w-20 h-20 rounded-lg object-cover shrink-0">`
+                : `<span class="w-20 h-20 rounded-lg bg-stone grid place-items-center shrink-0"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="${i.glyph}"/></svg></span>`}
+        <div class="flex-1 min-w-0 flex flex-col gap-1">
+          <div class="flex justify-between gap-3"><p class="font-medium leading-tight">${i.title}</p><p class="tnum text-right">${fmt(i.price * i.qty)}${i.compare ? `<br><s class="text-xs text-muted">${fmt(i.compare * i.qty)}</s>` : ''}</p></div>
+          <p class="text-sm text-muted">${i.variant || ''}</p>
+          <div class="mt-auto flex items-center justify-between">
+            <div class="flex items-center h-9 rounded-pill border border-line text-sm">
+              <button class="w-9 h-full" aria-label="Decrease" data-dec="${i.key}">−</button><span class="w-6 text-center tnum">${i.qty}</span><button class="w-9 h-full" aria-label="Increase" data-inc="${i.key}">+</button>
+            </div>
+            <button class="text-sm text-muted link-u" data-rm="${i.key}">Remove</button>
+          </div>
+        </div>
+      </div>`).join('');
+
+    // upsell: accessories not yet in cart
+    const ups = ACCESSORIES.filter(a => !cart.some(i => i.key === a.id));
+    $('[data-cart-upsell]').classList.toggle('hidden', !n || !ups.length);
+    $('[data-upsell-list]').innerHTML = ups.map(a => `
+      <div class="shrink-0 w-[210px] flex items-center gap-3 rounded-xl border border-line p-3">
+        <span class="w-12 h-12 rounded-lg bg-stone grid place-items-center shrink-0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="${a.glyph}"/></svg></span>
+        <div class="min-w-0 flex-1"><p class="text-sm font-medium truncate">${a.name}</p><p class="text-sm text-muted tnum">${fmt(a.price)}</p></div>
+        <button class="w-9 h-9 rounded-full bg-ink text-paper grid place-items-center shrink-0" aria-label="Add ${a.name}" data-add-acc="${a.id}">+</button>
+      </div>`).join('');
+  }
+
+  document.addEventListener('click', e => {
+    const t = e.target.closest('[data-inc],[data-dec],[data-rm],[data-add-acc]'); if (!t) return;
+    if (t.dataset.addAcc) { addAccessory(t.dataset.addAcc, t); return; }
+    const key = t.dataset.inc || t.dataset.dec || t.dataset.rm;
+    const it = cart.find(i => i.key === key); if (!it) return;
+    if (t.dataset.inc) it.qty = Math.min(9, it.qty + 1);
+    if (t.dataset.dec) it.qty -= 1;
+    if (t.dataset.rm || it.qty < 1) cart = cart.filter(i => i.key !== key);
+    save(); renderCart();
+  });
+
+  function addAccessory(id, btn) {
+    const a = ACCESSORIES.find(x => x.id === id); if (!a) return;
+    addItem({ key: a.id, type: 'accessory', title: a.name, variant: a.note, price: a.price, glyph: a.glyph });
+    if (btn && btn.dataset.accCard !== undefined) { btn.textContent = 'Added'; setTimeout(() => btn.textContent = 'Add', 1600); }
+    if (!$('[data-cart]').classList.contains('open')) panel('cart', true);
+  }
+
+  // Add to cart with feedback: button → spinner → check → open drawer
+  function runAtc(btn) {
+    const main = $('[data-atc]');
+    if (main.classList.contains('loading')) return;
+    main.classList.add('loading'); if (btn && btn !== main) btn.disabled = true;
+    setTimeout(() => {
+      addStroller(state.qty);
+      main.classList.remove('loading'); main.classList.add('done');
+      setTimeout(() => panel('cart', true), 350);
+      setTimeout(() => { main.classList.remove('done'); if (btn) btn.disabled = false; }, 1800);
+    }, reduce ? 0 : 550);
+  }
+  $('[data-atc]')?.addEventListener('click', e => runAtc(e.currentTarget));
+  $('[data-satc-btn]')?.addEventListener('click', e => runAtc(e.currentTarget));
+  $('[data-buy-now]')?.addEventListener('click', () => { addStroller(state.qty); panel('cart', true); /* Shopify: dynamic checkout button goes straight to checkout */ });
+  $$('[data-checkout]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); a.textContent = 'Checkout connects in Shopify'; }));
+
+  // Accessory grid (product page cross-sell)
+  const accGrid = $('[data-accessories]');
+  if (accGrid) accGrid.innerHTML = ACCESSORIES.map(a => `
+    <div class="flex flex-col gap-4 rounded-2xl bg-mist p-5" data-reveal>
+      <span class="aspect-square rounded-xl bg-stone grid place-items-center"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="${a.glyph}"/></svg></span>
+      <div><p class="font-medium">${a.name}</p><p class="text-sm text-muted">${a.note}</p></div>
+      <div class="mt-auto flex items-center justify-between"><span class="tnum">${fmt(a.price)}</span><button class="btn-line h-10 px-5 text-sm" data-add-acc="${a.id}" data-acc-card>Add</button></div>
+    </div>`).join('');
+
+  renderCart();
+
+  // ---------------------------------------------------------------- delivery estimate
+  const addBiz = (d, n) => { d = new Date(d); while (n > 0) { d.setDate(d.getDate() + 1); if (d.getDay() % 6) n--; } return d; };
+  const now = new Date(), dfmt = d => d.toLocaleDateString('en-CA', { weekday: 'short', month: 'short', day: 'numeric' });
+  setText('[data-eta]', `${dfmt(addBiz(now, ETA_DAYS[0]))} – ${dfmt(addBiz(now, ETA_DAYS[1]))}`);
+  const cutEl = $('[data-cutoff]');
+  function tickCutoff() {
+    const d = new Date(), cut = new Date(d); cut.setHours(CUTOFF_HOUR, 0, 0, 0);
+    const weekday = d.getDay() % 6 !== 0;
+    if (weekday && d < cut) {
+      const m = Math.ceil((cut - d) / 60000);
+      cutEl.innerHTML = `Order within <b class="font-medium tnum">${Math.floor(m / 60)}h ${m % 60}m</b>, ships today,`;
+    } else cutEl.textContent = 'Order now';
+  }
+  if (cutEl) { tickCutoff(); setInterval(tickCutoff, 30000); }
+
+  // ---------------------------------------------------------------- sticky add-to-cart
+  const satc = $('[data-satc]'), atc = $('[data-atc]'), foot = $('footer');
+  if (satc && atc && 'IntersectionObserver' in window) {
+    let atcAbove = false, footIn = false;
+    const upd = () => satc.classList.toggle('show', atcAbove && !footIn);
+    new IntersectionObserver(([e]) => { atcAbove = !e.isIntersecting && e.boundingClientRect.top < 0; upd(); }).observe(atc);
+    if (foot) new IntersectionObserver(([e]) => { footIn = e.isIntersecting; upd(); }).observe(foot);
+  }
+
+  // ---------------------------------------------------------------- story: swap sticky image by chapter
+  const media = $('[data-story-media]');
+  if (media && 'IntersectionObserver' in window) {
+    const imgs = $$('.story-img', media), clock = $('[data-story-clock]');
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      const i = +e.target.dataset.chapter;
+      imgs.forEach((im, k) => im.classList.toggle('on', k === i));
+      if (clock) clock.textContent = e.target.dataset.time;
+    }), { rootMargin: '-45% 0px -45% 0px' });
+    $$('[data-chapter]').forEach(c => io.observe(c));
+  }
+
+  // ---------------------------------------------------------------- hotspots
+  const hsWrap = $('[data-hotspots]');
+  if (hsWrap) {
+    const dots = $$('[data-hs]', hsWrap), items = $$('[data-hs-item]', hsWrap);
+    const act = i => {
+      dots.forEach((d, k) => { const on = k === i; const s = d.lastElementChild; s.classList.toggle('bg-ink', on); s.classList.toggle('text-paper', on); s.classList.toggle('bg-paper', !on); s.classList.toggle('scale-110', on); d.setAttribute('aria-pressed', on); });
+      items.forEach((b, k) => { b.nextElementSibling.classList.toggle('hidden', k !== i); b.setAttribute('aria-expanded', k === i); });
+    };
+    dots.forEach(d => d.addEventListener('click', () => {
+      const i = +d.dataset.hs; act(i);
+      if (innerWidth < 1024) items[i].scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
+    }));
+    items.forEach(b => b.addEventListener('click', () => act(+b.dataset.hsItem)));
+    act(0);
+  }
+
+  // ---------------------------------------------------------------- reviews carousel
+  $$('[data-carousel]').forEach(c => {
+    const tr = $('[data-car-track]', c), bar = $('[data-car-bar]', c); if (!tr) return;
+    const step = () => (tr.firstElementChild?.getBoundingClientRect().width || 300) + 16;
+    $('[data-car-prev]', c)?.addEventListener('click', () => tr.scrollBy({ left: -step(), behavior: 'smooth' }));
+    $('[data-car-next]', c)?.addEventListener('click', () => tr.scrollBy({ left: step(), behavior: 'smooth' }));
+    const upd = () => { const max = tr.scrollWidth - tr.clientWidth; const vis = tr.clientWidth / tr.scrollWidth; bar.style.width = Math.max(vis, max ? (tr.scrollLeft / max) * (1 - vis) + vis : 1) * 100 + '%'; };
+    tr.addEventListener('scroll', upd, { passive: true }); addEventListener('resize', upd); upd();
+  });
+
+  // ---------------------------------------------------------------- newsletter
+  $$('[data-newsletter]').forEach(f => f.addEventListener('submit', e => { e.preventDefault(); $('[data-nl-ok]', f).classList.remove('hidden'); f.reset(); }));
+
+  // ---------------------------------------------------------------- scroll reveal
+  if ('IntersectionObserver' in window && !reduce) {
+    const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    $$('[data-reveal]').forEach(el => ro.observe(el));
+  } else $$('[data-reveal]').forEach(el => el.classList.add('in'));
+})();
+
+</script>
+</body>
+</html>
