@@ -1,5 +1,7 @@
 <section class="hero" {{ section.shopify_attributes }}>
-  {% if section.settings.image != blank %}
+  {% if section.settings.video != blank %}
+    {{ section.settings.video | video_tag: class: 'hero__image', autoplay: true, loop: true, muted: true, controls: false, image_size: '2200x' }}
+  {% elsif section.settings.image != blank %}
     {{ section.settings.image | image_url: width: 2200 | image_tag:
         class: 'hero__image',
         sizes: '100vw',
@@ -65,6 +67,11 @@
 {
   "name": "Hero",
   "settings": [
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Background video"
+    },
     {
       "type": "image_picker",
       "id": "image",

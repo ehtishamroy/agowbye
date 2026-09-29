@@ -10,7 +10,7 @@
 <div class="overlay" data-cart-overlay></div>
 
 <!-- Cart drawer -->
-<aside class="drawer" data-cart aria-label="Your cart" aria-hidden="true">
+<aside class="drawer" data-cart {% if settings.enable_free_shipping %}data-free-shipping-threshold="{{ settings.free_shipping_threshold | times: 100 }}"{% endif %} aria-label="Your cart" aria-hidden="true">
   <!-- Header -->
   <div class="drawer__header">
     <p class="drawer__title">Your cart <span class="drawer__count-text" data-cart-count-text>{% if cart.item_count > 0 %}({{ cart.item_count }}){% endif %}</span></p>
@@ -20,26 +20,28 @@
   </div>
 
   <!-- Free-shipping progress -->
-  <div class="drawer__shipping">
-    {%- assign free_shipping_threshold = 99900 -%}
-    {%- assign cart_total = cart.total_price -%}
-    {%- assign remaining = free_shipping_threshold | minus: cart_total -%}
-    {%- if remaining <= 0 -%}
-      {%- assign ship_pct = 100 -%}
-    {%- else -%}
-      {%- assign ship_pct = cart_total | times: 100 | divided_by: free_shipping_threshold -%}
-    {%- endif -%}
-    <p class="drawer__ship-msg" data-ship-msg>
+  {%- if settings.enable_free_shipping -%}
+    <div class="drawer__shipping">
+      {%- assign free_shipping_threshold = settings.free_shipping_threshold | times: 100 -%}
+      {%- assign cart_total = cart.total_price -%}
+      {%- assign remaining = free_shipping_threshold | minus: cart_total -%}
       {%- if remaining <= 0 -%}
-        <b>You've unlocked free shipping.</b>
+        {%- assign ship_pct = 100 -%}
       {%- else -%}
-        Add <b class="tnum">{{ remaining | money }}</b> more for free shipping
+        {%- assign ship_pct = cart_total | times: 100 | divided_by: free_shipping_threshold -%}
       {%- endif -%}
-    </p>
-    <div class="drawer__ship-track">
-      <div class="drawer__ship-bar" style="width:{{ ship_pct }}%" data-ship-bar></div>
+      <p class="drawer__ship-msg" data-ship-msg>
+        {%- if remaining <= 0 -%}
+          <b>You've unlocked free shipping.</b>
+        {%- else -%}
+          Add <b class="tnum">{{ remaining | money }}</b> more for free shipping
+        {%- endif -%}
+      </p>
+      <div class="drawer__ship-track">
+        <div class="drawer__ship-bar" style="width:{{ ship_pct }}%" data-ship-bar></div>
+      </div>
     </div>
-  </div>
+  {%- endif -%}
 
   <!-- Cart items -->
   <div class="drawer__items {% if cart.item_count == 0 %}hidden{% endif %}" data-cart-items>

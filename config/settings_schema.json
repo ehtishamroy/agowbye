@@ -79,5 +79,23 @@
         "default": 4
       }
     ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_free_shipping",
+        "label": "Enable free shipping progress bar",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping threshold",
+        "info": "Amount in dollars (e.g. 99 for $99.00)",
+        "default": 99
+      }
+    ]
   }
 ]

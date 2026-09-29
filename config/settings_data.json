@@ -8,5 +8,12 @@
  * ------------------------------------------------------------
  */
 {
-  "current": {}
+  "current": {
+    "content_for_index": []
+  },
+  "platform_customizations": {
+    "custom_css": [
+      ".product__payments {display: flex; flex-wrap: wrap; margin-top: -20px; align-items: center; margin-bottom: -25px; gap: .375rem;}"
+    ]
+  }
 }

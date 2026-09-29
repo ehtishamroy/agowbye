@@ -1009,7 +1009,9 @@ html:not(.js) .hero__actions {
 .product__accordion {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  margin-top: -1px;
+}
+.product__accordion + .product__accordion {
+  margin-top: calc(-1.5rem - 1px);
 }
 .product__accordion-summary {
   display: flex;

@@ -27,6 +27,8 @@
           "type": "trust_item",
           "settings": {
             "icon": "truck",
+            "custom_icon": "shopify://shop_images/fast-delivery.png",
+            "custom_html": "",
             "title": "Free shipping in Canada",
             "text": "Anywhere in Canada, tracked"
           }
@@ -35,6 +37,8 @@
           "type": "trust_item",
           "settings": {
             "icon": "moon",
+            "custom_icon": "shopify://shop_images/moon.png",
+            "custom_html": "",
             "title": "100-night trial",
             "text": "Free pickup if it's not right"
           }
@@ -43,6 +47,8 @@
           "type": "trust_item",
           "settings": {
             "icon": "shield",
+            "custom_icon": "shopify://shop_images/guarantee.png",
+            "custom_html": "",
             "title": "2-year warranty",
             "text": "Frame, wheels and fold"
           }
@@ -51,6 +57,8 @@
           "type": "trust_item",
           "settings": {
             "icon": "credit-card",
+            "custom_icon": "shopify://shop_images/wallet.png",
+            "custom_html": "",
             "title": "Pay in 4 with Shop Pay",
             "text": "Interest-free with Shop Pay"
           }
@@ -124,14 +132,22 @@
         "trust": {
           "type": "mini_trust",
           "settings": {
+            "icon_1": "shopify://shop_images/moon.png",
+            "icon_1_html": "",
             "trust_1": "100-night trial",
+            "icon_2": "shopify://shop_images/guarantee.png",
+            "icon_2_html": "",
             "trust_2": "2-year warranty",
+            "icon_3": "shopify://shop_images/product-return.png",
+            "icon_3_html": "",
             "trust_3": "Free returns"
           }
         },
         "payments": {
           "type": "payment_icons",
-          "settings": {}
+          "settings": {
+            "custom_html": "<div class=\"badgesContainer\" style=\"display: block; text-align: center;\">\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/mastercard_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/visa_1_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/americanexpress_1_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/applepay_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/shoppay3_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n</div>"
+          }
         },
         "accordion_1": {
           "type": "accordion",
@@ -497,27 +513,39 @@
       "blocks": {
         "img_1": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "custom_svg": ""
+          }
         },
         "img_2": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "custom_svg": ""
+          }
         },
         "img_3": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "custom_svg": ""
+          }
         },
         "img_4": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "custom_svg": ""
+          }
         },
         "img_5": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "custom_svg": ""
+          }
         },
         "img_6": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "custom_svg": ""
+          }
         }
       },
       "block_order": [

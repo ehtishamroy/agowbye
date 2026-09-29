@@ -92,12 +92,24 @@
       
       observer.observe(mainAtc);
 
-      // Proxy SATC click to main ATC button
+      // Proxy SATC click to main ATC button or open cart
       if (satcBtn) {
         satcBtn.addEventListener('click', () => {
-          mainAtc.click();
+          if (satcBtn.dataset.cartState === 'view') {
+            document.dispatchEvent(new CustomEvent('cart:updated'));
+          } else {
+            mainAtc.click();
+          }
         });
       }
+
+      // Reset SATC button state
+      const resetSatc = () => {
+        if (satcBtn && satcBtn.dataset.cartState === 'view') {
+          satcBtn.textContent = 'Add to cart';
+          satcBtn.dataset.cartState = '';
+        }
+      };
     }
 
     // Dynamic Variant & Bundle Pricing
@@ -137,6 +149,53 @@
         }
       };
 
+      // Handle Ajax Add to Cart
+      if (mainAtc) {
+        mainAtc.addEventListener('click', async () => {
+          if (mainAtc.classList.contains('is-loading')) return;
+          
+          const variantId = idInput ? idInput.value : null;
+          const qtyWrap = el.querySelector('[data-qty]');
+          const qtyInput = qtyWrap ? qtyWrap.querySelector('[data-qty-input]') : null;
+          const quantity = qtyInput ? parseInt(qtyInput.value || 1, 10) : 1;
+          
+          if (!variantId) return;
+
+          mainAtc.classList.add('is-loading');
+          
+          try {
+            const res = await fetch((window.Shopify && window.Shopify.routes ? window.Shopify.routes.root : '/') + 'cart/add.js', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                items: [{ id: parseInt(variantId, 10), quantity }]
+              })
+            });
+            
+            if (res.ok) {
+              mainAtc.classList.remove('is-loading');
+              mainAtc.classList.add('is-added');
+              
+              if (satcBtn) {
+                satcBtn.textContent = 'View cart';
+                satcBtn.dataset.cartState = 'view';
+              }
+              
+              setTimeout(() => mainAtc.classList.remove('is-added'), 2000);
+              
+              document.dispatchEvent(new CustomEvent('cart:updated'));
+            } else {
+              const err = await res.json();
+              alert(err.description || 'Error adding to cart');
+              mainAtc.classList.remove('is-loading');
+            }
+          } catch (e) {
+            alert('Error adding to cart');
+            mainAtc.classList.remove('is-loading');
+          }
+        });
+      }
+
       // Handle bundle clicks (custom blocks overriding price)
       const updateBundlePrice = (input) => {
         const bundleCard = input.closest('label');
@@ -148,6 +207,7 @@
           const pCents = Math.round(parseFloat(priceText) * 100);
           const cCents = compareText ? Math.round(parseFloat(compareText) * 100) : 0;
           updatePrices(pCents, cCents);
+          resetSatc();
         }
       };
 
@@ -175,6 +235,7 @@
           if (matchedVariant) {
             if (idInput) idInput.value = matchedVariant.id;
             updatePrices(matchedVariant.price, matchedVariant.compare_at_price || 0);
+            resetSatc();
             
             // Update URL
             const url = new URL(window.location);

@@ -7,10 +7,12 @@
   const $ = (s, r) => (r || document).querySelector(s);
   const $$ = (s, r) => [...(r || document).querySelectorAll(s)];
 
-  const FREE_SHIP = 9990; // $99.00 in cents (Shopify money format)
   const cart = $('[data-cart]');
   const overlay = $('[data-cart-overlay]');
   if (!cart) return;
+
+  const enableFreeShip = cart.hasAttribute('data-free-shipping-threshold');
+  const FREE_SHIP = enableFreeShip ? parseInt(cart.getAttribute('data-free-shipping-threshold'), 10) : 0;
 
   /* ── Open / Close ── */
   function openCart() {
@@ -38,6 +40,13 @@
   if (overlay) overlay.addEventListener('click', closeCart);
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && cart.classList.contains('open')) closeCart();
+  });
+
+  document.addEventListener('cart:updated', () => {
+    fetchCart().then(data => {
+      renderCart(data, true);
+      openCart();
+    });
   });
 
   /* ── Ajax Cart helpers ── */
@@ -93,15 +102,17 @@
     if (footerEl) footerEl.classList.toggle('hidden', itemCount === 0);
 
     // Free shipping progress
-    const remaining = Math.max(0, FREE_SHIP - totalPrice);
-    const pct = remaining <= 0 ? 100 : Math.round((totalPrice / FREE_SHIP) * 100);
-    const shipBar = $('[data-ship-bar]');
-    const shipMsg = $('[data-ship-msg]');
-    if (shipBar) shipBar.style.width = pct + '%';
-    if (shipMsg) {
-      shipMsg.innerHTML = remaining <= 0
-        ? '<b>You\'ve unlocked free shipping.</b>'
-        : `Add <b class="tnum">${formatMoney(remaining)}</b> more for free shipping`;
+    if (enableFreeShip) {
+      const remaining = Math.max(0, FREE_SHIP - totalPrice);
+      const pct = remaining <= 0 ? 100 : Math.round((totalPrice / FREE_SHIP) * 100);
+      const shipBar = $('[data-ship-bar]');
+      const shipMsg = $('[data-ship-msg]');
+      if (shipBar) shipBar.style.width = pct + '%';
+      if (shipMsg) {
+        shipMsg.innerHTML = remaining <= 0
+          ? '<b>You\'ve unlocked free shipping.</b>'
+          : `Add <b class="tnum">${formatMoney(remaining)}</b> more for free shipping`;
+      }
     }
 
     // Render line items
