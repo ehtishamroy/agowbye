@@ -1,0 +1,74 @@
+<section class="marquee-gallery scroll-mt-16">
+  <div class="marquee-gallery__track">
+    <!-- Duplicate inner wrapper twice for endless loop -->
+    <div class="marquee-gallery__inner" aria-hidden="true">
+      {%- for block in section.blocks -%}
+        <div class="marquee-gallery__item" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 600 | image_tag: class: 'marquee-gallery__img', loading: 'lazy' }}
+          {%- elsif block.settings.custom_svg != blank -%}
+            {{ block.settings.custom_svg }}
+          {%- else -%}
+            {%- capture placeholder_name -%}collection-{% cycle '1', '2', '3', '4' %}{%- endcapture -%}
+            {{ placeholder_name | placeholder_svg_tag: 'marquee-gallery__img bg-mist' }}
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+    
+    <!-- Original -->
+    <div class="marquee-gallery__inner">
+      {%- for block in section.blocks -%}
+        <div class="marquee-gallery__item">
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 600 | image_tag: class: 'marquee-gallery__img', loading: 'lazy' }}
+          {%- elsif block.settings.custom_svg != blank -%}
+            {{ block.settings.custom_svg }}
+          {%- else -%}
+            {%- capture placeholder_name -%}collection-{% cycle '1', '2', '3', '4' %}{%- endcapture -%}
+            {{ placeholder_name | placeholder_svg_tag: 'marquee-gallery__img bg-mist' }}
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Marquee gallery",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "html",
+          "id": "custom_svg",
+          "label": "Custom HTML/SVG",
+          "info": "Paste custom SVG code here."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee gallery",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

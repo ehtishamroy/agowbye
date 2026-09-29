@@ -1,76 +1,149 @@
-<header>
-  <h2 class="header__title">
-    {{ shop.name | link_to: routes.root_url }}
-  </h2>
+<header class="hdr" data-header>
+  <div class="wrap hdr__inner">
+    <div class="hdr__left">
+      <button class="hdr__menu-btn" aria-label="Open menu" data-menu-open>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 8h16M4 16h16"/></svg>
+      </button>
 
-  <div class="header__menu">
-    {% for link in section.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
-    {% endfor %}
-  </div>
+      {% if section.settings.menu != blank %}
+        <nav class="hdr__nav" aria-label="Main">
+          {% for link in linklists[section.settings.menu].links %}
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          {% endfor %}
+        </nav>
+      {% endif %}
+    </div>
 
-  <div class="header__icons">
-    {% if shop.customer_accounts_enabled %}
-      <shopify-account menu="{{ section.settings.customer_account_menu }}">
-        {{ 'icon-account.svg' | inline_asset_content }}
-      </shopify-account>
-    {% endif %}
+    <!-- LOGO -->
+    <a href="{{ routes.root_url }}" class="hdr__logo" aria-label="{{ shop.name }}">
+      {% if section.settings.logo != blank %}
+        {{ section.settings.logo | image_url: width: 200 | image_tag: alt: section.settings.logo.alt | default: shop.name }}
+      {% else %}
+        {{ shop.name | default: 'agow' }}
+      {% endif %}
+    </a>
 
-    <a href="{{ routes.cart_url }}">
-      {% if cart.item_count > 0 %}
-        <sup>{{ cart.item_count }}</sup>
+    <div class="hdr__right">
+      {% if section.settings.help_link_text != blank %}
+        <a href="{{ section.settings.help_link_url | default: '#' }}" class="hdr__help">{{ section.settings.help_link_text }}</a>
       {% endif %}
 
-      {{ 'icon-cart.svg' | inline_asset_content }}
-    </a>
+      <a href="{{ routes.cart_url }}" class="hdr__cart" aria-label="Open cart" data-cart-open>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8Z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg>
+        {% if cart.item_count > 0 %}
+          <span class="hdr__cart-count tnum" data-cart-count>{{ cart.item_count }}</span>
+        {% endif %}
+      </a>
+    </div>
   </div>
 </header>
 
-{% stylesheet %}
-  header {
-    height: 5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  header a {
-    position: relative;
-    text-decoration: none;
-    color: var(--color-foreground);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  header a sup {
-    position: absolute;
-    left: 100%;
-    overflow: hidden;
-    max-width: var(--page-margin);
-  }
-  header svg {
-    width: 2rem;
-  }
-  header .header__menu,
-  header .header__icons {
-    display: flex;
-    gap: 1rem;
-  }
-{% endstylesheet %}
+<!-- Mobile menu overlay -->
+<div class="overlay" data-menu-overlay></div>
+<aside class="menu" data-menu aria-label="Menu">
+  <div class="menu__header">
+    <span class="menu__logo">{{ shop.name | default: 'agow' }}</span>
+    <button class="menu__close" aria-label="Close menu" data-menu-close>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  {% if section.settings.menu != blank %}
+    <nav class="menu__nav" aria-label="Mobile">
+      {% for link in linklists[section.settings.menu].links %}
+        <a href="{{ link.url }}" data-menu-close>{{ link.title }}</a>
+      {% endfor %}
+    </nav>
+  {% endif %}
+  <div class="menu__footer">
+    <a href="{{ routes.all_products_collection_url }}" class="btn btn-ink">Shop now</a>
+    <p>Questions? hello@agow.ca</p>
+  </div>
+</aside>
+
+{% javascript %}
+  document.addEventListener('DOMContentLoaded', () => {
+    const openBtn = document.querySelector('[data-menu-open]');
+    const closeBtn = document.querySelector('[data-menu-close]');
+    const overlay = document.querySelector('[data-menu-overlay]');
+    const menu = document.querySelector('[data-menu]');
+    
+    function openMenu() {
+      if(menu) menu.classList.add('open');
+      if (overlay) overlay.classList.add('open');
+      document.documentElement.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      if(menu) menu.classList.remove('open');
+      if (overlay) overlay.classList.remove('open');
+      document.documentElement.style.overflow = '';
+    }
+
+    if(openBtn) openBtn.addEventListener('click', openMenu);
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    if (overlay) overlay.addEventListener('click', closeMenu);
+
+    if(menu) {
+      menu.querySelectorAll('[data-menu-close]').forEach(el => {
+        if (el.tagName === 'A') el.addEventListener('click', closeMenu);
+      });
+    }
+
+    // Header hide-on-scroll and glassmorphism state
+    const header = document.querySelector('[data-header]');
+    if (header) {
+      let lastY = window.scrollY;
+      
+      const updateHeader = () => {
+        const y = window.scrollY;
+        
+        // Add glassmorphism when scrolled down
+        if (y > 20) {
+          header.classList.add('is-sticky');
+        } else {
+          header.classList.remove('is-sticky');
+        }
+
+        // Hide on scroll down, show on scroll up
+        if (y > 100 && y > lastY) {
+          header.classList.add('up');
+        } else {
+          header.classList.remove('up');
+        }
+        lastY = y;
+      };
+
+      window.addEventListener('scroll', updateHeader, { passive: true });
+      updateHeader(); // init
+    }
+  });
+{% endjavascript %}
 
 {% schema %}
 {
-  "name": "t:general.header",
+  "name": "Header",
+  "class": "section-header",
   "settings": [
     {
-      "type": "link_list",
-      "id": "menu",
-      "label": "t:labels.menu"
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
     },
     {
       "type": "link_list",
-      "id": "customer_account_menu",
-      "label": "t:labels.customer_account_menu",
-      "default": "customer-account-main-menu"
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "help_link_text",
+      "label": "Help link text",
+      "default": "Help"
+    },
+    {
+      "type": "url",
+      "id": "help_link_url",
+      "label": "Help link URL"
     }
   ]
 }

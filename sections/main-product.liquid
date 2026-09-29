@@ -1,0 +1,411 @@
+{%- assign product = section.settings.product | default: product -%}
+<section id="shop" class="product" data-buybox {{ section.shopify_attributes }}>
+  <div class="wrap">
+    <div class="product__grid">
+      
+      <!-- Gallery Column -->
+      <div class="product__gallery-col">
+        <div class="product__gallery-wrap bg-stone">
+          <div class="product__gallery-main noscroll" data-gallery>
+            {%- if product != blank and product.media.size > 0 -%}
+              {%- for media in product.media -%}
+                <figure class="product__gallery-figure">
+                  {{ media | image_url: width: 1200 | image_tag: 
+                      class: 'product__gallery-img', 
+                      loading: 'lazy', 
+                      sizes: '(min-width:1024px) 55vw, 100vw',
+                      widths: '640, 1000, 1600, 2200' 
+                  }}
+                </figure>
+              {%- endfor -%}
+            {%- else -%}
+              <!-- Fallback gallery images -->
+              {% for i in (1..5) %}
+                <figure class="product__gallery-figure">
+                  {{ 'product-' | append: i | placeholder_svg_tag: 'product__gallery-img placeholder' }}
+                </figure>
+              {% endfor %}
+            {%- endif -%}
+          </div>
+          
+          <span class="product__gallery-badge chip bg-paper/90 text-ink backdrop-blur">
+            Free shipping + 100-night trial
+          </span>
+          <span class="product__gallery-count tnum" data-gallery-count>
+            1 / {{ product.media.size | default: 5 }}
+          </span>
+          <button class="product__gallery-nav product__gallery-nav--prev" aria-label="Previous image" data-gallery-prev>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg>
+          </button>
+          <button class="product__gallery-nav product__gallery-nav--next" aria-label="Next image" data-gallery-next>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg>
+          </button>
+        </div>
+
+        <div class="product__gallery-thumbs noscroll" data-gallery-thumbs>
+          {%- if product != blank and product.media.size > 0 -%}
+            {%- for media in product.media -%}
+              <button class="product__thumb-btn {% if forloop.first %}is-active{% endif %}" aria-label="Image {{ forloop.index }}">
+                {{ media | image_url: width: 200 | image_tag: class: 'product__thumb-img', loading: 'lazy' }}
+              </button>
+            {%- endfor -%}
+          {%- else -%}
+            {% for i in (1..5) %}
+              <button class="product__thumb-btn {% if forloop.first %}is-active{% endif %}" aria-label="Image {{ forloop.index }}">
+                {{ 'product-' | append: i | placeholder_svg_tag: 'product__thumb-img placeholder' }}
+              </button>
+            {% endfor %}
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Info Column -->
+      <div class="product__info-col">
+        {%- capture product_blocks -%}
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              
+              {%- when 'reviews_badge' -%}
+                <a href="#reviews" class="product__reviews-badge" {{ block.shopify_attributes }}>
+                  <span class="product__stars" aria-hidden="true">
+                    {% for i in (1..5) %}
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2.8 2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg>
+                    {% endfor %}
+                  </span>
+                  <span class="tnum product__reviews-text">{{ block.settings.text }}</span>
+                  {% if block.settings.show_sample %}
+                    <span class="sample">sample</span>
+                  {% endif %}
+                </a>
+              
+              {%- when 'title' -%}
+                <h2 class="text-h1 font-medium" {{ block.shopify_attributes }}>
+                  {{ product.title | default: 'The AGOW Stroller' }}
+                </h2>
+              
+              {%- when 'description' -%}
+                <p class="product__desc text-muted" {{ block.shopify_attributes }}>
+                  {{ block.settings.text | default: 'One-hand fold, all-season wheels and a seat that grows with your child from birth to 4 years.' }}
+                </p>
+
+              {%- when 'price' -%}
+                <div class="product__price-block" {{ block.shopify_attributes }}>
+                  <div class="product__price-row">
+                    <span class="product__price tnum" data-price>
+                      {%- if product != blank -%}
+                        {{ product.selected_or_first_available_variant.price | money }}
+                      {%- else -%}
+                        $729.00
+                      {%- endif -%}
+                    </span>
+                    {%- assign compare = product.selected_or_first_available_variant.compare_at_price -%}
+                    {%- assign price = product.selected_or_first_available_variant.price -%}
+                    <s class="product__compare text-muted tnum" data-compare>
+                      {%- if product != blank and compare > price -%}
+                        {{ compare | money }}
+                      {%- elsif product == blank -%}
+                        $927.00
+                      {%- endif -%}
+                    </s>
+                    <span class="chip tnum" data-save>
+                      {%- if product != blank and compare > price -%}
+                        Save {{ compare | minus: price | money }}
+                      {%- elsif product == blank -%}
+                        Save $198.00
+                      {%- endif -%}
+                    </span>
+                  </div>
+                  <p class="text-sm text-muted">
+                    or 4 interest-free payments of <span class="text-ink font-medium tnum" data-installment>{%- if product != blank -%}{{ price | divided_by: 4 | money }}{%- else -%}$182.25{%- endif -%}</span> with Shop Pay
+                  </p>
+                </div>
+
+              {%- when 'variant_picker' -%}
+                {%- if product != blank -%}
+                  {%- unless product.has_only_default_variant -%}
+                    <fieldset class="product__variants" {{ block.shopify_attributes }}>
+                      {%- for option in product.options_with_values -%}
+                        {%- assign option_name = option.name | downcase -%}
+                        <legend class="text-sm mb-3">
+                          {{ option.name }}: <span class="font-medium" data-option-name="{{ option.name }}">{{ option.selected_value }}</span>
+                        </legend>
+                        <div class="product__swatches">
+                          {%- for value in option.values -%}
+                            <input type="radio" 
+                              name="options[{{ option.name | escape }}]" 
+                              value="{{ value | escape }}"
+                              id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                              class="sr-only"
+                              {% if option.selected_value == value %}checked{% endif %}
+                            >
+                            <label 
+                              for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                              class="product__swatch {% if option_name == 'color' or option_name == 'colour' %}is-color{% else %}is-text{% endif %}"
+                              {% if option_name == 'color' or option_name == 'colour' %}
+                                style="background-color: {{ value | downcase | escape }};"
+                              {% endif %}
+                              title="{{ value }}"
+                            >
+                              {%- if option_name != 'color' and option_name != 'colour' -%}
+                                {{ value }}
+                              {%- endif -%}
+                            </label>
+                          {%- endfor -%}
+                        </div>
+                      {%- endfor -%}
+                    </fieldset>
+                  {%- endunless -%}
+                {%- endif -%}
+
+              {%- when 'bundles' -%}
+                <fieldset class="product__bundles" {{ block.shopify_attributes }}>
+                  <legend class="text-sm mb-3">{{ block.settings.heading }}</legend>
+                  
+                  {%- if block.settings.b1_title != blank -%}
+                    <label class="bundle block cursor-pointer">
+                      <input type="radio" name="bundle" value="bundle-1" class="sr-only" id="bundle-1">
+                      <div class="bundle-card flex items-center gap-4 rounded-xl border border-line bg-mist p-4 transition">
+                        <span class="dot w-5 h-5 rounded-full border border-ink shrink-0 transition"></span>
+                        <div class="flex-1 min-w-0"><p class="font-medium">{{ block.settings.b1_title }}</p><p class="text-sm text-muted">{{ block.settings.b1_desc }}</p></div>
+                        <p class="text-right tnum"><span class="font-medium">{{ block.settings.b1_price }}</span><br><s class="text-xs text-muted">{{ block.settings.b1_compare }}</s></p>
+                      </div>
+                      {%- if block.settings.b1_badge != blank -%}<span class="product__bundle-badge">{{ block.settings.b1_badge }}</span>{%- endif -%}
+                    </label>
+                  {%- endif -%}
+                  
+                  {%- if block.settings.b2_title != blank -%}
+                    <label class="bundle block cursor-pointer relative">
+                      <input type="radio" name="bundle" value="bundle-2" class="sr-only" id="bundle-2" checked>
+                      <div class="bundle-card flex items-center gap-4 rounded-xl border border-line bg-mist p-4 transition">
+                        <span class="dot w-5 h-5 rounded-full border border-ink shrink-0 transition"></span>
+                        <div class="flex-1 min-w-0"><p class="font-medium">{{ block.settings.b2_title }}</p><p class="text-sm text-muted">{{ block.settings.b2_desc }}</p></div>
+                        <p class="text-right tnum"><span class="font-medium">{{ block.settings.b2_price }}</span><br><s class="text-xs text-muted">{{ block.settings.b2_compare }}</s></p>
+                      </div>
+                      {%- if block.settings.b2_badge != blank -%}<span class="product__bundle-badge">{{ block.settings.b2_badge }}</span>{%- endif -%}
+                    </label>
+                  {%- endif -%}
+                  
+                  {%- if block.settings.b3_title != blank -%}
+                    <label class="bundle block cursor-pointer relative">
+                      <input type="radio" name="bundle" value="bundle-3" class="sr-only" id="bundle-3">
+                      <div class="bundle-card flex items-center gap-4 rounded-xl border border-line bg-mist p-4 transition">
+                        <span class="dot w-5 h-5 rounded-full border border-ink shrink-0 transition"></span>
+                        <div class="flex-1 min-w-0"><p class="font-medium">{{ block.settings.b3_title }}</p><p class="text-sm text-muted">{{ block.settings.b3_desc }}</p></div>
+                        <p class="text-right tnum"><span class="font-medium">{{ block.settings.b3_price }}</span><br><s class="text-xs text-muted">{{ block.settings.b3_compare }}</s></p>
+                      </div>
+                      {%- if block.settings.b3_badge != blank -%}<span class="product__bundle-badge">{{ block.settings.b3_badge }}</span>{%- endif -%}
+                    </label>
+                  {%- endif -%}
+                </fieldset>
+
+              {%- when 'buy_buttons' -%}
+                <div class="product__actions" {{ block.shopify_attributes }}>
+                  <div class="product__qty-row">
+                    <div class="product__qty-stepper" data-qty>
+                      <button type="button" aria-label="Decrease quantity" data-qty-minus>−</button>
+                      <input type="number" name="quantity" value="1" min="1" max="5" aria-label="Quantity" data-qty-input>
+                      <button type="button" aria-label="Increase quantity" data-qty-plus>+</button>
+                    </div>
+                    <button type="button" class="btn btn-ink product__atc" data-atc>
+                      <span class="atc-label">Add to cart · <span class="tnum" data-atc-price>{%- if product != blank -%}{{ product.selected_or_first_available_variant.price | money }}{%- else -%}$729.00{%- endif -%}</span></span>
+                      <span class="atc-load items-center gap-2"><svg class="spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.2-8.6" stroke-linecap="round"/></svg>Adding</span>
+                      <span class="atc-ok items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Added</span>
+                    </button>
+                  </div>
+                  {%- if product != blank -%}
+                    {{ form | payment_button }}
+                  {%- else -%}
+                    <button type="button" class="btn w-full bg-[#5A31F4] text-white hover:brightness-110">Buy with <span class="font-semibold tracking-tight ml-1">Shop Pay</span></button>
+                  {%- endif -%}
+                </div>
+
+              {%- when 'delivery_estimate' -%}
+                <div class="product__delivery" {{ block.shopify_attributes }}>
+                  <svg class="product__delivery-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8" fill="#fff"/><circle cx="17.5" cy="17.5" r="1.8" fill="#fff"/></svg>
+                  <p><span class="font-medium">{{ block.settings.stock_text }}</span> <span data-cutoff>Order within <b class="font-medium tnum">{{ block.settings.cutoff }}</b>, ships today,</span> and it arrives <span class="font-medium" data-eta>{{ block.settings.eta }}</span>.</p>
+                </div>
+
+              {%- when 'mini_trust' -%}
+                <ul class="product__mini-trust" {{ block.shopify_attributes }}>
+                  {%- for i in (1..3) -%}
+                    {%- assign text_key = 'trust_' | append: i -%}
+                    {%- assign text = block.settings[text_key] -%}
+                    {%- assign icon_img_key = 'icon_' | append: i -%}
+                    {%- assign icon_html_key = 'icon_' | append: i | append: '_html' -%}
+                    {%- assign icon_img = block.settings[icon_img_key] -%}
+                    {%- assign icon_html = block.settings[icon_html_key] -%}
+                    
+                    {%- if text != blank -%}
+                      <li>
+                        {%- if icon_img != blank -%}
+                          {{ icon_img | image_url: width: 44 | image_tag: class: 'mini-trust-icon' }}
+                        {%- elsif icon_html != blank -%}
+                          {{ icon_html }}
+                        {%- else -%}
+                          {%- if i == 1 -%}<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>
+                          {%- elsif i == 2 -%}<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.5 3.2 8.3 7.5 9.5 4.3-1.2 7.5-5 7.5-9.5V6L12 3Z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg>
+                          {%- else -%}<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg>{%- endif -%}
+                        {%- endif -%}
+                        {{ text }}
+                      </li>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </ul>
+
+              {%- when 'payment_icons' -%}
+                <div class="product__payments" aria-label="Accepted payments" {{ block.shopify_attributes }}>
+                  {%- if block.settings.custom_html != blank -%}
+                    {{ block.settings.custom_html }}
+                  {%- else -%}
+                    {%- for type in shop.enabled_payment_types -%}
+                      {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+                    {%- else -%}
+                      <!-- Fallback if no payment providers configured -->
+                      <span class="tracking-wide">VISA</span>
+                      <span>Mastercard</span>
+                      <span>AMEX</span>
+                      <span>Apple Pay</span>
+                      <span>G Pay</span>
+                      <span style="color:#5A31F4">Shop Pay</span>
+                    {%- endfor -%}
+                  {%- endif -%}
+                </div>
+
+
+              {%- when 'accordion' -%}
+                <details class="product__accordion" {{ block.shopify_attributes }}>
+                  <summary class="product__accordion-summary">{{ block.settings.title }}<span class="chev">+</span></summary>
+                  <div class="product__accordion-content">
+                    {{ block.settings.content }}
+                  </div>
+                </details>
+
+            {%- endcase -%}
+          {%- endfor -%}
+        {%- endcapture -%}
+
+        {%- if product != blank -%}
+          {%- form 'product', product, id: 'product-form' -%}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" id="product-variant-id">
+            {{ product_blocks }}
+            <script type="application/json" id="product-variants-json">
+              {{ product.variants | json }}
+            </script>
+          {%- endform -%}
+        {%- else -%}
+          <div id="product-form">
+            {{ product_blocks }}
+          </div>
+        {%- endif -%}
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- Sticky Add To Cart (SATC) -->
+<div class="satc" data-satc>
+  <div class="wrap satc__inner">
+    {% if product.featured_image %}
+      {{ product.featured_image | image_url: width: 160 | image_tag: class: 'satc__img' }}
+    {% endif %}
+    <div class="satc__info">
+      <p class="satc__title" data-satc-title>{{ product.title | default: 'Stroller + Travel Kit' }}</p>
+      <p class="satc__price-row tnum">
+        <span data-satc-price>{% if product != blank %}{{ product.selected_or_first_available_variant.price | money }}{% else %}$729.00{% endif %}</span> 
+        <s class="satc__compare" data-satc-compare>{% if product != blank and product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}{{ product.selected_or_first_available_variant.compare_at_price | money }}{% elsif product == blank %}$927.00{% endif %}</s>
+      </p>
+    </div>
+    <button type="button" class="btn-ink satc__btn" data-satc-btn>Add to cart</button>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Main product",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    }
+  ],
+  "blocks": [
+    { "type": "reviews_badge", "name": "Reviews badge", "settings": [
+      { "type": "text", "id": "text", "label": "Text", "default": "4.9 from 128 reviews" },
+      { "type": "checkbox", "id": "show_sample", "label": "Show sample badge", "default": true }
+    ]},
+    { "type": "title", "name": "Title", "limit": 1 },
+    { "type": "description", "name": "Description", "limit": 1, "settings": [
+      { "type": "textarea", "id": "text", "label": "Text", "default": "One-hand fold, all-season wheels and a seat that grows with your child from birth to 4 years." }
+    ]},
+    { "type": "price", "name": "Price", "limit": 1 },
+    { "type": "variant_picker", "name": "Variant picker", "limit": 1 },
+    { "type": "bundles", "name": "Bundles (AOV)", "limit": 1, "settings": [
+      { "type": "text", "id": "heading", "label": "Heading", "default": "Choose your set" },
+      { "type": "header", "content": "Bundle 1" },
+      { "type": "text", "id": "b1_title", "label": "Title", "default": "Stroller only" },
+      { "type": "text", "id": "b1_desc", "label": "Description", "default": "Seat, canopy, basket, bumper bar" },
+      { "type": "text", "id": "b1_price", "label": "Price", "default": "$649" },
+      { "type": "text", "id": "b1_compare", "label": "Compare at price", "default": "$799" },
+      { "type": "text", "id": "b1_badge", "label": "Badge text" },
+      { "type": "header", "content": "Bundle 2" },
+      { "type": "text", "id": "b2_title", "label": "Title", "default": "Stroller + Travel Kit" },
+      { "type": "text", "id": "b2_desc", "label": "Description", "default": "Adds rain cover, cup holder and travel bag" },
+      { "type": "text", "id": "b2_price", "label": "Price", "default": "$729" },
+      { "type": "text", "id": "b2_compare", "label": "Compare at price", "default": "$927" },
+      { "type": "text", "id": "b2_badge", "label": "Badge text", "default": "Most chosen" },
+      { "type": "header", "content": "Bundle 3" },
+      { "type": "text", "id": "b3_title", "label": "Title", "default": "Newborn Set" },
+      { "type": "text", "id": "b3_desc", "label": "Description", "default": "Travel Kit plus bassinet and winter footmuff" },
+      { "type": "text", "id": "b3_price", "label": "Price", "default": "$899" },
+      { "type": "text", "id": "b3_compare", "label": "Compare at price", "default": "$1,156" },
+      { "type": "text", "id": "b3_badge", "label": "Badge text" }
+    ]},
+    { "type": "buy_buttons", "name": "Buy buttons", "limit": 1 },
+    { "type": "delivery_estimate", "name": "Delivery estimate", "limit": 1, "settings": [
+      { "type": "text", "id": "stock_text", "label": "Stock status", "default": "In stock." },
+      { "type": "text", "id": "cutoff", "label": "Cutoff time", "default": "9h 23m" },
+      { "type": "text", "id": "eta", "label": "ETA Date range", "default": "Fri, Oct 2 – Wed, Oct 7" }
+    ]},
+    { "type": "mini_trust", "name": "Mini trust badges", "limit": 1, "settings": [
+      { "type": "image_picker", "id": "icon_1", "label": "Badge 1 Custom Image" },
+      { "type": "html", "id": "icon_1_html", "label": "Badge 1 Custom HTML/SVG" },
+      { "type": "text", "id": "trust_1", "label": "Badge 1 text", "default": "100-night trial" },
+      { "type": "image_picker", "id": "icon_2", "label": "Badge 2 Custom Image" },
+      { "type": "html", "id": "icon_2_html", "label": "Badge 2 Custom HTML/SVG" },
+      { "type": "text", "id": "trust_2", "label": "Badge 2 text", "default": "2-year warranty" },
+      { "type": "image_picker", "id": "icon_3", "label": "Badge 3 Custom Image" },
+      { "type": "html", "id": "icon_3_html", "label": "Badge 3 Custom HTML/SVG" },
+      { "type": "text", "id": "trust_3", "label": "Badge 3 text", "default": "Free returns" }
+    ]},
+    { "type": "payment_icons", "name": "Payment icons", "limit": 1, "settings": [
+      { "type": "html", "id": "custom_html", "label": "Custom HTML / SVGs" }
+    ]},
+
+    { "type": "accordion", "name": "Accordion", "settings": [
+      { "type": "text", "id": "title", "label": "Heading", "default": "Details" },
+      { "type": "richtext", "id": "content", "label": "Content", "default": "<p>Accordion content goes here.</p>" }
+    ]}
+  ],
+  "presets": [
+    {
+      "name": "Main product",
+      "blocks": [
+        { "type": "reviews_badge" },
+        { "type": "title" },
+        { "type": "description" },
+        { "type": "price" },
+        { "type": "bundles" },
+        { "type": "buy_buttons" },
+        { "type": "delivery_estimate" },
+        { "type": "mini_trust" },
+        { "type": "accordion", "settings": { "title": "What's in the box", "content": "<p>Frame with wheels<br>Reversible seat<br>UPF 50+ canopy<br>Bumper bar<br>Under-seat basket<br>5-point harness</p>" } },
+        { "type": "accordion", "settings": { "title": "Shipping and returns", "content": "<p>Free shipping anywhere in Canada. Most orders arrive in 3–6 business days with tracking.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<script src="{{ 'product.js' | asset_url }}" defer></script>

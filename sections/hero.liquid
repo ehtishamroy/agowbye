@@ -1,0 +1,114 @@
+<section class="hero" {{ section.shopify_attributes }}>
+  {% if section.settings.image != blank %}
+    {{ section.settings.image | image_url: width: 2200 | image_tag:
+        class: 'hero__image',
+        sizes: '100vw',
+        widths: '640, 1000, 1600, 2200',
+        fetchpriority: 'high'
+    }}
+  {% else %}
+    {{ 'lifestyle-1' | placeholder_svg_tag: 'hero__image' }}
+  {% endif %}
+
+  <div class="hero__gradient"></div>
+
+  <div class="wrap hero__content">
+    <div class="hero__text">
+      {% if section.settings.heading != blank %}
+        <h1 class="text-display">
+          {% assign heading_text = section.settings.heading | strip_html %}
+          {% assign lines = heading_text | newline_to_br | split: '<br />' %}
+          {% for line in lines %}
+            {% assign stripped = line | strip %}
+            {% if stripped != '' %}
+              <span class="hero-line"><span>{{ stripped }}</span></span>
+            {% endif %}
+          {% endfor %}
+        </h1>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <p class="hero__desc">{{ section.settings.description }}</p>
+      {% endif %}
+    </div>
+
+    <div class="hero__actions">
+      {% if section.settings.button_1_text != blank %}
+        <a href="{{ section.settings.button_1_link | default: '#' }}" class="btn btn-paper">
+          {{ section.settings.button_1_text }}
+        </a>
+      {% endif %}
+
+      {% if section.settings.button_2_text != blank %}
+        <a href="{{ section.settings.button_2_link | default: '#' }}" class="btn btn-ghost">
+          {{ section.settings.button_2_text }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% javascript %}
+  // Trigger hero load animation
+  window.addEventListener('load', () => {
+    document.documentElement.classList.add('js');
+    document.body.classList.add('loaded');
+  });
+  // Fallback if load fires before listener
+  if (document.readyState === 'complete') {
+    document.documentElement.classList.add('js');
+    document.body.classList.add('loaded');
+  }
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading (one line per line)",
+      "default": "One stroller.\nEvery road ahead."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Folds with one hand, rolls through snow, and grows with your child from birth to 4 years."
+    },
+    {
+      "type": "text",
+      "id": "button_1_text",
+      "label": "Primary button text",
+      "default": "Shop the stroller from $649"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_text",
+      "label": "Secondary button text",
+      "default": "See it in a real day"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Secondary button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

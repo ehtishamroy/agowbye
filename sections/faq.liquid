@@ -1,0 +1,123 @@
+<section id="faq" class="faq scroll-mt-16">
+  <div class="wrap faq__grid">
+    <div class="faq__content in" data-reveal="">
+      {%- if section.settings.kicker != blank -%}
+        <p class="kicker mb-3">{{ section.settings.kicker }}</p>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="text-h2 font-medium">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <div class="faq__text text-muted mt-4">{{ section.settings.text }}</div>
+      {%- endif -%}
+    </div>
+    <div class="faq__accordion">
+      {%- for block in section.blocks -%}
+        <details class="faq__item" {% if forloop.first %}open{% endif %} {{ block.shopify_attributes }}>
+          <summary class="faq__summary">
+            {{ block.settings.question }}
+            <span class="faq__icon">+</span>
+          </summary>
+          <div class="faq__answer text-muted">
+            {{ block.settings.answer }}
+          </div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Before you buy"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Questions parents ask us."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Still unsure? Email <strong>hello@agow.ca</strong> and a real person replies within one business day.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Can I use it from birth?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Yes. The seat reclines nearly flat for newborns, or add the bassinet (included in the Newborn Set) for the first six months. It then works as a toddler seat up to 22 kg, around 4 years.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I use it from birth?",
+            "answer": "<p>Yes. The seat reclines nearly flat for newborns, or add the bassinet (included in the Newborn Set) for the first six months. It then works as a toddler seat up to 22 kg, around 4 years.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Does it work with my car seat?",
+            "answer": "<p>Included adapters fit most infant car seats sold in Canada, including Maxi-Cosi, Cybex, Nuna and Clek. Not sure about yours? Send us the model and we'll confirm.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is it good in snow?",
+            "answer": "<p>The wide rubber wheels and four-wheel suspension handle packed snow and salted sidewalks. For deep snow, lock the front wheels straight with one click.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How fast is shipping?",
+            "answer": "<p>Free, tracked shipping anywhere in Canada. Most orders arrive in 3–6 business days. You'll get tracking by email the day it ships.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What if it's not right for us?",
+            "answer": "<p>You have 100 nights. Email us, we arrange a free pickup and refund you in full within 5 business days of receiving it.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I pay in instalments?",
+            "answer": "<p>Yes. Choose Shop Pay at checkout to split the price into 4 interest-free payments.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

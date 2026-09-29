@@ -9,12 +9,538 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "heading": "One stroller.\nEvery road ahead.",
+        "description": "Folds with one hand, rolls through snow, and grows with your child from birth to 4 years.",
+        "button_1_text": "Shop the stroller from $649",
+        "button_1_link": "",
+        "button_2_text": "See it in a real day",
+        "button_2_link": ""
+      }
+    },
+    "trust_bar": {
+      "type": "trust-bar",
+      "blocks": {
+        "trust_1": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "truck",
+            "title": "Free shipping in Canada",
+            "text": "Anywhere in Canada, tracked"
+          }
+        },
+        "trust_2": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "moon",
+            "title": "100-night trial",
+            "text": "Free pickup if it's not right"
+          }
+        },
+        "trust_3": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "shield",
+            "title": "2-year warranty",
+            "text": "Frame, wheels and fold"
+          }
+        },
+        "trust_4": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "credit-card",
+            "title": "Pay in 4 with Shop Pay",
+            "text": "Interest-free with Shop Pay"
+          }
+        }
+      },
+      "block_order": [
+        "trust_1",
+        "trust_2",
+        "trust_3",
+        "trust_4"
+      ],
+      "settings": {}
+    },
+    "featured_product": {
+      "type": "main-product",
+      "blocks": {
+        "reviews": {
+          "type": "reviews_badge",
+          "settings": {
+            "text": "4.9 from 128 reviews",
+            "show_sample": false
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "desc": {
+          "type": "description",
+          "settings": {
+            "text": "One-hand fold, all-season wheels and a seat that grows with your child from birth to 4 years."
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "bundles": {
+          "type": "bundles",
+          "settings": {
+            "heading": "Choose your set",
+            "b1_title": "Stroller only",
+            "b1_desc": "Seat, canopy, basket, bumper bar",
+            "b1_price": "$649",
+            "b1_compare": "$799",
+            "b1_badge": "",
+            "b2_title": "Stroller + Travel Kit",
+            "b2_desc": "Adds rain cover, cup holder and travel bag",
+            "b2_price": "$729",
+            "b2_compare": "$927",
+            "b2_badge": "Most chosen",
+            "b3_title": "Newborn Set",
+            "b3_desc": "Travel Kit plus bassinet and winter footmuff",
+            "b3_price": "$899",
+            "b3_compare": "$1,156",
+            "b3_badge": ""
+          }
+        },
+        "buy": {
+          "type": "buy_buttons",
+          "settings": {}
+        },
+        "delivery": {
+          "type": "delivery_estimate",
+          "settings": {
+            "stock_text": "In stock.",
+            "cutoff": "9h 23m",
+            "eta": "Fri, Oct 2 – Wed, Oct 7"
+          }
+        },
+        "trust": {
+          "type": "mini_trust",
+          "settings": {
+            "trust_1": "100-night trial",
+            "trust_2": "2-year warranty",
+            "trust_3": "Free returns"
+          }
+        },
+        "payments": {
+          "type": "payment_icons",
+          "settings": {}
+        },
+        "accordion_1": {
+          "type": "accordion",
+          "settings": {
+            "title": "What's in the box",
+            "content": "<p>Frame with wheels<br/>Reversible seat<br/>UPF 50+ canopy<br/>Bumper bar<br/>Under-seat basket<br/>5-point harness</p>"
+          }
+        },
+        "accordion_2": {
+          "type": "accordion",
+          "settings": {
+            "title": "Shipping and returns",
+            "content": "<p>Free shipping anywhere in Canada. Most orders arrive in 3–6 business days with tracking.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "reviews",
+        "title",
+        "desc",
+        "price",
+        "bundles",
+        "buy",
+        "delivery",
+        "trust",
+        "payments",
+        "accordion_1",
+        "accordion_2"
+      ],
+      "settings": {
+        "product": "lumo"
+      }
+    },
+    "promo_grid": {
+      "type": "promo-grid",
+      "blocks": {
+        "promo_1": {
+          "type": "promo",
+          "settings": {
+            "overlay_opacity": 0,
+            "kicker": "CYBEX ESSENTIALS",
+            "title": "BACK TO ROUTINE",
+            "subtitle": "For The Golden Summer Days Ahead",
+            "btn_text": "Explore More",
+            "btn_link": "",
+            "text_color": "#111111"
+          }
+        },
+        "promo_2": {
+          "type": "promo",
+          "settings": {
+            "overlay_opacity": 30,
+            "kicker": "CYBEX PLATINUM",
+            "title": "URBAN MOBILITY",
+            "subtitle": "The All-New Experience",
+            "btn_text": "Explore More",
+            "btn_link": "",
+            "text_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "promo_1",
+        "promo_2"
+      ],
+      "settings": {
+        "full_width": true
+      }
+    },
+    "story": {
+      "type": "story",
+      "blocks": {
+        "chapter_1": {
+          "type": "chapter",
+          "settings": {
+            "time": "7:40 am",
+            "title": "Coffee in one hand. Fold with the other.",
+            "text": "Squeeze the handle and it folds in about a second, then stands on its own at the bus stop. No bending, no second hand needed.",
+            "label": "One-hand fold",
+            "btn_text": "",
+            "btn_link": ""
+          }
+        },
+        "chapter_2": {
+          "type": "chapter",
+          "settings": {
+            "time": "12:15 pm",
+            "title": "The nap keeps going when you do.",
+            "text": "The seat reclines nearly flat and the UPF 50+ canopy pulls down low with a peek-a-boo window, so you can check on them without waking them.",
+            "label": "Near-flat recline",
+            "btn_text": "",
+            "btn_link": ""
+          }
+        },
+        "chapter_3": {
+          "type": "chapter",
+          "settings": {
+            "time": "4:30 pm",
+            "title": "Take the long way home.",
+            "text": "Puncture-free rubber wheels and suspension on all four corners handle gravel paths, grass and salted February sidewalks.",
+            "label": "All-season wheels",
+            "btn_text": "",
+            "btn_link": ""
+          }
+        },
+        "chapter_4": {
+          "type": "chapter",
+          "settings": {
+            "time": "7:00 pm",
+            "title": "Folded, and out of the way.",
+            "text": "At 58 × 50 × 28 cm folded, it fits a compact car trunk with room left for groceries, or the corner of a condo hallway.",
+            "label": "One-hand fold",
+            "btn_text": "Shop the stroller",
+            "btn_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "chapter_1",
+        "chapter_2",
+        "chapter_3",
+        "chapter_4"
+      ],
+      "settings": {
+        "kicker": "A day with AGOW",
+        "title": "We made one stroller, and tested it against a real day.",
+        "text": "Most parents use a stroller the same way: a rushed morning, a nap on the go, a long walk home. So we designed for those hours instead of a showroom floor.",
+        "bg_color": ""
+      }
+    },
+    "comparison": {
+      "type": "comparison",
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "feature": "Price",
+            "agow_type": "text",
+            "agow_value": "$649",
+            "other_type": "text",
+            "other_value": "$900–1,400"
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "feature": "One-hand fold",
+            "agow_type": "check",
+            "agow_value": "$649",
+            "other_type": "text",
+            "other_value": "Some models"
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "feature": "Birth to 4 years",
+            "agow_type": "check",
+            "agow_value": "$649",
+            "other_type": "check",
+            "other_value": "$900–1,400"
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "feature": "Snow-ready wheels",
+            "agow_type": "check",
+            "agow_value": "$649",
+            "other_type": "text",
+            "other_value": "Add-on"
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "feature": "Try at home",
+            "agow_type": "text",
+            "agow_value": "100 nights",
+            "other_type": "text",
+            "other_value": "30 days, unused"
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "feature": "Warranty",
+            "agow_type": "text",
+            "agow_value": "2 years",
+            "other_type": "text",
+            "other_value": "1 year"
+          }
+        },
+        "row_7": {
+          "type": "row",
+          "settings": {
+            "feature": "Shipping",
+            "agow_type": "text",
+            "agow_value": "Free",
+            "other_type": "text",
+            "other_value": "Varies"
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6",
+        "row_7"
+      ],
+      "settings": {
+        "kicker": "Side by side",
+        "title": "Premium features without the premium markup.",
+        "text": "We sell one stroller, direct to you. No retail middleman, so more of the price goes into the stroller itself.",
+        "brand_name": "AGOW",
+        "other_name": "Typical premium stroller"
+      }
+    },
+    "reviews": {
+      "type": "reviews",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "The one-hand fold sold me in the demo video and it's even easier in real life. I fold it at daycare drop-off holding my son in the other arm.",
+            "author": "Priya S.",
+            "location": "Toronto, ON",
+            "verified": true
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "We walked it through a full Calgary winter. Wheels never clogged with snow and the canopy blocked the wind completely.",
+            "author": "Mark T.",
+            "location": "Calgary, AB",
+            "verified": true
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "Naps used to end the second we stopped. The near-flat recline and the low canopy changed that. She sleeps through the whole walk.",
+            "author": "Élodie R.",
+            "location": "Montréal, QC",
+            "verified": true
+          }
+        },
+        "review_4": {
+          "type": "review",
+          "settings": {
+            "rating": 4,
+            "text": "Fits in the trunk of our Civic with space for groceries. Only wish the basket had a zip cover, otherwise perfect.",
+            "author": "Daniel K.",
+            "location": "Vancouver, BC",
+            "verified": true
+          }
+        },
+        "review_5": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "I compared it with strollers twice the price at a baby expo. Same feel, same features, and the 100-night trial made it an easy decision.",
+            "author": "Sarah M.",
+            "location": "Halifax, NS",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4",
+        "review_5"
+      ],
+      "settings": {
+        "bg_color": "bg-mist",
+        "kicker": "What parents say",
+        "kicker_badge": "sample reviews",
+        "title": "Rated 4.9 by families across Canada.",
+        "rating_score": "4.9",
+        "rating_count": "128"
+      }
+    },
+    "parallax_banner": {
+      "type": "parallax-banner",
+      "settings": {
+        "overlay_opacity": 20,
+        "heading": "Choose the right AGOW stroller for your family.",
+        "btn_text": "COMPARE PRAMS + STROLLERS",
+        "btn_link": ""
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I use it from birth?",
+            "answer": "<p>Yes. The seat reclines nearly flat for newborns, or add the bassinet (included in the Newborn Set) for the first six months. It then works as a toddler seat up to 22 kg, around 4 years.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Does it work with my car seat?",
+            "answer": "<p>Included adapters fit most infant car seats sold in Canada, including Maxi-Cosi, Cybex, Nuna and Clek. Not sure about yours? Send us the model and we'll confirm.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is it good in snow?",
+            "answer": "<p>The wide rubber wheels and four-wheel suspension handle packed snow and salted sidewalks. For deep snow, lock the front wheels straight with one click.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How fast is shipping?",
+            "answer": "<p>Free, tracked shipping anywhere in Canada. Most orders arrive in 3–6 business days. You'll get tracking by email the day it ships.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What if it's not right for us?",
+            "answer": "<p>You have 100 nights. Email us, we arrange a free pickup and refund you in full within 5 business days of receiving it.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I pay in instalments?",
+            "answer": "<p>Yes. Choose Shop Pay at checkout to split the price into 4 interest-free payments.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6"
+      ],
+      "settings": {
+        "kicker": "Before you buy",
+        "title": "Questions parents ask us.",
+        "text": "<p>Still unsure? Email <strong>hello@agow.ca</strong> and a real person replies within one business day.</p>"
+      }
+    },
+    "marquee_gallery": {
+      "type": "marquee-gallery",
+      "blocks": {
+        "img_1": {
+          "type": "image",
+          "settings": {}
+        },
+        "img_2": {
+          "type": "image",
+          "settings": {}
+        },
+        "img_3": {
+          "type": "image",
+          "settings": {}
+        },
+        "img_4": {
+          "type": "image",
+          "settings": {}
+        },
+        "img_5": {
+          "type": "image",
+          "settings": {}
+        },
+        "img_6": {
+          "type": "image",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "img_1",
+        "img_2",
+        "img_3",
+        "img_4",
+        "img_5",
+        "img_6"
+      ],
       "settings": {}
     }
   },
   "order": [
-    "main"
+    "hero",
+    "trust_bar",
+    "featured_product",
+    "promo_grid",
+    "story",
+    "comparison",
+    "reviews",
+    "parallax_banner",
+    "faq",
+    "marquee_gallery"
   ]
 }

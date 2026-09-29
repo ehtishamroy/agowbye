@@ -1,0 +1,148 @@
+<section class="compare">
+  <div class="wrap compare__grid">
+    <div class="compare__content in" data-reveal="">
+      {%- if section.settings.kicker != blank -%}
+        <p class="kicker mb-3">{{ section.settings.kicker }}</p>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="text-h2 font-medium">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <p class="text-muted mt-4 max-w-[44ch]">{{ section.settings.text }}</p>
+      {%- endif -%}
+    </div>
+    
+    <div class="compare__table-wrapper in" data-reveal="" data-delay="1">
+      <table class="compare__table tnum">
+        <thead>
+          <tr>
+            <th><span class="sr-only">Feature</span></th>
+            <th class="compare__brand-col-header">{{ section.settings.brand_name }}</th>
+            <th class="compare__other-col-header">{{ section.settings.other_name }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            <tr {{ block.shopify_attributes }}>
+              <td>{{ block.settings.feature }}</td>
+              
+              <td class="compare__brand-col">
+                {%- if block.settings.agow_type == 'check' -%}
+                  <svg class="compare__icon-check" style="--delay: {{ forloop.index }};" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Yes"><path d="m5 12 5 5L20 7"></path></svg>
+                {%- else -%}
+                  {{ block.settings.agow_value }}
+                {%- endif -%}
+              </td>
+              
+              <td class="compare__other-col">
+                {%- if block.settings.other_type == 'check' -%}
+                  <svg class="compare__icon-check" style="--delay: {{ forloop.index | plus: 1 }};" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Yes"><path d="m5 12 5 5L20 7"></path></svg>
+                {%- else -%}
+                  {{ block.settings.other_value }}
+                {%- endif -%}
+              </td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Comparison table",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Side by side"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Premium features without the premium markup."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "We sell one stroller, direct to you. No retail middleman, so more of the price goes into the stroller itself."
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Your brand name",
+      "default": "AGOW"
+    },
+    {
+      "type": "text",
+      "id": "other_name",
+      "label": "Other brand name",
+      "default": "Typical premium stroller"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Feature row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature",
+          "label": "Feature name",
+          "default": "Price"
+        },
+        {
+          "type": "select",
+          "id": "agow_type",
+          "label": "Your brand value type",
+          "options": [
+            { "value": "text", "label": "Text" },
+            { "value": "check", "label": "Checkmark" }
+          ],
+          "default": "text"
+        },
+        {
+          "type": "text",
+          "id": "agow_value",
+          "label": "Your brand text",
+          "default": "$649"
+        },
+        {
+          "type": "select",
+          "id": "other_type",
+          "label": "Other brand value type",
+          "options": [
+            { "value": "text", "label": "Text" },
+            { "value": "check", "label": "Checkmark" }
+          ],
+          "default": "text"
+        },
+        {
+          "type": "text",
+          "id": "other_value",
+          "label": "Other brand text",
+          "default": "$900–1,400"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison table",
+      "blocks": [
+        { "type": "row", "settings": { "feature": "Price", "agow_type": "text", "agow_value": "$649", "other_type": "text", "other_value": "$900–1,400" } },
+        { "type": "row", "settings": { "feature": "One-hand fold", "agow_type": "check", "other_type": "text", "other_value": "Some models" } },
+        { "type": "row", "settings": { "feature": "Birth to 4 years", "agow_type": "check", "other_type": "check" } },
+        { "type": "row", "settings": { "feature": "Snow-ready wheels", "agow_type": "check", "other_type": "text", "other_value": "Add-on" } },
+        { "type": "row", "settings": { "feature": "Try at home", "agow_type": "text", "agow_value": "100 nights", "other_type": "text", "other_value": "30 days, unused" } },
+        { "type": "row", "settings": { "feature": "Warranty", "agow_type": "text", "agow_value": "2 years", "other_type": "text", "other_value": "1 year" } },
+        { "type": "row", "settings": { "feature": "Shipping", "agow_type": "text", "agow_value": "Free", "other_type": "text", "other_value": "Varies" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

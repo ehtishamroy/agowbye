@@ -1,0 +1,255 @@
+{%- style -%}
+  .story-media-img {
+    transition: opacity 0.4s ease-out;
+    opacity: 0;
+  }
+  .story-media-img.is-active {
+    opacity: 1;
+  }
+{%- endstyle -%}
+
+<section id="day" class="story scroll-mt-16 {{ section.settings.bg_color }}">
+  <div class="wrap">
+    <div class="story__header in" data-reveal="">
+      {%- if section.settings.kicker != blank -%}
+        <p class="kicker mb-3">{{ section.settings.kicker }}</p>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="text-h2 font-medium">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <p class="text-muted mt-4 max-w-[56ch]">{{ section.settings.text }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="story__grid">
+      <!-- Sticky image (desktop) -->
+      <div class="story__media-col">
+        <div class="story__media-sticky bg-stone" data-story-media="">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 1200 | image_tag: 
+                  sizes: '45vw',
+                  class: 'story__media-img',
+                  loading: 'lazy',
+                  data_index: forloop.index0
+              }}
+            {%- else -%}
+              {%- capture placeholder_name -%}lifestyle-{% cycle '1', '2' %}{%- endcapture -%}
+              {{ placeholder_name | placeholder_svg_tag: 'story__media-img bg-mist' | replace: '<svg', '<svg data-index="' | append: forloop.index0 | append: '"' }}
+            {%- endif -%}
+          {%- endfor -%}
+          
+          <div class="story__clock tnum" data-story-clock="">
+            {%- if section.blocks.size > 0 -%}
+              {{ section.blocks.first.settings.time | default: '7:40 am' }}
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapters: a real sequence through one day -->
+      <ol class="story__chapters" data-story-chapters>
+        {%- for block in section.blocks -%}
+          <li class="story__chapter" data-chapter="{{ forloop.index0 }}" data-time="{{ block.settings.time }}" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 1200 | image_tag: 
+                  sizes: '100vw',
+                  class: 'story__chapter-img',
+                  loading: 'lazy'
+              }}
+            {%- else -%}
+              {%- capture placeholder_name_mob -%}lifestyle-{% cycle 'mob': '1', '2' %}{%- endcapture -%}
+              {{ placeholder_name_mob | placeholder_svg_tag: 'story__chapter-img bg-mist' }}
+            {%- endif -%}
+            
+            {%- if block.settings.time != blank -%}
+              <p class="text-sm tnum text-muted">{{ block.settings.time }}</p>
+            {%- endif -%}
+            
+            {%- if block.settings.title != blank -%}
+              <h3 class="story__chapter-title">{{ block.settings.title }}</h3>
+            {%- endif -%}
+            
+            {%- if block.settings.text != blank -%}
+              <p class="story__chapter-text">{{ block.settings.text }}</p>
+            {%- endif -%}
+            
+            {%- if block.settings.label != blank -%}
+              <p class="chip w-fit">{{ block.settings.label }}</p>
+            {%- endif -%}
+            
+            {%- if block.settings.btn_text != blank -%}
+              <a href="{{ block.settings.btn_link | default: '#' }}" class="btn btn-ink w-fit mt-2">{{ block.settings.btn_text }}</a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const chapters = document.querySelectorAll('[data-chapter]');
+    const desktopImages = document.querySelectorAll('.story-media-img');
+    const clockBadge = document.querySelector('[data-story-clock]');
+    
+    if (!chapters.length || !desktopImages.length) return;
+
+    // Set first image active initially
+    desktopImages[0].classList.add('is-active');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const index = parseInt(entry.target.getAttribute('data-chapter'));
+          const time = entry.target.getAttribute('data-time');
+          
+          // Update images
+          desktopImages.forEach(img => img.classList.remove('is-active'));
+          const activeImg = Array.from(desktopImages).find(img => parseInt(img.getAttribute('data-index') || img.getAttribute('data-index')) === index) || desktopImages[index];
+          if (activeImg) {
+            activeImg.classList.add('is-active');
+          }
+          
+          // Update clock
+          if (clockBadge && time) {
+            clockBadge.textContent = time;
+          }
+        }
+      });
+    }, {
+      rootMargin: '-40% 0px -40% 0px', // Trigger when chapter hits the middle 20% of the screen
+      threshold: 0
+    });
+
+    chapters.forEach(chapter => observer.observe(chapter));
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Story chapters",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "A day with AGOW"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "We made one stroller, and tested it against a real day."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Most parents use a stroller the same way: a rushed morning, a nap on the go, a long walk home. So we designed for those hours instead of a showroom floor."
+    },
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background color",
+      "options": [
+        { "value": "", "label": "Default (Paper)" },
+        { "value": "bg-mist", "label": "Mist" }
+      ],
+      "default": ""
+    }
+  ],
+  "blocks": [
+    {
+      "type": "chapter",
+      "name": "Chapter",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "time",
+          "label": "Time",
+          "default": "7:40 am"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Coffee in one hand. Fold with the other."
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Squeeze the handle and it folds in about a second, then stands on its own at the bus stop. No bending, no second hand needed."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Highlight Label",
+          "default": "One-hand fold"
+        },
+        {
+          "type": "text",
+          "id": "btn_text",
+          "label": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "btn_link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Story chapters",
+      "blocks": [
+        {
+          "type": "chapter",
+          "settings": {
+            "time": "7:40 am",
+            "title": "Coffee in one hand. Fold with the other.",
+            "text": "Squeeze the handle and it folds in about a second, then stands on its own at the bus stop. No bending, no second hand needed.",
+            "label": "One-hand fold"
+          }
+        },
+        {
+          "type": "chapter",
+          "settings": {
+            "time": "12:15 pm",
+            "title": "The nap keeps going when you do.",
+            "text": "The seat reclines nearly flat and the UPF 50+ canopy pulls down low with a peek-a-boo window, so you can check on them without waking them.",
+            "label": "Near-flat recline"
+          }
+        },
+        {
+          "type": "chapter",
+          "settings": {
+            "time": "4:30 pm",
+            "title": "Take the long way home.",
+            "text": "Puncture-free rubber wheels and suspension on all four corners handle gravel paths, grass and salted February sidewalks.",
+            "label": "All-season wheels"
+          }
+        },
+        {
+          "type": "chapter",
+          "settings": {
+            "time": "7:00 pm",
+            "title": "Folded, and out of the way.",
+            "text": "At 58 × 50 × 28 cm folded, it fits a compact car trunk with room left for groceries, or the corner of a condo hallway.",
+            "btn_text": "Shop the stroller"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

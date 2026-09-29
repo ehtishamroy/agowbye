@@ -1,0 +1,70 @@
+{% if section.blocks.size > 0 %}
+<div class="announcement-bar" {{ section.shopify_attributes }}>
+  <div class="wrap announcement-bar__wrap" data-rotator>
+    {% for block in section.blocks %}
+      <p class="announcement-bar__item {% unless forloop.first %}announcement-bar__item--hidden{% endunless %}" data-rotate-item {{ block.shopify_attributes }}>
+        {{ block.settings.text }}
+      </p>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+{% javascript %}
+  document.addEventListener('DOMContentLoaded', () => {
+    const rotators = document.querySelectorAll('[data-rotator]');
+    rotators.forEach(rotator => {
+      const items = rotator.querySelectorAll('[data-rotate-item]');
+      if (items.length <= 1) return;
+
+      let current = 0;
+
+      setInterval(() => {
+        const cur = items[current];
+        const next = (current + 1) % items.length;
+        const nxt = items[next];
+
+        cur.classList.add('announcement-bar__item--exit');
+        cur.classList.remove('announcement-bar__item--hidden');
+
+        nxt.classList.add('announcement-bar__item--hidden');
+        nxt.classList.remove('announcement-bar__item--exit');
+        void nxt.offsetWidth;
+        nxt.classList.remove('announcement-bar__item--hidden');
+
+        current = next;
+      }, 3500);
+    });
+  });
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "max_blocks": 5,
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free shipping across Canada"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bar",
+      "blocks": [
+        {
+          "type": "announcement"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

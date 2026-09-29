@@ -1,56 +1,108 @@
-<footer>
-  <div class="footer__copyright">
-    &copy;
-    {{ 'now' | date: '%Y' }}
-    {{ shop.name | link_to: routes.root_url }}, {{ powered_by_link }}
+<footer id="contact" class="footer scroll-mt-16">
+  <div class="wrap footer__grid">
+    <!-- Left column -->
+    <div class="footer__brand">
+      <span class="footer__logo-text">{{ section.settings.logo_text }}</span>
+      <div class="footer__desc text-muted">{{ section.settings.text }}</div>
+    </div>
+
+    <!-- Right column (Menus) -->
+    <div class="footer__menus">
+      {%- for block in section.blocks -%}
+        <div class="footer__menu-col" {{ block.shopify_attributes }}>
+          <p class="footer__menu-title">{{ block.settings.title }}</p>
+          {%- if block.type == 'menu' -%}
+            {%- for link in block.settings.menu.links -%}
+              <a href="{{ link.url }}" class="footer__menu-link">{{ link.title }}</a>
+            {%- endfor -%}
+          {%- elsif block.type == 'text_block' -%}
+            <div class="footer__menu-richtext text-muted">
+              {{ block.settings.text }}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
   </div>
 
-  <div class="footer__links">
-    {% for link in section.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
-    {% endfor %}
-  </div>
-
-  <div class="footer__payment">
-    {% if section.settings.show_payment_icons %}
-      {% for type in shop.enabled_payment_types %}
-        {{ type | payment_type_svg_tag }}
-      {% endfor %}
-    {% endif %}
+  <div class="wrap footer__bottom">
+    <p>&copy; <span data-year="">{{ 'now' | date: '%Y' }}</span> {{ section.settings.copyright_text }}</p>
+    <div class="footer__bottom-links">
+      {%- for link in section.settings.bottom_menu.links -%}
+        <a href="{{ link.url }}" class="footer__bottom-link">{{ link.title }}</a>
+      {%- endfor -%}
+    </div>
   </div>
 </footer>
 
-{% stylesheet %}
-  footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
-  }
-  footer a {
-    text-decoration: none;
-    color: var(--color-foreground);
-  }
-  footer .footer__links,
-  footer .footer__payment {
-    display: flex;
-    gap: 1rem;
-  }
-{% endstylesheet %}
-
 {% schema %}
 {
-  "name": "t:general.footer",
+  "name": "Footer",
   "settings": [
     {
-      "type": "link_list",
-      "id": "menu",
-      "label": "t:labels.menu"
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo text",
+      "default": "agow"
     },
     {
-      "type": "checkbox",
-      "id": "show_payment_icons",
-      "label": "t:labels.show_payment_icons",
-      "default": true
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>One well-made stroller for Canadian families. Designed for real days, tested in real weather.</p>"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright text",
+      "default": "AGOW. Canada."
+    },
+    {
+      "type": "link_list",
+      "id": "bottom_menu",
+      "label": "Bottom menu"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Shop"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "text_block",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "AGOW"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>hello@agow.ca</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer"
     }
   ]
 }

@@ -1,0 +1,242 @@
+<section id="reviews" class="reviews scroll-mt-16 {{ section.settings.bg_color }}" data-carousel>
+  <div class="wrap">
+    <div class="reviews__header in" data-reveal>
+      <div>
+        {%- if section.settings.kicker != blank -%}
+          <p class="reviews__kicker-line">
+            {{ section.settings.kicker }}
+            {%- if section.settings.kicker_badge != blank -%}
+              <span class="sample">{{ section.settings.kicker_badge }}</span>
+            {%- endif -%}
+          </p>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="reviews__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+      </div>
+      
+      <div class="reviews__header-actions">
+        <div class="reviews__rating-block">
+          <span class="reviews__rating-score tnum">{{ section.settings.rating_score }}</span>
+          <span class="reviews__rating-label">out of 5<br><span class="tnum">{{ section.settings.rating_count }} reviews</span></span>
+        </div>
+        <div class="reviews__nav">
+          <button class="reviews__nav-btn" aria-label="Previous reviews" data-car-prev><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m15 6-6 6 6 6"></path></svg></button>
+          <button class="reviews__nav-btn" aria-label="Next reviews" data-car-next><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m9 6 6 6-6 6"></path></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reviews__track" data-car-track>
+    {%- for block in section.blocks -%}
+      <article class="reviews__card" {{ block.shopify_attributes }}>
+        <p class="reviews__stars" aria-label="{{ block.settings.rating }} out of 5 stars">
+          {%- for i in (1..5) -%}
+            {%- if i <= block.settings.rating -%}★{%- else -%}<span class="text-line">★</span>{%- endif -%}
+          {%- endfor -%}
+        </p>
+        <p class="reviews__text">{{ block.settings.text }}</p>
+        <p class="reviews__meta">
+          <span class="reviews__author">{{ block.settings.author }}</span>
+          <span class="text-muted">{{ block.settings.location }}</span>
+        </p>
+        {%- if block.settings.verified -%}
+          <p class="reviews__verified">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 5 5L20 7"></path></svg>Verified buyer
+          </p>
+        {%- endif -%}
+      </article>
+    {%- endfor -%}
+    <div class="reviews__spacer" aria-hidden="true"></div>
+  </div>
+
+  <!-- Progress indicator -->
+  <div class="wrap reviews__progress-wrap">
+    <div class="reviews__progress-track">
+      <div class="reviews__progress-bar" data-car-bar></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const carousels = document.querySelectorAll('[data-carousel]');
+    carousels.forEach(car => {
+      const track = car.querySelector('[data-car-track]');
+      const prev = car.querySelector('[data-car-prev]');
+      const next = car.querySelector('[data-car-next]');
+      const bar = car.querySelector('[data-car-bar]');
+      
+      if (!track) return;
+      
+      const updateBar = () => {
+        if (!bar) return;
+        const progress = (track.scrollLeft + track.clientWidth) / track.scrollWidth * 100;
+        bar.style.width = `${Math.min(100, progress)}%`;
+      };
+      
+      track.addEventListener('scroll', () => {
+        requestAnimationFrame(updateBar);
+      });
+      
+      const scrollAmount = () => track.clientWidth * 0.8;
+      
+      if (prev) {
+        prev.addEventListener('click', () => {
+          track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+        });
+      }
+      if (next) {
+        next.addEventListener('click', () => {
+          track.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+        });
+      }
+      
+      // Init bar and observe resize
+      updateBar();
+      window.addEventListener('resize', updateBar);
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Reviews carousel",
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background color",
+      "options": [
+        { "value": "", "label": "Default (Paper)" },
+        { "value": "bg-mist", "label": "Mist" }
+      ],
+      "default": "bg-mist"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "What parents say"
+    },
+    {
+      "type": "text",
+      "id": "kicker_badge",
+      "label": "Kicker badge",
+      "default": "sample reviews"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Rated 4.9 by families across Canada."
+    },
+    {
+      "type": "text",
+      "id": "rating_score",
+      "label": "Average rating score",
+      "default": "4.9"
+    },
+    {
+      "type": "text",
+      "id": "rating_count",
+      "label": "Total reviews count",
+      "default": "128"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Star rating",
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Review text",
+          "default": "The one-hand fold sold me in the demo video and it's even easier in real life."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author name",
+          "default": "Priya S."
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "Author location",
+          "default": "Toronto, ON"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Show 'Verified buyer'",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews carousel",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "The one-hand fold sold me in the demo video and it's even easier in real life. I fold it at daycare drop-off holding my son in the other arm.",
+            "author": "Priya S.",
+            "location": "Toronto, ON"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "We walked it through a full Calgary winter. Wheels never clogged with snow and the canopy blocked the wind completely.",
+            "author": "Mark T.",
+            "location": "Calgary, AB"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "Naps used to end the second we stopped. The near-flat recline and the low canopy changed that. She sleeps through the whole walk.",
+            "author": "Élodie R.",
+            "location": "Montréal, QC"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 4,
+            "text": "Fits in the trunk of our Civic with space for groceries. Only wish the basket had a zip cover, otherwise perfect.",
+            "author": "Daniel K.",
+            "location": "Vancouver, BC"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "I compared it with strollers twice the price at a baby expo. Same feel, same features, and the 100-night trial made it an easy decision.",
+            "author": "Sarah M.",
+            "location": "Halifax, NS"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

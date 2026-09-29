@@ -1,37 +1,82 @@
-{% comment %}
-  This section is used in the cart template to render /cart page with an
-  overview of the items in customer's cart.
+<section class="cart-page scroll-mt-16">
+  <div class="wrap">
+    <h1 class="cart-page__title text-h1 font-medium">Your cart</h1>
+    
+    {% if cart.item_count > 0 %}
+      <form action="{{ routes.cart_url }}" method="post" id="cart-form" class="cart-page__grid">
+        <div class="cart-page__items">
+          <div class="cart-page__header">
+            <span class="text-muted text-sm font-medium">Product</span>
+            <span class="text-muted text-sm font-medium cart-page__qty-heading">Quantity</span>
+            <span class="text-muted text-sm font-medium cart-page__total-heading">Total</span>
+          </div>
+          
+          {% for item in cart.items %}
+            <div class="cart-page__item">
+              <div class="cart-page__item-image">
+                {% if item.image %}
+                  {{ item.image | image_url: width: 240 | image_tag: loading: 'lazy' }}
+                {% else %}
+                  {{ 'image' | placeholder_svg_tag }}
+                {% endif %}
+              </div>
+              
+              <div class="cart-page__item-details">
+                <a href="{{ item.url }}" class="cart-page__item-title font-medium">{{ item.product.title }}</a>
+                {% unless item.product.has_only_default_variant %}
+                  <p class="text-sm text-muted mt-1">{{ item.variant.title }}</p>
+                {% endunless %}
+                <p class="cart-page__item-price text-sm text-muted mt-1 tnum">{{ item.final_price | money }}</p>
+                <a href="{{ item.url_to_remove }}" class="cart-page__item-remove text-sm text-muted">Remove</a>
+              </div>
+              
+              <div class="cart-page__item-qty-wrap">
+                <div class="cart-page__qty-box">
+                  <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity={{ item.quantity | minus: 1 }}" class="cart-page__qty-btn" aria-label="Decrease quantity">&minus;</a>
+                  <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Quantity for {{ item.title }}" class="cart-page__qty-input tnum" data-cart-qty>
+                  <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity={{ item.quantity | plus: 1 }}" class="cart-page__qty-btn" aria-label="Increase quantity">&plus;</a>
+                </div>
+              </div>
+              
+              <div class="cart-page__item-total font-medium tnum">
+                {{ item.final_line_price | money }}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        
+        <div class="cart-page__summary bg-mist">
+          <h2 class="cart-page__summary-title font-medium">Order summary</h2>
+          <div class="cart-page__subtotal">
+            <span class="text-muted">Subtotal</span>
+            <span class="font-medium tnum">{{ cart.total_price | money }}</span>
+          </div>
+          <p class="text-sm text-muted mb-6">Taxes and shipping calculated at checkout.</p>
+          <button type="submit" name="checkout" class="btn-ink w-full">Checkout</button>
+        </div>
+      </form>
+    {% else %}
+      <div class="cart-page__empty">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-muted"><path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8Z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg>
+        <p class="cart-page__empty-text text-muted">Your cart is currently empty.</p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn-ink">Continue shopping</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/cart
-{% endcomment %}
-
-<h1>{{ 'cart.title' | t }}</h1>
-
-<form action="{{ routes.cart_url }}" method="post">
-  <table>
-    {% for item in cart.items %}
-      <tr>
-        <td>
-          {% render 'image', image: item.image, url: item.url %}
-        </td>
-        <td>
-          <p>{{ item.product.title }}</p>
-          {{ 'cart.remove' | t | link_to: item.url_to_remove }}
-        </td>
-        <td>
-          <input type="text" name="updates[]" value="{{ item.quantity }}">
-          <input type="submit" value="{{ 'cart.update' | t }}">
-        </td>
-      </tr>
-    {% endfor %}
-  </table>
-
-  <input type="submit" name="checkout" value="{{ 'cart.checkout' | t }}">
-</form>
+<script>
+  // Simple script to auto-submit form when quantity input changes (enter key or blur)
+  document.querySelectorAll('[data-cart-qty]').forEach(input => {
+    input.addEventListener('change', () => {
+      document.getElementById('cart-form').submit();
+    });
+  });
+</script>
 
 {% schema %}
 {
-  "name": "t:general.cart",
+  "name": "Cart page",
   "settings": []
 }
 {% endschema %}

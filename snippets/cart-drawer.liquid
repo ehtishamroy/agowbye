@@ -1,0 +1,96 @@
+{% doc %}
+  Renders the side cart (drawer) with free-shipping progress, line items,
+  upsell row, subtotal and checkout button.
+
+  @example
+  {% render 'cart-drawer' %}
+{% enddoc %}
+
+<!-- Cart overlay -->
+<div class="overlay" data-cart-overlay></div>
+
+<!-- Cart drawer -->
+<aside class="drawer" data-cart aria-label="Your cart" aria-hidden="true">
+  <!-- Header -->
+  <div class="drawer__header">
+    <p class="drawer__title">Your cart <span class="drawer__count-text" data-cart-count-text>{% if cart.item_count > 0 %}({{ cart.item_count }}){% endif %}</span></p>
+    <button class="drawer__close" aria-label="Close cart" data-cart-close>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+
+  <!-- Free-shipping progress -->
+  <div class="drawer__shipping">
+    {%- assign free_shipping_threshold = 99900 -%}
+    {%- assign cart_total = cart.total_price -%}
+    {%- assign remaining = free_shipping_threshold | minus: cart_total -%}
+    {%- if remaining <= 0 -%}
+      {%- assign ship_pct = 100 -%}
+    {%- else -%}
+      {%- assign ship_pct = cart_total | times: 100 | divided_by: free_shipping_threshold -%}
+    {%- endif -%}
+    <p class="drawer__ship-msg" data-ship-msg>
+      {%- if remaining <= 0 -%}
+        <b>You've unlocked free shipping.</b>
+      {%- else -%}
+        Add <b class="tnum">{{ remaining | money }}</b> more for free shipping
+      {%- endif -%}
+    </p>
+    <div class="drawer__ship-track">
+      <div class="drawer__ship-bar" style="width:{{ ship_pct }}%" data-ship-bar></div>
+    </div>
+  </div>
+
+  <!-- Cart items -->
+  <div class="drawer__items {% if cart.item_count == 0 %}hidden{% endif %}" data-cart-items>
+    {% for item in cart.items %}
+      <div class="drawer__line" data-line-key="{{ item.key }}">
+        <img
+          src="{{ item.image | image_url: width: 160 }}"
+          alt="{{ item.title | escape }}"
+          width="80" height="80"
+          class="drawer__line-img"
+          loading="lazy"
+        >
+        <div class="drawer__line-info">
+          <div class="drawer__line-top">
+            <p class="drawer__line-title">{{ item.product.title }}</p>
+            <p class="drawer__line-price tnum">{{ item.final_line_price | money }}</p>
+          </div>
+          {% if item.variant.title != 'Default Title' %}
+            <p class="drawer__line-variant">{{ item.variant.title }}</p>
+          {% endif %}
+          <div class="drawer__line-actions">
+            <div class="drawer__qty">
+              <button aria-label="Decrease" data-line-dec="{{ item.key }}">−</button>
+              <span class="tnum">{{ item.quantity }}</span>
+              <button aria-label="Increase" data-line-inc="{{ item.key }}">+</button>
+            </div>
+            <button class="drawer__remove" data-line-remove="{{ item.key }}">Remove</button>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Empty state -->
+  <div class="drawer__empty {% if cart.item_count > 0 %}hidden{% endif %}" data-cart-empty>
+    <p class="text-h3">Your cart is empty</p>
+    <p class="drawer__empty-desc">The AGOW Stroller ships free across Canada, with 100 nights to try it.</p>
+    <a href="{{ routes.all_products_collection_url }}" class="btn btn-ink">Shop the stroller</a>
+  </div>
+
+  <!-- Footer -->
+  <div class="drawer__footer {% if cart.item_count == 0 %}hidden{% endif %}" data-cart-footer>
+    <div class="drawer__subtotal">
+      <span>Subtotal</span>
+      <span class="tnum" data-cart-subtotal>{{ cart.total_price | money }}</span>
+    </div>
+    <p class="drawer__tax-note">Taxes calculated at checkout. Shipping is free.</p>
+    <a href="{{ routes.cart_url }}" class="btn btn-ink drawer__checkout" data-checkout>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+      Secure checkout
+    </a>
+    <p class="drawer__pay-note">or 4 interest-free payments with Shop Pay</p>
+  </div>
+</aside>

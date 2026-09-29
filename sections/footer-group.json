@@ -13,9 +13,39 @@
   "sections": {
     "footer": {
       "type": "footer",
+      "blocks": {
+        "menu_1": {
+          "type": "menu",
+          "settings": {
+            "title": "Shop",
+            "menu": "main-menu"
+          }
+        },
+        "menu_2": {
+          "type": "menu",
+          "settings": {
+            "title": "Help",
+            "menu": "footer"
+          }
+        },
+        "text_1": {
+          "type": "text_block",
+          "settings": {
+            "title": "AGOW",
+            "text": "<p><a href=\"#day\">Our story</a><br><a href=\"#\">Instagram</a><br><a href=\"#\">Facebook</a><br>hello@agow.ca</p>"
+          }
+        }
+      },
+      "block_order": [
+        "menu_1",
+        "menu_2",
+        "text_1"
+      ],
       "settings": {
-        "menu": "",
-        "show_payment_icons": true
+        "logo_text": "agow",
+        "text": "<p>One well-made stroller for Canadian families. Designed for real days, tested in real weather.</p>",
+        "copyright_text": "AGOW. Canada.",
+        "bottom_menu": "footer"
       }
     }
   },

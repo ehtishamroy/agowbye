@@ -1,0 +1,113 @@
+<section class="parallax-banner" style="--overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};">
+  <div class="parallax-banner__media">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 2400 | image_tag:
+          sizes: '100vw',
+          class: 'parallax-banner__img',
+          loading: 'lazy'
+      }}
+    {%- else -%}
+      {{ 'lifestyle-2' | placeholder_svg_tag: 'parallax-banner__img' }}
+    {%- endif -%}
+  </div>
+
+  <div class="parallax-banner__overlay"></div>
+
+  <div class="parallax-banner__content">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="parallax-banner__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.btn_text != blank -%}
+      <a href="{{ section.settings.btn_link | default: '#' }}" class="parallax-banner__btn">
+        {{ section.settings.btn_text }}
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+<script>
+  (function() {
+    const section = document.querySelector('.parallax-banner');
+    if (!section) return;
+    const img = section.querySelector('.parallax-banner__img');
+    if (!img) return;
+
+    let ticking = false;
+
+    function updateParallax() {
+      const rect = section.getBoundingClientRect();
+      const windowH = window.innerHeight;
+
+      // Only animate when section is in view
+      if (rect.bottom < 0 || rect.top > windowH) {
+        ticking = false;
+        return;
+      }
+
+      // Calculate how far the section is through the viewport
+      // 0 = section just entering bottom, 1 = section just leaving top
+      const progress = (windowH - rect.top) / (windowH + rect.height);
+      // Translate range: image moves from +60px to -60px
+      const translate = 60 - (progress * 120);
+
+      img.style.transform = `translate3d(0, ${translate}px, 0) scale(1.15)`;
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Initial call
+    updateParallax();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Parallax banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Image overlay darkness",
+      "default": 20
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Choose the right AGOW stroller for your family."
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button text",
+      "default": "COMPARE PRAMS + STROLLERS"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Parallax banner"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,145 @@
+<section class="trust-bar" aria-label="Why shop with AGOW" {{ section.shopify_attributes }}>
+  <div class="trust-bar__marquee-wrap">
+    <!-- duplicated once for seamless loop -->
+    <div class="trust-bar__marquee">
+      {% for block in section.blocks %}
+        <span class="trust-bar__marquee-item" {{ block.shopify_attributes }}>
+          {% if block.settings.custom_icon != blank %}
+            {{ block.settings.custom_icon | image_url: width: 36 | image_tag: class: 'trust-bar__icon object-contain' }}
+          {% elsif block.settings.custom_html != blank %}
+            <span class="trust-bar__icon-html">{{ block.settings.custom_html }}</span>
+          {% elsif block.settings.icon != 'none' %}
+            {% render 'icon', icon: block.settings.icon %}
+          {% endif %}
+          {{ block.settings.title }}
+        </span>
+      {% endfor %}
+    </div>
+    <div class="trust-bar__marquee" aria-hidden="true">
+      {% for block in section.blocks %}
+        <span class="trust-bar__marquee-item" {{ block.shopify_attributes }}>
+          {% if block.settings.custom_icon != blank %}
+            {{ block.settings.custom_icon | image_url: width: 36 | image_tag: class: 'trust-bar__icon object-contain' }}
+          {% elsif block.settings.custom_html != blank %}
+            <span class="trust-bar__icon-html">{{ block.settings.custom_html }}</span>
+          {% elsif block.settings.icon != 'none' %}
+            {% render 'icon', icon: block.settings.icon %}
+          {% endif %}
+          {{ block.settings.title }}
+        </span>
+      {% endfor %}
+    </div>
+  </div>
+
+  <ul class="wrap trust-bar__grid">
+    {% for block in section.blocks %}
+      {% if forloop.index <= 4 %}
+        <li class="trust-bar__grid-item" {{ block.shopify_attributes }}>
+          {% if block.settings.custom_icon != blank %}
+            {{ block.settings.custom_icon | image_url: width: 72 | image_tag: class: 'trust-bar__icon-large object-contain' }}
+          {% elsif block.settings.custom_html != blank %}
+            <span class="trust-bar__icon-large trust-bar__icon-html">{{ block.settings.custom_html }}</span>
+          {% elsif block.settings.icon != 'none' %}
+            {% render 'icon', icon: block.settings.icon, class: 'trust-bar__icon-large' %}
+          {% endif %}
+          <span>
+            <b class="trust-bar__grid-title">{{ block.settings.title }}</b>
+            {% if block.settings.text != blank %}
+              <span class="trust-bar__grid-text">{{ block.settings.text }}</span>
+            {% endif %}
+          </span>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "Trust bar",
+  "max_blocks": 5,
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "moon", "label": "Moon" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "lock", "label": "Lock" },
+            { "value": "credit-card", "label": "Credit card" }
+          ],
+          "default": "truck"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom image (PNG/JPG)"
+        },
+        {
+          "type": "html",
+          "id": "custom_html",
+          "label": "Custom HTML/SVG"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Free shipping"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Subtext (Desktop)",
+          "default": "Anywhere in Canada, tracked"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust bar",
+      "blocks": [
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "truck",
+            "title": "Free shipping in Canada",
+            "text": "Anywhere in Canada, tracked"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "moon",
+            "title": "100-night trial",
+            "text": "Free pickup if it's not right"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "shield",
+            "title": "2-year warranty",
+            "text": "Frame, wheels and fold"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "credit-card",
+            "title": "Pay in 4 with Shop Pay",
+            "text": "Interest-free with Shop Pay"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

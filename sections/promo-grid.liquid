@@ -1,0 +1,134 @@
+<section class="promo-grid {% unless section.settings.full_width %}wrap my-10{% endunless %}">
+  <div class="promo-grid__inner" style="--promo-cols: {{ section.blocks.size | at_most: 2 }};">
+    {%- for block in section.blocks -%}
+      <a href="{{ block.settings.btn_link | default: '#' }}" class="promo-card" {{ block.shopify_attributes }}>
+        
+        <div class="promo-card__media">
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 1400 | image_tag: 
+                sizes: '(min-width: 768px) 50vw, 100vw',
+                class: 'promo-card__img',
+                loading: 'lazy'
+            }}
+          {%- else -%}
+            {%- capture placeholder_name -%}collection-{% cycle '1', '2', '3' %}{%- endcapture -%}
+            {{ placeholder_name | placeholder_svg_tag: 'promo-card__img bg-mist' }}
+          {%- endif -%}
+          <!-- Optional overlay gradient to make text pop -->
+          <div class="promo-card__overlay" style="opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }}"></div>
+        </div>
+
+        <div class="promo-card__content in" data-reveal style="color: {{ block.settings.text_color }}">
+          {%- if block.settings.kicker != blank -%}
+            <p class="promo-card__kicker">{{ block.settings.kicker }}</p>
+          {%- endif -%}
+          
+          {%- if block.settings.title != blank -%}
+            <h3 class="promo-card__title">{{ block.settings.title }}</h3>
+          {%- endif -%}
+          
+          {%- if block.settings.subtitle != blank -%}
+            <p class="promo-card__subtitle">{{ block.settings.subtitle }}</p>
+          {%- endif -%}
+          
+          {%- if block.settings.btn_text != blank -%}
+            <span class="promo-card__btn">{{ block.settings.btn_text }}</span>
+          {%- endif -%}
+        </div>
+
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Promo grid",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "promo",
+      "name": "Promotion",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "label": "Image overlay opacity",
+          "default": 10
+        },
+        {
+          "type": "text",
+          "id": "kicker",
+          "label": "Kicker",
+          "default": "CYBEX ESSENTIALS"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "BACK TO ROUTINE"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "For The Golden Summer Days Ahead"
+        },
+        {
+          "type": "text",
+          "id": "btn_text",
+          "label": "Button text",
+          "default": "Explore More"
+        },
+        {
+          "type": "url",
+          "id": "btn_link",
+          "label": "Button link"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#111111"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo grid",
+      "blocks": [
+        {
+          "type": "promo"
+        },
+        {
+          "type": "promo",
+          "settings": {
+            "title": "URBAN MOBILITY",
+            "subtitle": "The All-New Experience",
+            "text_color": "#ffffff",
+            "overlay_opacity": 30
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
