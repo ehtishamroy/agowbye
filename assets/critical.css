@@ -2,8 +2,8 @@
 
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; }
-html { overflow-x: hidden; }
-body { display: flex; flex-direction: column; margin: 0; min-height: 100svh; overflow-x: hidden; width: 100%; }
+html { overflow-x: clip; }
+body { display: flex; flex-direction: column; margin: 0; min-height: 100svh; overflow-x: clip; width: 100%; }
 html:has(dialog[scroll-lock][open], details[scroll-lock][open]) { overflow: hidden; }
 img, picture, video, canvas, svg { display: block; max-width: 100%; height: auto; }
 input, textarea, select { font: inherit; }

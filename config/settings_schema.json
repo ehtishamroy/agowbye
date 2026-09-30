@@ -8,6 +8,23 @@
     "theme_support_url": "https://support.shopify.com/"
   },
   {
+    "name": "SEO / Brand Info",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Will be scaled down to 32 x 32px"
+      },
+      {
+        "type": "text",
+        "id": "tab_title",
+        "label": "Website Tab Title",
+        "info": "Used for the homepage tab title, and appended to other pages."
+      }
+    ]
+  },
+  {
     "name": "t:general.typography",
     "settings": [
       {

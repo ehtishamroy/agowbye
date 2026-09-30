@@ -1,9 +1,9 @@
 {%- style -%}
-  .story-media-img {
+  .story__media-img {
     transition: opacity 0.4s ease-out;
     opacity: 0;
   }
-  .story-media-img.is-active {
+  .story__media-img.is-active {
     opacity: 1;
   }
 {%- endstyle -%}
@@ -36,7 +36,8 @@
               }}
             {%- else -%}
               {%- capture placeholder_name -%}lifestyle-{% cycle '1', '2' %}{%- endcapture -%}
-              {{ placeholder_name | placeholder_svg_tag: 'story__media-img bg-mist' | replace: '<svg', '<svg data-index="' | append: forloop.index0 | append: '"' }}
+              {%- capture svg_replace -%}<svg data-index="{{ forloop.index0 }}"{%- endcapture -%}
+              {{ placeholder_name | placeholder_svg_tag: 'story__media-img bg-mist' | replace: '<svg', svg_replace }}
             {%- endif -%}
           {%- endfor -%}
           
@@ -92,7 +93,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const chapters = document.querySelectorAll('[data-chapter]');
-    const desktopImages = document.querySelectorAll('.story-media-img');
+    const desktopImages = document.querySelectorAll('.story__media-img');
     const clockBadge = document.querySelector('[data-story-clock]');
     
     if (!chapters.length || !desktopImages.length) return;

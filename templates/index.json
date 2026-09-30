@@ -12,6 +12,7 @@
     "hero": {
       "type": "hero",
       "settings": {
+        "image": "shopify://shop_images/Baby_stroller_on_concrete_sidewalk_2K_20260930043649.jpg",
         "heading": "One stroller.\nEvery road ahead.",
         "description": "Folds with one hand, rolls through snow, and grows with your child from birth to 4 years.",
         "button_1_text": "Shop the stroller from $649",
@@ -187,23 +188,25 @@
         "promo_1": {
           "type": "promo",
           "settings": {
-            "overlay_opacity": 0,
-            "kicker": "CYBEX ESSENTIALS",
-            "title": "BACK TO ROUTINE",
-            "subtitle": "For The Golden Summer Days Ahead",
-            "btn_text": "Explore More",
+            "image": "shopify://shop_images/Baby_stroller_accessories_flat_lay_20260930045323.jpg",
+            "overlay_opacity": 55,
+            "kicker": "AGOW Essentials",
+            "title": "Everyday Ready",
+            "subtitle": "Cup holder, rain cover, organiser — everything that makes the daily run effortless.",
+            "btn_text": "",
             "btn_link": "",
-            "text_color": "#111111"
+            "text_color": "#FFFFFF"
           }
         },
         "promo_2": {
           "type": "promo",
           "settings": {
-            "overlay_opacity": 30,
-            "kicker": "CYBEX PLATINUM",
-            "title": "URBAN MOBILITY",
-            "subtitle": "The All-New Experience",
-            "btn_text": "Explore More",
+            "image": "shopify://shop_images/Newborn_baby_sleeping_in_bassinet_20260930045413.jpg",
+            "overlay_opacity": 55,
+            "kicker": "AGOW Newborn",
+            "title": "From Day One",
+            "subtitle": "Bassinet, newborn insert and car-seat adaptors — hospital to home in one system.",
+            "btn_text": "",
             "btn_link": "",
             "text_color": "#ffffff"
           }
@@ -223,6 +226,7 @@
         "chapter_1": {
           "type": "chapter",
           "settings": {
+            "image": "shopify://shop_images/Parent_folding_baby_stroller_20260930044531.jpg",
             "time": "7:40 am",
             "title": "Coffee in one hand. Fold with the other.",
             "text": "Squeeze the handle and it folds in about a second, then stands on its own at the bus stop. No bending, no second hand needed.",
@@ -234,6 +238,7 @@
         "chapter_2": {
           "type": "chapter",
           "settings": {
+            "image": "shopify://shop_images/Baby_sleeping_in_stroller_20260930044812.jpg",
             "time": "12:15 pm",
             "title": "The nap keeps going when you do.",
             "text": "The seat reclines nearly flat and the UPF 50+ canopy pulls down low with a peek-a-boo window, so you can check on them without waking them.",
@@ -245,6 +250,7 @@
         "chapter_3": {
           "type": "chapter",
           "settings": {
+            "image": "shopify://shop_images/Stroller_rolling_on_gravel_path_20260930045013.jpg",
             "time": "4:30 pm",
             "title": "Take the long way home.",
             "text": "Puncture-free rubber wheels and suspension on all four corners handle gravel paths, grass and salted February sidewalks.",
@@ -256,6 +262,7 @@
         "chapter_4": {
           "type": "chapter",
           "settings": {
+            "image": "shopify://shop_images/Folded_baby_stroller_in_entryway_20260930045127.jpg",
             "time": "7:00 pm",
             "title": "Folded, and out of the way.",
             "text": "At 58 × 50 × 28 cm folded, it fits a compact car trunk with room left for groceries, or the corner of a condo hallway.",
@@ -442,6 +449,7 @@
     "parallax_banner": {
       "type": "parallax-banner",
       "settings": {
+        "image": "shopify://shop_images/Graphite_baby_stroller_in_studio_20260930050100.jpg",
         "overlay_opacity": 20,
         "heading": "Choose the right AGOW stroller for your family.",
         "btn_text": "COMPARE PRAMS + STROLLERS",
