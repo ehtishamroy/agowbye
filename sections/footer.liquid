@@ -3,7 +3,16 @@
     <!-- Left column -->
     <div class="footer__brand">
       <span class="footer__logo-text">{{ section.settings.logo_text }}</span>
-      <div class="footer__desc text-muted">{{ section.settings.text }}</div>
+      <div class="footer__desc text-muted" style="margin-bottom: 1.5rem;">{{ section.settings.text }}</div>
+      <div class="footer__newsletter">
+        {%- form 'customer', class: 'newsletter-form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div style="display:flex; gap:0.5rem; max-width: 320px;">
+            <input type="email" name="contact[email]" placeholder="Email address" required style="flex:1; padding:0.5rem 0.75rem; border:1px solid var(--line); border-radius:4px; font-size:0.875rem; width:100%;">
+            <button type="submit" style="padding:0.5rem 1rem; background:var(--ink); color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:0.875rem; font-weight:500;">Subscribe</button>
+          </div>
+        {%- endform -%}
+      </div>
     </div>
 
     <!-- Right column (Menus) -->
@@ -81,6 +90,7 @@
         }
       ]
     },
+
     {
       "type": "text_block",
       "name": "Text",

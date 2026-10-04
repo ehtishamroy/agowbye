@@ -15,9 +15,9 @@
         "image": "shopify://shop_images/Baby_stroller_on_concrete_sidewalk_2K_20260930043649.jpg",
         "heading": "One stroller.\nEvery road ahead.",
         "description": "Folds with one hand, rolls through snow, and grows with your child from birth to 4 years.",
-        "button_1_text": "Shop the stroller from $649",
-        "button_1_link": "",
-        "button_2_text": "See it in a real day",
+        "button_1_text": "Shop the stroller from $245",
+        "button_1_link": "shopify://products/lumo",
+        "button_2_text": "",
         "button_2_link": ""
       }
     },
@@ -30,18 +30,8 @@
             "icon": "truck",
             "custom_icon": "shopify://shop_images/fast-delivery.png",
             "custom_html": "",
-            "title": "Free shipping in Canada",
+            "title": "Shipping in Canada and worldwide",
             "text": "Anywhere in Canada, tracked"
-          }
-        },
-        "trust_2": {
-          "type": "trust_item",
-          "settings": {
-            "icon": "moon",
-            "custom_icon": "shopify://shop_images/moon.png",
-            "custom_html": "",
-            "title": "100-night trial",
-            "text": "Free pickup if it's not right"
           }
         },
         "trust_3": {
@@ -67,7 +57,6 @@
       },
       "block_order": [
         "trust_1",
-        "trust_2",
         "trust_3",
         "trust_4"
       ],
@@ -103,18 +92,18 @@
             "heading": "Choose your set",
             "b1_title": "Stroller only",
             "b1_desc": "Seat, canopy, basket, bumper bar",
-            "b1_price": "$649",
-            "b1_compare": "$799",
+            "b1_price": "$245",
+            "b1_compare": "",
             "b1_badge": "",
             "b2_title": "Stroller + Travel Kit",
             "b2_desc": "Adds rain cover, cup holder and travel bag",
-            "b2_price": "$729",
-            "b2_compare": "$927",
+            "b2_price": "$320",
+            "b2_compare": "$370",
             "b2_badge": "Most chosen",
-            "b3_title": "Newborn Set",
-            "b3_desc": "Travel Kit plus bassinet and winter footmuff",
-            "b3_price": "$899",
-            "b3_compare": "$1,156",
+            "b3_title": "",
+            "b3_desc": "",
+            "b3_price": "",
+            "b3_compare": "",
             "b3_badge": ""
           }
         },
@@ -195,7 +184,7 @@
             "subtitle": "Cup holder, rain cover, organiser — everything that makes the daily run effortless.",
             "btn_text": "",
             "btn_link": "",
-            "text_color": "#FFFFFF"
+            "text_color": "#ffffff"
           }
         },
         "promo_2": {
@@ -268,7 +257,7 @@
             "text": "At 58 × 50 × 28 cm folded, it fits a compact car trunk with room left for groceries, or the corner of a condo hallway.",
             "label": "One-hand fold",
             "btn_text": "Shop the stroller",
-            "btn_link": ""
+            "btn_link": "shopify://products/lumo"
           }
         }
       },
@@ -283,97 +272,6 @@
         "title": "We made one stroller, and tested it against a real day.",
         "text": "Most parents use a stroller the same way: a rushed morning, a nap on the go, a long walk home. So we designed for those hours instead of a showroom floor.",
         "bg_color": ""
-      }
-    },
-    "comparison": {
-      "type": "comparison",
-      "blocks": {
-        "row_1": {
-          "type": "row",
-          "settings": {
-            "feature": "Price",
-            "agow_type": "text",
-            "agow_value": "$649",
-            "other_type": "text",
-            "other_value": "$900–1,400"
-          }
-        },
-        "row_2": {
-          "type": "row",
-          "settings": {
-            "feature": "One-hand fold",
-            "agow_type": "check",
-            "agow_value": "$649",
-            "other_type": "text",
-            "other_value": "Some models"
-          }
-        },
-        "row_3": {
-          "type": "row",
-          "settings": {
-            "feature": "Birth to 4 years",
-            "agow_type": "check",
-            "agow_value": "$649",
-            "other_type": "check",
-            "other_value": "$900–1,400"
-          }
-        },
-        "row_4": {
-          "type": "row",
-          "settings": {
-            "feature": "Snow-ready wheels",
-            "agow_type": "check",
-            "agow_value": "$649",
-            "other_type": "text",
-            "other_value": "Add-on"
-          }
-        },
-        "row_5": {
-          "type": "row",
-          "settings": {
-            "feature": "Try at home",
-            "agow_type": "text",
-            "agow_value": "100 nights",
-            "other_type": "text",
-            "other_value": "30 days, unused"
-          }
-        },
-        "row_6": {
-          "type": "row",
-          "settings": {
-            "feature": "Warranty",
-            "agow_type": "text",
-            "agow_value": "2 years",
-            "other_type": "text",
-            "other_value": "1 year"
-          }
-        },
-        "row_7": {
-          "type": "row",
-          "settings": {
-            "feature": "Shipping",
-            "agow_type": "text",
-            "agow_value": "Free",
-            "other_type": "text",
-            "other_value": "Varies"
-          }
-        }
-      },
-      "block_order": [
-        "row_1",
-        "row_2",
-        "row_3",
-        "row_4",
-        "row_5",
-        "row_6",
-        "row_7"
-      ],
-      "settings": {
-        "kicker": "Side by side",
-        "title": "Premium features without the premium markup.",
-        "text": "We sell one stroller, direct to you. No retail middleman, so more of the price goes into the stroller itself.",
-        "brand_name": "AGOW",
-        "other_name": "Typical premium stroller"
       }
     },
     "reviews": {
@@ -446,6 +344,86 @@
         "rating_count": "128"
       }
     },
+    "comparison": {
+      "type": "comparison",
+      "blocks": {
+        "price_row": {
+          "type": "row",
+          "settings": {
+            "feature": "Price",
+            "agow_type": "text",
+            "agow_value": "$649",
+            "other_type": "text",
+            "other_value": "$900-$1,400"
+          }
+        },
+        "fold_row": {
+          "type": "row",
+          "settings": {
+            "feature": "One-hand fold",
+            "agow_type": "check",
+            "agow_value": "$649",
+            "other_type": "text",
+            "other_value": "Some models"
+          }
+        },
+        "age_row": {
+          "type": "row",
+          "settings": {
+            "feature": "Birth to 4 years",
+            "agow_type": "check",
+            "agow_value": "$649",
+            "other_type": "check",
+            "other_value": "$900–1,400"
+          }
+        },
+        "wheels_row": {
+          "type": "row",
+          "settings": {
+            "feature": "Snow-ready wheels",
+            "agow_type": "check",
+            "agow_value": "$649",
+            "other_type": "text",
+            "other_value": "Add-on"
+          }
+        },
+        "warranty_row": {
+          "type": "row",
+          "settings": {
+            "feature": "Warranty",
+            "agow_type": "text",
+            "agow_value": "2 years",
+            "other_type": "text",
+            "other_value": "1 year"
+          }
+        },
+        "shipping_row": {
+          "type": "row",
+          "settings": {
+            "feature": "Shipping",
+            "agow_type": "text",
+            "agow_value": "Free",
+            "other_type": "text",
+            "other_value": "Varies"
+          }
+        }
+      },
+      "block_order": [
+        "price_row",
+        "fold_row",
+        "age_row",
+        "wheels_row",
+        "warranty_row",
+        "shipping_row"
+      ],
+      "settings": {
+        "kicker": "Side by side",
+        "title": "Premium features without the premium markup.",
+        "text": "We sell one stroller, direct to you. No retail middleman, so more of the price goes into the stroller itself.",
+        "brand_name": "AGOW",
+        "other_name": "Typical premium stroller"
+      }
+    },
     "parallax_banner": {
       "type": "parallax-banner",
       "settings": {
@@ -463,7 +441,7 @@
           "type": "faq_item",
           "settings": {
             "question": "Can I use it from birth?",
-            "answer": "<p>Yes. The seat reclines nearly flat for newborns, or add the bassinet (included in the Newborn Set) for the first six months. It then works as a toddler seat up to 22 kg, around 4 years.</p>"
+            "answer": "<p>Yes. The seat reclines nearly flat for newborns, or add the bassinet for the first six months. It then works as a toddler seat up to 22 kg, around 4 years.</p>"
           }
         },
         "faq_2": {
@@ -487,13 +465,6 @@
             "answer": "<p>Free, tracked shipping anywhere in Canada. Most orders arrive in 3–6 business days. You'll get tracking by email the day it ships.</p>"
           }
         },
-        "faq_5": {
-          "type": "faq_item",
-          "settings": {
-            "question": "What if it's not right for us?",
-            "answer": "<p>You have 100 nights. Email us, we arrange a free pickup and refund you in full within 5 business days of receiving it.</p>"
-          }
-        },
         "faq_6": {
           "type": "faq_item",
           "settings": {
@@ -507,13 +478,12 @@
         "faq_2",
         "faq_3",
         "faq_4",
-        "faq_5",
         "faq_6"
       ],
       "settings": {
         "kicker": "Before you buy",
         "title": "Questions parents ask us.",
-        "text": "<p>Still unsure? Email <strong>hello@agow.ca</strong> and a real person replies within one business day.</p>"
+        "text": "<p></p><p>Still unsure? Email <strong>hello@agow.ca</strong> and a real person replies within one business day.</p>"
       }
     },
     "marquee_gallery": {
@@ -564,6 +534,7 @@
         "img_5",
         "img_6"
       ],
+      "disabled": true,
       "settings": {}
     }
   },
@@ -573,8 +544,8 @@
     "featured_product",
     "promo_grid",
     "story",
-    "comparison",
     "reviews",
+    "comparison",
     "parallax_banner",
     "faq",
     "marquee_gallery"

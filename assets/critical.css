@@ -2,8 +2,8 @@
 
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; }
-html { overflow-x: clip; }
-body { display: flex; flex-direction: column; margin: 0; min-height: 100svh; overflow-x: clip; width: 100%; }
+html { overflow-x: hidden; }
+body { display: flex; flex-direction: column; margin: 0; min-height: 100svh; overflow-x: hidden; width: 100%; }
 html:has(dialog[scroll-lock][open], details[scroll-lock][open]) { overflow: hidden; }
 img, picture, video, canvas, svg { display: block; max-width: 100%; height: auto; }
 input, textarea, select { font: inherit; }
@@ -684,8 +684,11 @@ html:not(.js) .hero__actions {
 
 .product__grid {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 2rem;
   align-items: start;
+  width: 100%;
+  max-width: 100%;
 }
 @media (min-width: 1024px) {
   .product__grid {
@@ -698,9 +701,19 @@ html:not(.js) .hero__actions {
 .product__gallery-col {
   margin-left: -1rem;
   margin-right: -1rem;
+  min-width: 0;
+  max-width: calc(100% + 2rem);
+  width: calc(100% + 2rem);
+  overflow: hidden;
 }
 @media (min-width: 640px) {
-  .product__gallery-col { margin-left: 0; margin-right: 0; }
+  .product__gallery-col {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+    width: 100%;
+    overflow: visible;
+  }
 }
 @media (min-width: 1024px) {
   .product__gallery-col {
@@ -721,6 +734,9 @@ html:not(.js) .hero__actions {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
 }
 .product__gallery-main::-webkit-scrollbar { display: none; }
 .product__gallery-figure {
@@ -775,6 +791,8 @@ html:not(.js) .hero__actions {
   padding: 0 1rem;
   overflow-x: auto;
   scrollbar-width: none;
+  min-width: 0;
+  max-width: 100%;
 }
 .product__gallery-thumbs::-webkit-scrollbar { display: none; }
 @media (min-width: 640px) {
@@ -808,6 +826,9 @@ html:not(.js) .hero__actions {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
 }
 @media (min-width: 1024px) {
   .product__info-col { grid-column: span 5 / span 5; }
@@ -817,6 +838,9 @@ html:not(.js) .hero__actions {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
 }
 
 .product__reviews-badge {
@@ -855,6 +879,9 @@ html:not(.js) .hero__actions {
   background-color: var(--mist);
   padding: 1rem;
   transition: all 0.2s;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
 }
 .bundle-card .dot {
   width: 1.25rem;
@@ -960,7 +987,7 @@ html:not(.js) .hero__actions {
 /* Mini trust */
 .product__mini-trust {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.5rem;
   text-align: center;
   font-size: 13px;
@@ -995,6 +1022,12 @@ html:not(.js) .hero__actions {
   font-weight: 600;
   display: grid;
   place-items: center;
+}
+
+/* Payment badges */
+.product__payments {
+  overflow: hidden;
+  max-width: 100%;
 }
 .product__payments-secure {
   font-size: 0.75rem;
@@ -1081,7 +1114,9 @@ details[open] > summary .chev { transform: rotate(45deg); }
 
 .trust-bar__grid {
   display: none;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, auto);
+  gap: 3rem;
+  justify-content: center;
   padding-top: 1.75rem;
   padding-bottom: 1.75rem;
   font-size: 15px;

@@ -1,0 +1,114 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "reviews": {
+          "type": "reviews_badge",
+          "settings": {
+            "text": "4.9 from 128 reviews",
+            "show_sample": false
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "desc": {
+          "type": "description",
+          "settings": {
+            "text": "One-hand fold, all-season wheels and a seat that grows with your child from birth to 4 years."
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "bundles": {
+          "type": "bundles",
+          "settings": {
+            "heading": "Choose your set",
+            "b1_title": "Stroller only",
+            "b1_desc": "Seat, canopy, basket, bumper bar",
+            "b1_price": "$245",
+            "b1_compare": "",
+            "b1_badge": "",
+            "b2_title": "Stroller + Travel Kit",
+            "b2_desc": "Adds rain cover, cup holder and travel bag",
+            "b2_price": "$320",
+            "b2_compare": "$370",
+            "b2_badge": "Most chosen",
+            "b3_title": "",
+            "b3_desc": "",
+            "b3_price": "",
+            "b3_compare": "",
+            "b3_badge": ""
+          }
+        },
+        "buy": {
+          "type": "buy_buttons",
+          "settings": {}
+        },
+        "delivery": {
+          "type": "delivery_estimate",
+          "settings": {
+            "stock_text": "In stock.",
+            "cutoff": "9h 23m",
+            "eta": "Fri, Oct 2 – Wed, Oct 7"
+          }
+        },
+        "trust": {
+          "type": "mini_trust",
+          "settings": {
+            "icon_1": "shopify://shop_images/moon.png",
+            "icon_1_html": "",
+            "trust_1": "100-night trial",
+            "icon_2": "shopify://shop_images/guarantee.png",
+            "icon_2_html": "",
+            "trust_2": "2-year warranty",
+            "icon_3": "shopify://shop_images/product-return.png",
+            "icon_3_html": "",
+            "trust_3": "Free returns"
+          }
+        },
+        "payments": {
+          "type": "payment_icons",
+          "settings": {
+            "custom_html": "<div class=\"badgesContainer\" style=\"display: block; text-align: center;\">\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/mastercard_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/visa_1_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/americanexpress_1_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/applepay_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/shoppay3_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n</div>"
+          }
+        },
+        "accordion_1": {
+          "type": "accordion",
+          "settings": {
+            "title": "What's in the box",
+            "content": "<p>Frame with wheels<br/>Reversible seat<br/>UPF 50+ canopy<br/>Bumper bar<br/>Under-seat basket<br/>5-point harness</p>"
+          }
+        },
+        "accordion_2": {
+          "type": "accordion",
+          "settings": {
+            "title": "Shipping and returns",
+            "content": "<p>Free shipping anywhere in Canada. Most orders arrive in 3–6 business days with tracking.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "reviews",
+        "title",
+        "desc",
+        "price",
+        "bundles",
+        "buy",
+        "delivery",
+        "trust",
+        "payments",
+        "accordion_1",
+        "accordion_2"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

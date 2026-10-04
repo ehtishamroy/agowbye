@@ -1,0 +1,73 @@
+<div class="agow-newsletter section-padding" style="background: var(--agow-mist); padding: 4rem 1rem; text-align: center;">
+  <div class="agow-wrap" style="max-width: 600px; margin: 0 auto;">
+    <h2 class="text-h2" style="margin-bottom: 1rem;">{{ section.settings.heading | escape }}</h2>
+    <p class="text-muted" style="margin-bottom: 2rem;">{{ section.settings.text | escape }}</p>
+    
+    {%- form 'customer', class: 'newsletter-form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <div class="newsletter-form__field-wrapper" style="display: flex; gap: 0.5rem; justify-content: center; max-width: 400px; margin: 0 auto;">
+        <input
+          id="NewsletterForm--{{ section.id }}"
+          type="email"
+          name="contact[email]"
+          class="agow-input"
+          value="{{ form.email }}"
+          aria-required="true"
+          autocorrect="off"
+          autocapitalize="off"
+          autocomplete="email"
+          {% if form.errors %}
+            autofocus
+            aria-invalid="true"
+            aria-describedby="Newsletter-error--{{ section.id }}"
+          {% elsif form.posted_successfully? %}
+            aria-describedby="Newsletter-success--{{ section.id }}"
+          {% endif %}
+          placeholder="Enter your email"
+          required
+          style="flex: 1; padding: 0.75rem 1rem; border: 1px solid var(--agow-line); border-radius: 0.5rem; font-size: 1rem; width: 100%;"
+        >
+        <button type="submit" class="agow-btn agow-btn-ink" name="commit" id="Subscribe" style="padding: 0.75rem 1.5rem; background: var(--agow-ink); color: #fff; border: none; border-radius: 0.5rem; cursor: pointer; font-size: 1rem; font-weight: 500;">
+          Subscribe
+        </button>
+      </div>
+      {%- if form.errors -%}
+        <small class="newsletter-form__message form__message" id="Newsletter-error--{{ section.id }}" style="color: red; display: block; margin-top: 1rem;">
+          {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+        </small>
+      {%- endif -%}
+      {%- if form.posted_successfully? -%}
+        <h3 class="newsletter-form__message newsletter-form__message--success form__message" id="Newsletter-success--{{ section.id }}" tabindex="-1" autofocus style="color: green; margin-top: 1rem;">
+          Thanks for subscribing!
+        </h3>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Subscribe to our emails",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "default": "Be the first to know about new collections and exclusive offers.",
+      "label": "Subheading"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}

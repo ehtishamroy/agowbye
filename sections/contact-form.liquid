@@ -1,0 +1,75 @@
+<div class="agow-wrap section-padding" style="max-width: 800px; margin: 0 auto; padding: 4rem 1rem;">
+  <div style="text-align: center; margin-bottom: 3rem;">
+    {%- if section.settings.heading != blank -%}
+      <h1 class="text-h2 font-medium" style="margin-bottom: 1rem;">{{ section.settings.heading }}</h1>
+    {%- endif -%}
+    {%- if section.settings.text != blank -%}
+      <p class="text-muted" style="max-width: 60ch; margin: 0 auto;">{{ section.settings.text }}</p>
+    {%- endif -%}
+  </div>
+
+  {%- form 'contact', id: 'ContactForm' -%}
+    {%- if form.posted_successfully? -%}
+      <div style="background: #e6f6ec; color: #005a30; padding: 1rem; border-radius: 4px; text-align: center; margin-bottom: 2rem;">
+        Thanks for reaching out! We'll get back to you soon.
+      </div>
+    {%- elsif form.errors -%}
+      <div style="background: #fbecec; color: #a30000; padding: 1rem; border-radius: 4px; text-align: center; margin-bottom: 2rem;">
+        Please check the fields and try again.
+      </div>
+    {%- endif -%}
+
+    <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+        <div>
+          <label class="sr-only" for="ContactForm-name">Name</label>
+          <input class="agow-input" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--line); border-radius: 4px;" autocomplete="name" type="text" id="ContactForm-name" name="contact[{{ 'templates.contact.form.name' | t | default: 'Name' }}]" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" placeholder="Name">
+        </div>
+        <div>
+          <label class="sr-only" for="ContactForm-email">Email <span aria-hidden="true">*</span></label>
+          <input class="agow-input" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--line); border-radius: 4px;" autocomplete="email" type="email" id="ContactForm-email" class="field__input" name="contact[email]" spellcheck="false" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" aria-required="true" placeholder="Email *" required>
+        </div>
+      </div>
+      <div>
+        <label class="sr-only" for="ContactForm-phone">Phone number</label>
+        <input class="agow-input" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--line); border-radius: 4px;" type="tel" id="ContactForm-phone" autocomplete="tel" name="contact[{{ 'templates.contact.form.phone' | t | default: 'Phone' }}]" pattern="[0-9-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}" placeholder="Phone number">
+      </div>
+      <div>
+        <label class="sr-only" for="ContactForm-body">Message</label>
+        <textarea class="agow-input" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--line); border-radius: 4px; min-height: 150px; resize: vertical;" rows="10" id="ContactForm-body" name="contact[{{ 'templates.contact.form.comment' | t | default: 'Message' }}]" placeholder="Message">{%- if form.body -%}{{ form.body }}{%- endif -%}</textarea>
+      </div>
+    </div>
+    <div style="text-align: center;">
+      <button type="submit" class="agow-btn agow-btn-ink" style="padding: 0.75rem 2rem; background: var(--ink); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: 500;">
+        Send Message
+      </button>
+    </div>
+  {%- endform -%}
+</div>
+
+{% schema %}
+{
+  "name": "Contact form",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Contact us",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "default": "Have a question about our strollers or your order? Fill out the form below and we'll get back to you shortly.",
+      "label": "Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact form"
+    }
+  ]
+}
+{% endschema %}
