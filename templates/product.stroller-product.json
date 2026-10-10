@@ -77,6 +77,25 @@
             "custom_html": "<div class=\"badgesContainer\" style=\"display: block; text-align: center;\">\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/mastercard_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/visa_1_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/americanexpress_1_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/applepay_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/shoppay3_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n</div>"
           }
         },
+        "addons": {
+          "type": "addons",
+          "settings": {
+            "heading": "Complete your stroller",
+            "text": "Add the extras parents use every day.",
+            "title_1": "Rain cover",
+            "text_1": "Clear, fitted cover for wet and windy days.",
+            "handle_1": "rain-cover",
+            "price_1": "$29.00",
+            "title_2": "Cup holder",
+            "text_2": "Clips to the frame, keeps your coffee upright.",
+            "handle_2": "cup-holder",
+            "price_2": "$19.00",
+            "title_3": "Travel bag",
+            "text_3": "Padded bag for flights and car trunks.",
+            "handle_3": "travel-bag",
+            "price_3": "$49.00"
+          }
+        },
         "accordion_1": {
           "type": "accordion",
           "settings": {
@@ -102,6 +121,7 @@
         "delivery",
         "trust",
         "payments",
+        "addons",
         "accordion_1",
         "accordion_2"
       ],

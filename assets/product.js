@@ -73,6 +73,67 @@
       }
     }
 
+    // Add-on cards (accessories added to the cart on their own line)
+    el.querySelectorAll('[data-addon]').forEach(card => {
+      const btn = card.querySelector('[data-addon-add]');
+      const select = card.querySelector('[data-addon-variant]');
+      const priceEl = card.querySelector('[data-addon-price]');
+      const compareEl = card.querySelector('[data-addon-compare]');
+      const saveEl = card.querySelector('[data-addon-save]');
+      const errorEl = card.querySelector('[data-addon-error]');
+      const money = (cents) => '$' + (cents / 100).toFixed(2);
+      if (!btn) return;
+
+      if (select) {
+        select.addEventListener('change', () => {
+          const opt = select.selectedOptions[0];
+          const price = parseInt(opt.dataset.price, 10);
+          const compare = parseInt(opt.dataset.compare, 10) || 0;
+          const onSale = compare > price;
+
+          btn.dataset.variantId = opt.value;
+          if (priceEl) priceEl.textContent = money(price);
+          if (compareEl) compareEl.textContent = onSale ? money(compare) : '';
+          if (saveEl) {
+            saveEl.textContent = saveEl.dataset.template.replace('[amount]', money(compare - price));
+            saveEl.classList.toggle('hidden', !onSale);
+          }
+        });
+      }
+
+      btn.addEventListener('click', async () => {
+        if (btn.classList.contains('is-loading')) return;
+        btn.classList.add('is-loading');
+        if (errorEl) errorEl.classList.add('hidden');
+
+        try {
+          const res = await fetch((window.Shopify && window.Shopify.routes ? window.Shopify.routes.root : '/') + 'cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              items: [{ id: parseInt(btn.dataset.variantId, 10), quantity: 1 }]
+            })
+          });
+          btn.classList.remove('is-loading');
+
+          if (res.ok) {
+            btn.classList.add('is-added');
+            setTimeout(() => btn.classList.remove('is-added'), 2000);
+            document.dispatchEvent(new CustomEvent('cart:updated'));
+          } else {
+            const err = await res.json();
+            if (errorEl) {
+              if (err.description) errorEl.textContent = err.description;
+              errorEl.classList.remove('hidden');
+            }
+          }
+        } catch (e) {
+          btn.classList.remove('is-loading');
+          if (errorEl) errorEl.classList.remove('hidden');
+        }
+      });
+    });
+
     // Sticky Add To Cart (SATC)
     const satc = document.querySelector('[data-satc]');
     const mainAtc = el.querySelector('[data-atc]');

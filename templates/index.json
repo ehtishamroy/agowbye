@@ -117,16 +117,44 @@
             "b3_badge": ""
           }
         },
-        "buy": {
-          "type": "buy_buttons",
-          "settings": {}
-        },
         "delivery": {
           "type": "delivery_estimate",
           "settings": {
             "stock_text": "In stock.",
             "cutoff": "9h 23m",
             "eta": "Fri, Oct 2 – Wed, Oct 7"
+          }
+        },
+        "buy": {
+          "type": "buy_buttons",
+          "settings": {}
+        },
+        "payments": {
+          "type": "payment_icons",
+          "settings": {
+            "custom_html": "<div class=\"badgesContainer\" style=\"display: block; text-align: center;\">\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/mastercard_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/visa_1_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/americanexpress_1_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/applepay_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/shoppay3_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n</div>"
+          }
+        },
+        "addons": {
+          "type": "addons",
+          "settings": {
+            "heading": "Complete your stroller",
+            "text": "Add the extras parents use every day.",
+            "product_1": "",
+            "handle_1": "rain-cover",
+            "price_1": "$29.00",
+            "title_1": "Rain cover",
+            "text_1": "Clear, fitted cover for wet and windy days.",
+            "product_2": "",
+            "handle_2": "cup-holder",
+            "price_2": "$19.00",
+            "title_2": "Cup holder",
+            "text_2": "Clips to the frame, keeps your coffee upright.",
+            "product_3": "",
+            "handle_3": "travel-bag",
+            "price_3": "$49.00",
+            "title_3": "Travel bag",
+            "text_3": "Padded bag for flights and car trunks."
           }
         },
         "trust": {
@@ -143,24 +171,18 @@
             "trust_3": "Free returns"
           }
         },
-        "payments": {
-          "type": "payment_icons",
-          "settings": {
-            "custom_html": "<div class=\"badgesContainer\" style=\"display: block; text-align: center;\">\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/mastercard_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/visa_1_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/americanexpress_1_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/applepay_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n<div class=\"badgeContainer\" style=\"height: 54px; width: 54px; display: inline-block; position: relative;\"><img src=\"https://trust.conversionbear.com/../static/badges/shoppay3_color_card.svg\" class=\"imageContainer\" style=\"height: 80%; width: 80%; position: absolute; top: 50%; left: 50%; right: -50%; transform: translate(-50%, -50%);\"></div>\n</div>"
-          }
-        },
         "accordion_1": {
           "type": "accordion",
           "settings": {
             "title": "What's in the box",
-            "content": "<p>Frame with wheels<br/>Reversible seat<br/>UPF 50+ canopy<br/>Bumper bar<br/>Under-seat basket<br/>5-point harness</p>"
+            "content": "<p>Frame with wheels, seat, UPF 50+ canopy, bumper bar, under-seat basket, and 5-point harness.</p>"
           }
         },
         "accordion_2": {
           "type": "accordion",
           "settings": {
             "title": "Shipping and returns",
-            "content": "<p>Free shipping anywhere in Canada. Most orders arrive in 3–6 business days with tracking.</p>"
+            "content": "<p>Free shipping in Canada and worldwide. Most orders arrive in 3–6 business days with tracking.</p>"
           }
         }
       },
@@ -170,10 +192,11 @@
         "desc",
         "price",
         "bundles",
-        "buy",
         "delivery",
-        "trust",
+        "buy",
         "payments",
+        "addons",
+        "trust",
         "accordion_1",
         "accordion_2"
       ],
@@ -278,7 +301,7 @@
         "chapter_4"
       ],
       "settings": {
-        "kicker": "A day with AGOW",
+        "kicker": "A day with LUMO",
         "title": "We made one stroller, and tested it against a real day.",
         "text": "Most parents use a stroller the same way: a rushed morning, a nap on the go, a long walk home. So we designed for those hours instead of a showroom floor.",
         "bg_color": ""
@@ -412,7 +435,7 @@
           "settings": {
             "feature": "Shipping",
             "agow_type": "text",
-            "agow_value": "Free",
+            "agow_value": "Free Worldwide",
             "other_type": "text",
             "other_value": "Varies"
           }
@@ -439,9 +462,8 @@
       "settings": {
         "image": "shopify://shop_images/Graphite_baby_stroller_in_studio_20260930050100.jpg",
         "overlay_opacity": 20,
-        "heading": "Choose the right AGOW stroller for your family.",
-        "btn_text": "COMPARE PRAMS + STROLLERS",
-        "btn_link": "#shopify-section-template--22253202538668__comparison"
+        "heading": "See it in real life",
+        "btn_text": "Watch the video"
       }
     },
     "faq": {

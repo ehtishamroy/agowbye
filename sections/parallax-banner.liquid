@@ -19,15 +19,65 @@
     {%- endif -%}
 
     {%- if section.settings.btn_text != blank -%}
-      <a href="{{ section.settings.btn_link | default: '#' }}" class="parallax-banner__btn">
+      <button type="button" class="parallax-banner__btn parallax-banner__btn--video" data-video-open="{{ section.id }}" aria-haspopup="dialog">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg>
         {{ section.settings.btn_text }}
-      </a>
+      </button>
     {%- endif -%}
   </div>
 </section>
 
+<dialog class="video-modal" id="video-modal-{{ section.id }}" aria-label="{{ section.settings.btn_text | escape }}">
+  <div class="video-modal__inner">
+    <button type="button" class="video-modal__close" aria-label="{{ 'general.close' | t }}" data-video-close>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <div class="video-modal__frame">
+      {%- if section.settings.video != blank -%}
+        {{ section.settings.video | video_tag: controls: true, playsinline: true, preload: 'none', image_size: '1600x', class: 'video-modal__video', data-video-player: '' }}
+      {%- elsif section.settings.video_url != blank -%}
+        <iframe
+          class="video-modal__iframe"
+          title="{{ section.settings.btn_text | escape }}"
+          data-src="{{ section.settings.video_url | external_video_url: autoplay: true, rel: 0 }}"
+          allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+          allowfullscreen
+        ></iframe>
+      {%- else -%}
+        <p class="video-modal__empty">{{ 'sections.video.empty' | t }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</dialog>
+
 <script>
   (function() {
+    const modal = document.getElementById('video-modal-{{ section.id }}');
+    const openBtn = document.querySelector('[data-video-open="{{ section.id }}"]');
+    if (modal && openBtn) {
+      const video = modal.querySelector('video');
+      const iframe = modal.querySelector('iframe');
+
+      const close = () => { if (modal.open) modal.close(); };
+
+      openBtn.addEventListener('click', () => {
+        if (typeof modal.showModal !== 'function') return;
+        if (iframe && !iframe.getAttribute('src')) iframe.setAttribute('src', iframe.dataset.src);
+        modal.showModal();
+        document.documentElement.style.overflow = 'hidden';
+        if (video) { const p = video.play(); if (p && p.catch) p.catch(function() {}); }
+      });
+
+      modal.querySelector('[data-video-close]').addEventListener('click', close);
+      // Click on the dark backdrop (outside the video frame) closes it
+      modal.addEventListener('click', (e) => { if (e.target === modal || e.target.classList.contains('video-modal__inner')) close(); });
+      modal.addEventListener('close', () => {
+        document.documentElement.style.overflow = '';
+        if (video) video.pause();
+        if (iframe) iframe.removeAttribute('src'); // stops playback
+      });
+    }
+
     const section = document.querySelector('.parallax-banner');
     if (!section) return;
     const img = section.querySelector('.parallax-banner__img');
@@ -90,18 +140,30 @@
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Choose the right AGOW stroller for your family."
+      "default": "See it in real life"
     },
     {
       "type": "text",
       "id": "btn_text",
       "label": "Button text",
-      "default": "COMPARE PRAMS + STROLLERS"
+      "default": "Watch the video"
     },
     {
-      "type": "url",
-      "id": "btn_link",
-      "label": "Button link"
+      "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video (uploaded to Shopify)",
+      "info": "Takes priority over the link below."
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "Video link",
+      "accept": ["youtube", "vimeo"],
+      "info": "YouTube or Vimeo link. Use this if the video isn't uploaded to Shopify."
     }
   ],
   "presets": [

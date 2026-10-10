@@ -2,7 +2,13 @@
   <div class="wrap footer__grid">
     <!-- Left column -->
     <div class="footer__brand">
-      <span class="footer__logo-text">{{ section.settings.logo_text }}</span>
+      {%- if section.settings.logo != blank -%}
+        <a href="{{ routes.root_url }}" class="footer__logo" aria-label="{{ shop.name | escape }}">
+          {{ section.settings.logo | image_url: width: 320 | image_tag: class: 'footer__logo-img', alt: shop.name, loading: 'lazy', widths: '160, 320' }}
+        </a>
+      {%- else -%}
+        <span class="footer__logo-text">{{ section.settings.logo_text }}</span>
+      {%- endif -%}
       <div class="footer__desc text-muted" style="margin-bottom: 1.5rem;">{{ section.settings.text }}</div>
       <div class="footer__newsletter">
         {%- form 'customer', class: 'newsletter-form' -%}
@@ -49,9 +55,16 @@
   "name": "Footer",
   "settings": [
     {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo",
+      "info": "Replaces the logo text below when set."
+    },
+    {
       "type": "text",
       "id": "logo_text",
       "label": "Logo text",
+      "info": "Fallback when no logo image is set.",
       "default": "agow"
     },
     {

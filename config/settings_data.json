@@ -9,7 +9,8 @@
  */
 {
   "current": {
-    "content_for_index": []
+    "content_for_index": [],
+    "enable_free_shipping": false
   },
   "platform_customizations": {
     "custom_css": [

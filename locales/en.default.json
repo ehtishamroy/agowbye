@@ -46,6 +46,28 @@
     "expires_on": "Expires on {{ expires_on }}",
     "use_at_checkout": "Use this gift card at checkout"
   },
+  "products": {
+    "addons": {
+      "add_to_cart": "Add to cart",
+      "add_label": "Add {{ title }} to cart",
+      "adding": "Adding",
+      "added": "Added",
+      "sold_out": "Sold out",
+      "coming_soon": "Coming soon",
+      "save": "Save {{ amount }}",
+      "variant_label": "Choose an option for {{ title }}",
+      "error": "Couldn't add this to your cart. Please try again.",
+      "empty": "Choose up to three products in the Add-ons block to show them here."
+    }
+  },
+  "general": {
+    "close": "Close"
+  },
+  "sections": {
+    "video": {
+      "empty": "Video coming soon."
+    }
+  },
   "password": {
     "title": "This shop is private",
     "password": "Password",

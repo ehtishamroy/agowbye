@@ -25,7 +25,7 @@
           "type": "text_block",
           "settings": {
             "title": "AGOW",
-            "text": "<p><a href=\"#day\">Our story</a><br><a href=\"#\">Instagram</a><br><a href=\"#\">Facebook</a><br>hello@agow.ca</p>"
+            "text": "<p><a href=\"#day\">Our story</a><br><a href=\"https://www.instagram.com/agowcare/\" target=\"_blank\" rel=\"noopener\">Instagram</a><br><a href=\"https://www.tiktok.com/@agowshop\" target=\"_blank\" rel=\"noopener\">TikTok</a><br>hello@agow.ca</p>"
           }
         }
       },
@@ -34,6 +34,7 @@
         "text_1"
       ],
       "settings": {
+        "logo": "shopify://shop_images/IMG_0419-Picsart-BackgroundChanger.png",
         "logo_text": "Agow",
         "text": "<p>One well-made stroller for Canadian families. Designed for real days, tested in real weather.</p>",
         "copyright_text": "AGOW. Canada.",
