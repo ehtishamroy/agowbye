@@ -52,14 +52,14 @@
             <span class="font-medium tnum">{{ cart.total_price | money }}</span>
           </div>
           <p class="text-sm text-muted mb-6">Taxes and shipping calculated at checkout.</p>
-          <button type="submit" name="checkout" class="btn-ink w-full">Checkout</button>
+          <button type="submit" name="checkout" class="btn btn-ink w-full">Checkout</button>
         </div>
       </form>
     {% else %}
       <div class="cart-page__empty">
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-muted"><path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8Z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg>
         <p class="cart-page__empty-text text-muted">Your cart is currently empty.</p>
-        <a href="{{ routes.all_products_collection_url }}" class="btn-ink">Continue shopping</a>
+        <a href="{{ routes.all_products_collection_url }}" class="btn btn-ink">Continue shopping</a>
       </div>
     {% endif %}
   </div>

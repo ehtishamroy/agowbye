@@ -1,10 +1,17 @@
 {%- style -%}
   .story__media-img {
-    transition: opacity 0.4s ease-out;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     opacity: 0;
+    transform: scale(1.04);
+    transition: opacity 0.9s ease, transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .story__media-img.is-active {
     opacity: 1;
+    transform: scale(1);
   }
 {%- endstyle -%}
 
@@ -27,17 +34,20 @@
       <div class="story__media-col">
         <div class="story__media-sticky bg-stone" data-story-media="">
           {%- for block in section.blocks -%}
+            {%- assign img_class = 'story__media-img' -%}
+            {%- if forloop.first -%}
+              {%- assign img_class = 'story__media-img is-active' -%}
+            {%- endif -%}
             {%- if block.settings.image != blank -%}
               {{ block.settings.image | image_url: width: 1200 | image_tag: 
                   sizes: '45vw',
-                  class: 'story__media-img',
-                  loading: 'lazy',
-                  data_index: forloop.index0
+                  class: img_class,
+                  loading: 'lazy'
               }}
             {%- else -%}
               {%- capture placeholder_name -%}lifestyle-{% cycle '1', '2' %}{%- endcapture -%}
-              {%- capture svg_replace -%}<svg data-index="{{ forloop.index0 }}"{%- endcapture -%}
-              {{ placeholder_name | placeholder_svg_tag: 'story__media-img bg-mist' | replace: '<svg', svg_replace }}
+              {%- assign placeholder_class = img_class | append: ' bg-mist' -%}
+              {{ placeholder_name | placeholder_svg_tag: placeholder_class }}
             {%- endif -%}
           {%- endfor -%}
           
@@ -91,42 +101,38 @@
 </section>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const chapters = document.querySelectorAll('[data-chapter]');
-    const desktopImages = document.querySelectorAll('.story__media-img');
-    const clockBadge = document.querySelector('[data-story-clock]');
-    
-    if (!chapters.length || !desktopImages.length) return;
+  (function() {
+    function initStory() {
+      const media = document.querySelector('[data-story-media]');
+      if (!media) return;
+      const imgs = media.querySelectorAll('.story__media-img');
+      const clock = document.querySelector('[data-story-clock]');
+      const chapters = document.querySelectorAll('[data-chapter]');
+      if (!imgs.length || !chapters.length) return;
 
-    // Set first image active initially
-    desktopImages[0].classList.add('is-active');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            const i = +e.target.dataset.chapter;
+            imgs.forEach((img, k) => img.classList.toggle('is-active', k === i));
+            if (clock && e.target.dataset.time) {
+              clock.textContent = e.target.dataset.time;
+            }
+          });
+        }, { rootMargin: '-45% 0px -45% 0px' });
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const index = parseInt(entry.target.getAttribute('data-chapter'));
-          const time = entry.target.getAttribute('data-time');
-          
-          // Update images
-          desktopImages.forEach(img => img.classList.remove('is-active'));
-          const activeImg = Array.from(desktopImages).find(img => parseInt(img.getAttribute('data-index') || img.getAttribute('data-index')) === index) || desktopImages[index];
-          if (activeImg) {
-            activeImg.classList.add('is-active');
-          }
-          
-          // Update clock
-          if (clockBadge && time) {
-            clockBadge.textContent = time;
-          }
-        }
-      });
-    }, {
-      rootMargin: '-40% 0px -40% 0px', // Trigger when chapter hits the middle 20% of the screen
-      threshold: 0
-    });
+        chapters.forEach(c => io.observe(c));
+      }
+    }
 
-    chapters.forEach(chapter => observer.observe(chapter));
-  });
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initStory);
+    } else {
+      initStory();
+    }
+    document.addEventListener('shopify:section:load', initStory);
+  })();
 </script>
 
 {% schema %}

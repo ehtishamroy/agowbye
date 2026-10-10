@@ -17,13 +17,13 @@
         "announcement_1": {
           "type": "announcement",
           "settings": {
-            "text": "Free shipping across Canada"
+            "text": "Shipping in Canada and worldwide"
           }
         },
         "announcement_2": {
           "type": "announcement",
           "settings": {
-            "text": "100-night trial. Return it free if it's not right."
+            "text": "Pay in 4 with Shop Pay"
           }
         },
         "announcement_3": {

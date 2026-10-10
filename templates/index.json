@@ -34,6 +34,15 @@
             "text": "Anywhere in Canada, tracked"
           }
         },
+        "trust_2": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "shield",
+            "custom_html": "",
+            "title": "100% Safety Tested & Certified",
+            "text": "Tested & certified safe"
+          }
+        },
         "trust_3": {
           "type": "trust_item",
           "settings": {
@@ -57,6 +66,7 @@
       },
       "block_order": [
         "trust_1",
+        "trust_2",
         "trust_3",
         "trust_4"
       ],
@@ -124,7 +134,7 @@
           "settings": {
             "icon_1": "shopify://shop_images/moon.png",
             "icon_1_html": "",
-            "trust_1": "100-night trial",
+            "trust_1": "100% Safety Tested & Certified",
             "icon_2": "shopify://shop_images/guarantee.png",
             "icon_2_html": "",
             "trust_2": "2-year warranty",
@@ -352,7 +362,7 @@
           "settings": {
             "feature": "Price",
             "agow_type": "text",
-            "agow_value": "$649",
+            "agow_value": "$245",
             "other_type": "text",
             "other_value": "$900-$1,400"
           }
@@ -431,7 +441,7 @@
         "overlay_opacity": 20,
         "heading": "Choose the right AGOW stroller for your family.",
         "btn_text": "COMPARE PRAMS + STROLLERS",
-        "btn_link": ""
+        "btn_link": "#shopify-section-template--22253202538668__comparison"
       }
     },
     "faq": {

@@ -60,9 +60,9 @@
         "trust": {
           "type": "mini_trust",
           "settings": {
-            "icon_1": "shopify://shop_images/moon.png",
-            "icon_1_html": "",
-            "trust_1": "100-night trial",
+            "icon_1": "",
+            "icon_1_html": "<svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#22c55e\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 11.08V12a10 10 0 1 1-5.93-9.14\"></path><polyline points=\"22 4 12 14.01 9 11.01\"></polyline></svg>",
+            "trust_1": "100% Safety Tested & Certified",
             "icon_2": "shopify://shop_images/guarantee.png",
             "icon_2_html": "",
             "trust_2": "2-year warranty",

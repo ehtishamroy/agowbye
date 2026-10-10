@@ -42,7 +42,13 @@
 <div class="overlay" data-menu-overlay></div>
 <aside class="menu" data-menu aria-label="Menu">
   <div class="menu__header">
-    <span class="menu__logo">{{ shop.name | default: 'agow' }}</span>
+    <a href="{{ routes.root_url }}" class="menu__logo" aria-label="{{ shop.name }}">
+      {% if section.settings.logo != blank %}
+        {{ section.settings.logo | image_url: width: 240 | image_tag: alt: section.settings.logo.alt | default: shop.name, class: 'menu__logo-img' }}
+      {% else %}
+        <span>{{ shop.name | split: '|' | first | strip | default: 'agow' }}</span>
+      {% endif %}
+    </a>
     <button class="menu__close" aria-label="Close menu" data-menu-close>
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
     </button>
