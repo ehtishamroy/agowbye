@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -60,13 +69,13 @@
         "trust": {
           "type": "mini_trust",
           "settings": {
-            "icon_1": "",
-            "icon_1_html": "<svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#22c55e\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 11.08V12a10 10 0 1 1-5.93-9.14\"></path><polyline points=\"22 4 12 14.01 9 11.01\"></polyline></svg>",
+            "icon_1": "shopify://shop_images/certified.png",
+            "icon_1_html": "",
             "trust_1": "100% Safety Tested & Certified",
-            "icon_2": "shopify://shop_images/guarantee.png",
+            "icon_2": "shopify://shop_images/guarantee_4a39a62c-bd22-40fa-83d5-016cb5d22bfb.png",
             "icon_2_html": "",
             "trust_2": "2-year warranty",
-            "icon_3": "shopify://shop_images/product-return.png",
+            "icon_3": "shopify://shop_images/product-return_88347d16-f11a-4a21-9822-61278bfcbea8.png",
             "icon_3_html": "",
             "trust_3": "Free returns"
           }
@@ -82,18 +91,21 @@
           "settings": {
             "heading": "Complete your stroller",
             "text": "Add the extras parents use every day.",
+            "product_1": "",
+            "handle_1": "rain-cover",
+            "price_1": "",
             "title_1": "Rain cover",
             "text_1": "Clear, fitted cover for wet and windy days.",
-            "handle_1": "rain-cover",
-            "price_1": "$29.00",
-            "title_2": "Cup holder",
-            "text_2": "Clips to the frame, keeps your coffee upright.",
-            "handle_2": "cup-holder",
-            "price_2": "$19.00",
-            "title_3": "Travel bag",
-            "text_3": "Padded bag for flights and car trunks.",
+            "product_2": "",
+            "handle_2": "",
+            "price_2": "",
+            "title_2": "",
+            "text_2": "Clips the frame, keeps your coffee upright.",
+            "product_3": "",
             "handle_3": "travel-bag",
-            "price_3": "$49.00"
+            "price_3": "$49.00",
+            "title_3": "Travel bag",
+            "text_3": "Padded bag for flights and car trunks."
           }
         },
         "accordion_1": {
@@ -107,7 +119,7 @@
           "type": "accordion",
           "settings": {
             "title": "Shipping and returns",
-            "content": "<p>Free shipping anywhere in Canada. Most orders arrive in 3–6 business days with tracking.</p>"
+            "content": "<p>Shipping anywhere in Canada. Most orders arrive in 3–6 business days with tracking.</p>"
           }
         }
       },
@@ -125,10 +137,213 @@
         "accordion_1",
         "accordion_2"
       ],
-      "settings": {}
+      "settings": {
+        "product": ""
+      }
+    },
+    "parallax_banner": {
+      "type": "parallax-banner",
+      "settings": {
+        "image": "shopify://shop_images/Graphite_baby_stroller_in_studio_20260930050100.jpg",
+        "overlay_opacity": 20,
+        "heading": "See it in real life",
+        "btn_text": "Watch the video",
+        "video_url": ""
+      }
+    },
+    "story": {
+      "type": "story",
+      "blocks": {
+        "chapter_1": {
+          "type": "chapter",
+          "settings": {
+            "image": "shopify://shop_images/Parent_folding_baby_stroller_20260930044531.jpg",
+            "time": "7:40 am",
+            "title": "Coffee in one hand. Fold with the other.",
+            "text": "Squeeze the handle and it folds in about a second, then stands on its own at the bus stop. No bending, no second hand needed.",
+            "label": "One-hand fold",
+            "btn_text": "",
+            "btn_link": ""
+          }
+        },
+        "chapter_2": {
+          "type": "chapter",
+          "settings": {
+            "image": "shopify://shop_images/Baby_sleeping_in_stroller_20260930044812.jpg",
+            "time": "12:15 pm",
+            "title": "The nap keeps going when you do.",
+            "text": "The seat reclines nearly flat and the UPF 50+ canopy pulls down low with a peek-a-boo window, so you can check on them without waking them.",
+            "label": "Near-flat recline",
+            "btn_text": "",
+            "btn_link": ""
+          }
+        },
+        "chapter_3": {
+          "type": "chapter",
+          "settings": {
+            "image": "shopify://shop_images/Stroller_rolling_on_gravel_path_20260930045013.jpg",
+            "time": "4:30 pm",
+            "title": "Take the long way home.",
+            "text": "Puncture-free rubber wheels and suspension on all four corners handle gravel paths, grass and salted February sidewalks.",
+            "label": "All-season wheels",
+            "btn_text": "",
+            "btn_link": ""
+          }
+        },
+        "chapter_4": {
+          "type": "chapter",
+          "settings": {
+            "image": "shopify://shop_images/Folded_baby_stroller_in_entryway_20260930045127.jpg",
+            "time": "7:00 pm",
+            "title": "Folded, and out of the way.",
+            "text": "At 58 × 50 × 28 cm folded, it fits a compact car trunk with room left for groceries, or the corner of a condo hallway.",
+            "label": "One-hand fold",
+            "btn_text": "Shop the stroller",
+            "btn_link": "shopify://products/lumo"
+          }
+        }
+      },
+      "block_order": [
+        "chapter_1",
+        "chapter_2",
+        "chapter_3",
+        "chapter_4"
+      ],
+      "settings": {
+        "kicker": "A day with LUMO",
+        "title": "We made one stroller, and tested it against a real day.",
+        "text": "Most parents use a stroller the same way: a rushed morning, a nap on the go, a long walk home. So we designed for those hours instead of a showroom floor.",
+        "bg_color": ""
+      }
+    },
+    "reviews": {
+      "type": "reviews",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "The one-hand fold sold me in the demo video and it's even easier in real life. I fold it at daycare drop-off holding my son in the other arm.",
+            "author": "Priya S.",
+            "location": "Toronto, ON",
+            "verified": true
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "We walked it through a full Calgary winter. Wheels never clogged with snow and the canopy blocked the wind completely.",
+            "author": "Mark T.",
+            "location": "Calgary, AB",
+            "verified": true
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "Naps used to end the second we stopped. The near-flat recline and the low canopy changed that. She sleeps through the whole walk.",
+            "author": "Élodie R.",
+            "location": "Montréal, QC",
+            "verified": true
+          }
+        },
+        "review_4": {
+          "type": "review",
+          "settings": {
+            "rating": 4,
+            "text": "Fits in the trunk of our Civic with space for groceries. Only wish the basket had a zip cover, otherwise perfect.",
+            "author": "Daniel K.",
+            "location": "Vancouver, BC",
+            "verified": true
+          }
+        },
+        "review_5": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "I compared it with strollers twice the price at a baby expo. Same feel, same features, and the 100-night trial made it an easy decision.",
+            "author": "Sarah M.",
+            "location": "Halifax, NS",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4",
+        "review_5"
+      ],
+      "settings": {
+        "bg_color": "bg-mist",
+        "kicker": "What parents say",
+        "kicker_badge": "sample reviews",
+        "title": "Rated 4.9 by families across Canada.",
+        "rating_score": "4.9",
+        "rating_count": "128"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I use it from birth?",
+            "answer": "<p>Yes. The seat reclines nearly flat for newborns, or add the bassinet for the first six months. It then works as a toddler seat up to 22 kg, around 4 years.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Does it work with my car seat?",
+            "answer": "<p>Included adapters fit most infant car seats sold in Canada, including Maxi-Cosi, Cybex, Nuna and Clek. Not sure about yours? Send us the model and we'll confirm.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is it good in snow?",
+            "answer": "<p>The wide rubber wheels and four-wheel suspension handle packed snow and salted sidewalks. For deep snow, lock the front wheels straight with one click.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How fast is shipping?",
+            "answer": "<p>Free, tracked shipping anywhere in Canada. Most orders arrive in 3–6 business days. You'll get tracking by email the day it ships.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I pay in instalments?",
+            "answer": "<p>Yes. Choose Shop Pay at checkout to split the price into 4 interest-free payments.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_6"
+      ],
+      "settings": {
+        "kicker": "Before you buy",
+        "title": "Questions parents ask us.",
+        "text": "<p></p><p>Still unsure? Email <strong>hello@agow.ca</strong> and a real person replies within one business day.</p>"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "parallax_banner",
+    "story",
+    "reviews",
+    "faq"
   ]
 }

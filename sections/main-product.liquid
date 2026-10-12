@@ -2,7 +2,7 @@
 <section id="shop" class="product" data-buybox {{ section.shopify_attributes }}>
   <div class="wrap">
     <div class="product__grid">
-      
+
       <!-- Gallery Column -->
       <div class="product__gallery-col">
         <div class="product__gallery-wrap bg-stone">
@@ -10,11 +10,11 @@
             {%- if product != blank and product.media.size > 0 -%}
               {%- for media in product.media -%}
                 <figure class="product__gallery-figure">
-                  {{ media | image_url: width: 1200 | image_tag: 
-                      class: 'product__gallery-img', 
-                      loading: 'lazy', 
+                  {{ media | image_url: width: 1200 | image_tag:
+                      class: 'product__gallery-img',
+                      loading: 'lazy',
                       sizes: '(min-width:1024px) 55vw, 100vw',
-                      widths: '640, 1000, 1600, 2200' 
+                      widths: '640, 1000, 1600, 2200'
                   }}
                 </figure>
               {%- endfor -%}
@@ -27,7 +27,7 @@
               {% endfor %}
             {%- endif -%}
           </div>
-          
+
           <span class="product__gallery-badge chip bg-paper/90 text-ink backdrop-blur">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0" aria-hidden="true" style="display:inline-block;vertical-align:-1px;margin-right:4px;"><path d="M20 6 9 17l-5-5"/></svg>
             100% Safety Tested & Certified. Now shipping in Canada and worldwide.
@@ -65,7 +65,7 @@
         {%- capture product_blocks -%}
           {%- for block in section.blocks -%}
             {%- case block.type -%}
-              
+
               {%- when 'reviews_badge' -%}
                 <a href="#reviews" class="product__reviews-badge" {{ block.shopify_attributes }}>
                   <span class="product__stars" aria-hidden="true">
@@ -78,12 +78,12 @@
                     <span class="sample">sample</span>
                   {% endif %}
                 </a>
-              
+
               {%- when 'title' -%}
                 <h2 class="text-h1 font-medium" {{ block.shopify_attributes }}>
                   {{ product.title | default: 'The AGOW Stroller' }}
                 </h2>
-              
+
               {%- when 'description' -%}
                 <p class="product__desc text-muted" {{ block.shopify_attributes }}>
                   {{ block.settings.text | default: 'One-hand fold, all-season wheels and a seat that grows with your child from birth to 4 years.' }}
@@ -132,14 +132,14 @@
                         </legend>
                         <div class="product__swatches">
                           {%- for value in option.values -%}
-                            <input type="radio" 
-                              name="options[{{ option.name | escape }}]" 
+                            <input type="radio"
+                              name="options[{{ option.name | escape }}]"
                               value="{{ value | escape }}"
                               id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
                               class="sr-only"
                               {% if option.selected_value == value %}checked{% endif %}
                             >
-                            <label 
+                            <label
                               for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
                               class="product__swatch {% if option_name == 'color' or option_name == 'colour' %}is-color{% else %}is-text{% endif %}"
                               {% if option_name == 'color' or option_name == 'colour' %}
@@ -161,7 +161,7 @@
               {%- when 'bundles' -%}
                 <fieldset class="product__bundles" {{ block.shopify_attributes }}>
                   <legend class="text-sm mb-3">{{ block.settings.heading }}</legend>
-                  
+
                   {%- if block.settings.b1_title != blank -%}
                     <label class="bundle block cursor-pointer">
                       <input type="radio" name="bundle" value="bundle-1" class="sr-only" id="bundle-1">
@@ -173,7 +173,7 @@
                       {%- if block.settings.b1_badge != blank -%}<span class="product__bundle-badge">{{ block.settings.b1_badge }}</span>{%- endif -%}
                     </label>
                   {%- endif -%}
-                  
+
                   {%- if block.settings.b2_title != blank -%}
                     <label class="bundle block cursor-pointer relative">
                       <input type="radio" name="bundle" value="bundle-2" class="sr-only" id="bundle-2" checked>
@@ -185,7 +185,7 @@
                       {%- if block.settings.b2_badge != blank -%}<span class="product__bundle-badge">{{ block.settings.b2_badge }}</span>{%- endif -%}
                     </label>
                   {%- endif -%}
-                  
+
                   {%- if block.settings.b3_title != blank -%}
                     <label class="bundle block cursor-pointer relative">
                       <input type="radio" name="bundle" value="bundle-3" class="sr-only" id="bundle-3">
@@ -235,7 +235,7 @@
                     {%- assign icon_html_key = 'icon_' | append: i | append: '_html' -%}
                     {%- assign icon_img = block.settings[icon_img_key] -%}
                     {%- assign icon_html = block.settings[icon_html_key] -%}
-                    
+
                     {%- if text != blank -%}
                       <li>
                         {%- if icon_img != blank -%}
@@ -425,25 +425,30 @@
           </div>
         {%- endif -%}
       </div>
-      
+
     </div>
   </div>
 </section>
 
 <!-- Sticky Add To Cart (SATC) -->
 <div class="satc" data-satc>
-  <div class="wrap satc__inner">
-    {% if product.featured_image %}
-      {{ product.featured_image | image_url: width: 160 | image_tag: class: 'satc__img' }}
-    {% endif %}
-    <div class="satc__info">
-      <p class="satc__title" data-satc-title>{{ product.title | default: 'Stroller + Travel Kit' }}</p>
-      <p class="satc__price-row tnum">
-        <span data-satc-price>{% if product != blank %}{{ product.selected_or_first_available_variant.price | money }}{% else %}$729.00{% endif %}</span> 
-        <s class="satc__compare" data-satc-compare>{% if product != blank and product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}{{ product.selected_or_first_available_variant.compare_at_price | money }}{% elsif product == blank %}$927.00{% endif %}</s>
-      </p>
-    </div>
-    <button type="button" class="btn-ink satc__btn" data-satc-btn>Add to cart</button>
+  <div class="satc__pill">
+    <p class="satc__title" data-satc-title>{{ product.title | default: 'The AGOW Stroller' }}</p>
+
+    {%- if section.settings.show_satc_nav -%}
+      <nav class="satc__nav" aria-label="{{ 'products.satc.nav_label' | t }}" data-satc-nav>
+        <a href="#videos" class="satc__link" data-satc-link>{{ 'products.satc.videos' | t }}</a>
+        <a href="#day" class="satc__link" data-satc-link>{{ 'products.satc.features' | t }}</a>
+        <a href="#reviews" class="satc__link" data-satc-link>{{ 'products.satc.reviews' | t }}</a>
+        <a href="#faq" class="satc__link" data-satc-link>{{ 'products.satc.faq' | t }}</a>
+      </nav>
+    {%- endif -%}
+
+    <p class="satc__price-row tnum">
+      <s class="satc__compare" data-satc-compare>{% if product != blank and product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}{{ product.selected_or_first_available_variant.compare_at_price | money }}{% elsif product == blank %}$927.00{% endif %}</s>
+      <span class="satc__price" data-satc-price>{% if product != blank %}{{ product.selected_or_first_available_variant.price | money }}{% else %}$729.00{% endif %}</span>
+    </p>
+    <button type="button" class="btn-ink satc__btn" data-satc-btn data-view-label="{{ 'products.satc.view_cart' | t }}">{{ 'products.satc.add_to_cart' | t }}</button>
   </div>
 </div>
 
@@ -455,6 +460,13 @@
       "type": "product",
       "id": "product",
       "label": "Product"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_satc_nav",
+      "label": "Show section links in sticky bar",
+      "info": "Videos, Features, Reviews and FAQ. A link is hidden automatically if that section isn't on the page.",
+      "default": true
     }
   ],
   "blocks": [

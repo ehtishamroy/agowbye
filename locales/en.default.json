@@ -47,6 +47,15 @@
     "use_at_checkout": "Use this gift card at checkout"
   },
   "products": {
+    "satc": {
+      "add_to_cart": "Add to cart",
+      "view_cart": "View cart",
+      "nav_label": "Page sections",
+      "videos": "Videos",
+      "features": "Features",
+      "reviews": "Reviews",
+      "faq": "FAQ"
+    },
     "addons": {
       "add_to_cart": "Add to cart",
       "add_label": "Add {{ title }} to cart",

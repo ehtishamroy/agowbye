@@ -28,7 +28,7 @@
           "type": "trust_item",
           "settings": {
             "icon": "truck",
-            "custom_icon": "shopify://shop_images/fast-delivery.png",
+            "custom_icon": "shopify://shop_images/fast-delivery_d375af7c-56ce-4ca2-b41e-c02846575060.png",
             "custom_html": "",
             "title": "Shipping in Canada and worldwide",
             "text": "Anywhere in Canada, tracked"
@@ -38,6 +38,7 @@
           "type": "trust_item",
           "settings": {
             "icon": "shield",
+            "custom_icon": "shopify://shop_images/certified.png",
             "custom_html": "",
             "title": "100% Safety Tested & Certified",
             "text": "Tested & certified safe"
@@ -47,7 +48,7 @@
           "type": "trust_item",
           "settings": {
             "icon": "shield",
-            "custom_icon": "shopify://shop_images/guarantee.png",
+            "custom_icon": "shopify://shop_images/guarantee_4a39a62c-bd22-40fa-83d5-016cb5d22bfb.png",
             "custom_html": "",
             "title": "2-year warranty",
             "text": "Frame, wheels and fold"
@@ -57,7 +58,7 @@
           "type": "trust_item",
           "settings": {
             "icon": "credit-card",
-            "custom_icon": "shopify://shop_images/wallet.png",
+            "custom_icon": "shopify://shop_images/wallet-filled-money-tool.png",
             "custom_html": "",
             "title": "Pay in 4 with Shop Pay",
             "text": "Interest-free with Shop Pay"
@@ -146,10 +147,10 @@
             "title_1": "Rain cover",
             "text_1": "Clear, fitted cover for wet and windy days.",
             "product_2": "",
-            "handle_2": "cup-holder",
-            "price_2": "$19.00",
-            "title_2": "Cup holder",
-            "text_2": "Clips to the frame, keeps your coffee upright.",
+            "handle_2": "",
+            "price_2": "",
+            "title_2": "",
+            "text_2": "",
             "product_3": "",
             "handle_3": "travel-bag",
             "price_3": "$49.00",
@@ -160,13 +161,13 @@
         "trust": {
           "type": "mini_trust",
           "settings": {
-            "icon_1": "shopify://shop_images/moon.png",
+            "icon_1": "shopify://shop_images/certified.png",
             "icon_1_html": "",
             "trust_1": "100% Safety Tested & Certified",
-            "icon_2": "shopify://shop_images/guarantee.png",
+            "icon_2": "shopify://shop_images/guarantee_4a39a62c-bd22-40fa-83d5-016cb5d22bfb.png",
             "icon_2_html": "",
             "trust_2": "2-year warranty",
-            "icon_3": "shopify://shop_images/product-return.png",
+            "icon_3": "shopify://shop_images/product-return_88347d16-f11a-4a21-9822-61278bfcbea8.png",
             "icon_3_html": "",
             "trust_3": "Free returns"
           }
@@ -182,7 +183,7 @@
           "type": "accordion",
           "settings": {
             "title": "Shipping and returns",
-            "content": "<p>Free shipping in Canada and worldwide. Most orders arrive in 3–6 business days with tracking.</p>"
+            "content": "<p>Shipping in Canada and worldwide. Most orders arrive in 3–6 business days with tracking.</p>"
           }
         }
       },
@@ -435,7 +436,7 @@
           "settings": {
             "feature": "Shipping",
             "agow_type": "text",
-            "agow_value": "Free Worldwide",
+            "agow_value": "Varies",
             "other_type": "text",
             "other_value": "Varies"
           }
@@ -463,7 +464,8 @@
         "image": "shopify://shop_images/Graphite_baby_stroller_in_studio_20260930050100.jpg",
         "overlay_opacity": 20,
         "heading": "See it in real life",
-        "btn_text": "Watch the video"
+        "btn_text": "Watch the video",
+        "video_url": ""
       }
     },
     "faq": {

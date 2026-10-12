@@ -138,6 +138,13 @@
     const satc = document.querySelector('[data-satc]');
     const mainAtc = el.querySelector('[data-atc]');
     const satcBtn = document.querySelector('[data-satc-btn]');
+    const satcLabel = satcBtn ? satcBtn.textContent.trim() : '';
+    const resetSatc = () => {
+      if (satcBtn && satcBtn.dataset.cartState === 'view') {
+        satcBtn.textContent = satcLabel;
+        satcBtn.dataset.cartState = '';
+      }
+    };
     
     if (satc && mainAtc) {
       const observer = new IntersectionObserver((entries) => {
@@ -164,13 +171,34 @@
         });
       }
 
-      // Reset SATC button state
-      const resetSatc = () => {
-        if (satcBtn && satcBtn.dataset.cartState === 'view') {
-          satcBtn.textContent = 'Add to cart';
-          satcBtn.dataset.cartState = '';
-        }
-      };
+      // Section links: hide links whose section isn't on this page, highlight the one in view
+      const links = Array.from(satc.querySelectorAll('[data-satc-link]'));
+      const targets = [];
+      links.forEach(link => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) targets.push({ link, target });
+        else link.hidden = true;
+      });
+      const nav = satc.querySelector('[data-satc-nav]');
+      if (nav && !targets.length) nav.hidden = true;
+
+      if (targets.length) {
+        let spyTicking = false;
+        const spy = () => {
+          spyTicking = false;
+          const line = window.innerHeight * 0.4;
+          let current = null;
+          targets.forEach(t => {
+            const r = t.target.getBoundingClientRect();
+            if (r.top <= line && r.bottom > line) current = t.link;
+          });
+          links.forEach(l => l.classList.toggle('is-active', l === current));
+        };
+        window.addEventListener('scroll', () => {
+          if (!spyTicking) { spyTicking = true; requestAnimationFrame(spy); }
+        }, { passive: true });
+        spy();
+      }
     }
 
     // Dynamic Variant & Bundle Pricing
@@ -238,7 +266,7 @@
               mainAtc.classList.add('is-added');
               
               if (satcBtn) {
-                satcBtn.textContent = 'View cart';
+                satcBtn.textContent = satcBtn.dataset.viewLabel || 'View cart';
                 satcBtn.dataset.cartState = 'view';
               }
               
